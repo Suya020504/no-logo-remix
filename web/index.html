@@ -423,6 +423,58 @@ body{
 .r-ctas{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 22px 4px}
 .r-ctas .btn{min-height:46px;font-size:13px}
 .r-ctas .wide{grid-column:1/-1}
+/* [백로그 ④] P07 생성 대기 — 선택한 기술칩이 섞이는 리믹스 모션 */
+.gen-chips{position:relative;width:100%;max-width:300px;height:52px;margin-top:20px}
+.gen-chips .gchip{position:absolute;left:50%;top:50%;white-space:nowrap;font-size:10.5px;font-weight:800;
+  background:#fff;border:1.5px solid var(--line);color:var(--purple-ink);padding:8px 13px;border-radius:99px;
+  box-shadow:0 10px 20px -10px rgba(42,30,122,.4);animation:chipMix 2.6s ease-in-out infinite}
+@keyframes chipMix{
+  0%,100%{transform:translate(calc(-50% + var(--x0)),-50%) rotate(0deg)}
+  25%{transform:translate(calc(-50% + var(--x0)*.25),calc(-50% - 16px)) rotate(-7deg)}
+  50%{transform:translate(calc(-50% - var(--x0)),-50%) rotate(5deg)}
+  75%{transform:translate(calc(-50% - var(--x0)*.25),calc(-50% + 14px)) rotate(-4deg)}
+}
+.gen-chips .gspark{position:absolute;left:50%;top:50%;font-size:18px;color:var(--purple);animation:sparkPulse 1.3s ease-in-out infinite}
+@keyframes sparkPulse{0%,100%{opacity:.25;transform:translate(-50%,-50%) scale(.8)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}}
+/* [백로그 ②] P03 스펙 더보기 (접이식 · 블라인드 유지) */
+.spec-toggle{margin-top:12px;width:100%;min-height:44px;border:1.5px dashed var(--line);background:var(--surface);border-radius:14px;
+  font-family:inherit;font-size:12px;font-weight:800;color:var(--purple);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.spec-toggle i{font-style:normal;transition:transform .2s}
+.spec-toggle[aria-expanded="true"] i{transform:rotate(180deg)}
+.spec-body{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.spec-body[hidden]{display:none}
+.spec-trl{display:inline-block;font-size:10px;font-weight:800;background:var(--navy);color:#fff;padding:4px 10px;border-radius:99px}
+.spec-body ul{list-style:none;margin-top:9px}
+.spec-body li{font-size:12px;line-height:1.65;padding-left:16px;position:relative;color:var(--ink)}
+.spec-body li::before{content:"▸";position:absolute;left:2px;color:var(--purple)}
+.spec-case{margin-top:8px;font-size:11.5px;color:var(--ink-2);line-height:1.55;word-break:keep-all}
+.spec-case b{color:var(--purple)}
+.spec-note{margin-top:9px;font-size:10px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px;line-height:1.5}
+/* [백로그 ③] P08 도입 상담 — 채용과 분리된 B2B 리드 */
+.biz-zone{margin:10px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px 15px}
+.biz-zone>b{font-size:12px;display:block}
+.biz-zone>span{display:block;font-size:10.5px;color:var(--ink-2);margin-top:3px;line-height:1.5;word-break:keep-all}
+.biz-zone .btn{margin-top:10px;min-height:46px;font-size:13px}
+/* [백로그 ④] P08 전광판 미리보기 목업 */
+.blb-mask{position:fixed;inset:0;background:rgba(10,12,30,.82);z-index:60;display:none;align-items:center;justify-content:center;padding:18px}
+.blb-mask.on{display:flex}
+.blb-wrap{width:100%;max-width:560px}
+.blb-frame{position:relative;width:100%;aspect-ratio:16/9;background:#0B0E22;border:3px solid #23284D;border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.85), 0 0 60px -10px rgba(91,63,242,.45)}
+.blb-head{display:flex;align-items:center;gap:8px;padding:4% 5% 0}
+.blb-live{font-size:9.5px;font-weight:800;background:#E5484D;color:#fff;padding:3px 8px;border-radius:99px;letter-spacing:1px;animation:liveBlink 1.6s ease-in-out infinite}
+@keyframes liveBlink{0%,100%{opacity:1}50%{opacity:.55}}
+.blb-title{font-size:10.5px;font-weight:700;color:#B9C6FF;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blb-card{display:flex;gap:4%;margin:3.5% 5% 0;background:#141A3A;border:1px solid #2A3160;border-radius:12px;padding:3.5% 4%;align-items:center}
+.blb-img{width:30%;aspect-ratio:1/1;flex:0 0 30%;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:34px;
+  background:linear-gradient(140deg,#E4ECFF,#D4DEFF)}
+.blb-img img{width:100%;height:100%;object-fit:cover}
+.blb-body{flex:1;min-width:0;color:#fff}
+.blb-body h4{font-size:17px;font-weight:800;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blb-nick{font-size:10px;color:#8FA2FF;font-weight:700;margin-top:2px}
+.blb-desc{font-size:9.5px;line-height:1.55;color:#C9D2F5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.blb-foot{position:absolute;left:0;right:0;bottom:0;background:#080A1A;padding:2.2% 5%;font-size:8.5px;color:#7E88BE;display:flex;justify-content:space-between;gap:8px}
+.blb-cap{margin-top:14px;text-align:center;font-size:11.5px;color:#C9D2F5;line-height:1.6;word-break:keep-all}
 /* ==================================================================
    P09 아이디어 피드 · P10 마이페이지 · 탭바
 ================================================================== */
@@ -909,6 +961,7 @@ body.tabs-on .view.active{padding-bottom:74px}
     </div>
     <div class="gen-panel" id="genPanel">
       <img class="gen-mixi-img" src="assets/mixi-remix.jpg" alt="" aria-hidden="true" onerror="this.outerHTML='<div class=&quot;gen-mixi&quot;>🤖</div>'">
+      <div class="gen-chips" id="genChips" aria-hidden="true"></div>
       <p class="gen-msg" id="genMsg" aria-live="polite">기술 분석 중…</p>
       <p class="gen-sub">MIXI가 기술을 연결하고 있어요 (예상 단계 표시)</p>
       <div class="gen-bar"><i id="genBar"></i></div>
@@ -940,8 +993,15 @@ body.tabs-on .view.active{padding-bottom:74px}
     </div>
     <div class="r-ctas">
       <button class="btn btn-primary wide" id="btnPost" disabled>아이디어 피드에 게시</button>
+      <button class="btn btn-ghost" id="btnStory">📱 스토리로 저장</button>
       <button class="btn btn-ghost" id="btnShare">SNS 공유</button>
+      <button class="btn btn-ghost" id="btnBillboard">🖥 전광판 미리보기</button>
       <button class="btn btn-ghost" id="btnRegen">다시 만들기 (1회)</button>
+    </div>
+    <div class="biz-zone">
+      <b>우리 매장·회사에 도입해보고 싶다면</b>
+      <span>사용된 기술의 부스 담당자에게 도입 상담을 요청할 수 있어요. 채용·마케팅 연락과 분리된 별도 동의로 진행돼요.</span>
+      <button class="btn btn-ghost" id="btnConsult">🤝 도입 상담 요청 (B2B)</button>
     </div>
     <div class="cta-zone" style="padding-top:6px">
       <p class="cta-reason" id="pubReason" aria-live="polite">게시하려면 공개 동의에 체크해주세요 (기본 꺼짐 · 옵트인)</p>
@@ -989,7 +1049,7 @@ body.tabs-on .view.active{padding-bottom:74px}
     <div class="timeline" id="myTl"></div>
     <div class="sec-label">설정</div>
     <div class="set-row">
-      <div class="s-txt"><b>기업 연락 수신 동의</b><span>관심 기업의 자료·채용·상담 연락을 받아요. 기본은 꺼짐이며 언제든 해제할 수 있어요.</span></div>
+      <div class="s-txt"><b>기업 연락 수신 동의 (채용·소개 자료)</b><span>관심 기업의 채용·소개 자료 연락을 받아요. 도입 상담은 결과 화면에서 건별 동의로 따로 요청해요. 기본은 꺼짐이며 언제든 해제할 수 있어요.</span></div>
       <label class="switch"><input type="checkbox" id="optIn" aria-label="기업 연락 수신 동의 — 기본 꺼짐"><i></i></label>
     </div>
     <div class="set-row">
@@ -1046,6 +1106,13 @@ body.tabs-on .view.active{padding-bottom:74px}
   <div class="sec"><b>해결하는 문제</b><p id="sheetProb"></p></div>
   <div class="sec"><b>핵심 기능</b><p id="sheetFunc"></p></div>
   <div class="sec"><b>활용 예시</b><p id="sheetEx"></p></div>
+  <button class="spec-toggle" id="sheetSpecBtn" aria-expanded="false" aria-controls="sheetSpec">📊 스펙 더보기<i aria-hidden="true">▾</i></button>
+  <div class="spec-body" id="sheetSpec" hidden>
+    <span class="spec-trl" id="sheetTrl"></span>
+    <ul id="sheetPerf"></ul>
+    <p class="spec-case" id="sheetCase"></p>
+    <p class="spec-note">※ 데모 시나리오용 예시 사양이에요. 기업명 등 식별 정보는 리빌 전까지 제공되지 않아요.</p>
+  </div>
   <div class="tags" id="sheetTags"></div>
   <div class="reason-label">이 기술을 고른 이유 <span>· 선택 사항</span></div>
   <div class="reasons" id="sheetReasons" role="group" aria-label="선택 이유">
@@ -1071,6 +1138,46 @@ body.tabs-on .view.active{padding-bottom:74px}
   <div class="s-cta">
     <button class="btn btn-ghost" id="isClose">닫기</button>
     <button class="btn btn-primary" id="isVote">♥ 이 아이디어에 투표하기</button>
+  </div>
+</div>
+
+<!-- [백로그 ④] P08 전광판 미리보기 목업 (1920×1080 프레임 축소판) -->
+<div class="blb-mask" id="blbMask" role="dialog" aria-modal="true" aria-label="전광판 미리보기">
+  <div class="blb-wrap">
+    <div class="blb-frame">
+      <div class="blb-head"><span class="blb-live">● LIVE</span><span class="blb-title">REMIX LIVE — 지금 전시장에서 태어난 아이디어</span></div>
+      <div class="blb-card">
+        <div class="blb-img" id="blbImg"></div>
+        <div class="blb-body">
+          <h4 id="blbTitle"></h4>
+          <div class="blb-nick" id="blbNick"></div>
+          <p class="blb-desc" id="blbDesc"></p>
+        </div>
+      </div>
+      <div class="blb-foot"><span>NO LOGO REMIX × 현장 전광판 1920×1080</span><span id="blbFootR"></span></div>
+    </div>
+    <p class="blb-cap" id="blbCap"></p>
+    <button class="btn btn-ghost" id="blbClose" style="margin:14px auto 0;max-width:180px;background:transparent;color:#fff;border-color:#3A4170">닫기</button>
+  </div>
+</div>
+
+<!-- [백로그 ③] P08 도입 상담 요청 시트 (채용과 분리된 B2B 리드) -->
+<div class="sheet-mask" id="consultMask"></div>
+<div class="sheet" id="consultSheet" role="dialog" aria-modal="true" aria-labelledby="ctTitle">
+  <div class="grip" aria-hidden="true"></div>
+  <h3 id="ctTitle">🤝 도입 상담 요청</h3>
+  <div class="sec"><b>상담 대상 기술·부스</b><div id="ctTechs"></div></div>
+  <div class="sec"><b>어떤 도입인가요?</b>
+    <div class="reasons" id="ctKind" role="group" aria-label="도입 유형" style="margin-top:6px">
+      <button aria-pressed="true" data-k="매장·시설">매장·시설</button>
+      <button aria-pressed="false" data-k="회사·제품">회사·제품</button>
+      <button aria-pressed="false" data-k="기타">기타</button>
+    </div>
+  </div>
+  <label class="consent" style="margin-top:12px"><input type="checkbox" id="ctConsent"><span>도입 상담 목적으로 내 아이디어·선택 기술 정보를 해당 부스 기업에 전달하는 데 동의해요. <b>채용·마케팅 연락과 분리된 동의</b>이며 언제든 철회할 수 있어요. (데모에서는 이 기기에만 저장돼요)</span></label>
+  <div class="s-cta">
+    <button class="btn btn-ghost" id="ctClose">닫기</button>
+    <button class="btn btn-primary" id="ctSubmit" disabled>상담 요청 보내기</button>
   </div>
 </div>
 
@@ -1284,6 +1391,21 @@ body.tabs-on .view.active{padding-bottom:74px}
     {id:'t11',no:11,cat:'food',isNew:false,use:1,prob:'배송 과정의 온도 변화로 상하는 신선식품',fn:'온도 이력을 기록하고 이상 시 경고하는 스마트 라벨',ex:'택배 상자의 라벨 색만 봐도 신선도를 확인할 수 있어요.',tags:['물류','식품안전']}
   ];
   var TECH_BY_ID = {}; TECHS.forEach(function(t){ TECH_BY_ID[t.id] = t; });
+  /* [백로그 ②] 스펙 더보기 — 데모 시나리오용 예시 사양.
+     블라인드 원칙 유지: 기업 식별 정보 없음, 수치는 데모 세계관 안의 예시 값임을 UI에 명시 */
+  var SPEC_DB = {
+    t12:{trl:8,perf:['실시간 전력 계측·자동 출력 제어','대기전력 자동 차단','월간 사용 리포트 제공'],cases:'원룸·소형 상가의 여름철 냉방 관리'},
+    t07:{trl:7,perf:['박막형 시공(기존 대비 얇은 두께)','냉난방 열 손실 저감 구조','불연 등급 소재 지향'],cases:'노후 주택 창호·벽면 단열 보강'},
+    t03:{trl:8,perf:['동전 배터리 1개로 약 1년 구동','온·습도 실시간 감지·알림','표준 무선 프로토콜 연동'],cases:'스마트홈 앱 연동 환기·제습 알림'},
+    t15:{trl:6,perf:['식재료 인식·상태 분석','유통기한 임박 알림','보유 재료 기반 레시피 추천'],cases:'1인 가구 냉장고 식재료 관리'},
+    t21:{trl:7,perf:['생분해 소재 용기','리필 스테이션 호환 규격','잔량 확인 구조'],cases:'화장품 리필 매장 운영'},
+    t09:{trl:8,perf:['시간대별 소요 시간 예측','다중 교통수단 경로 조합','최적 출발 시간 알림'],cases:'출퇴근 경로 최적화'},
+    t18:{trl:7,perf:['건물 단위 전력 저장','정전 시 비상 전원 자동 전환','모듈 증설형 구조'],cases:'정전 대비 필수 설비 백업'},
+    t05:{trl:7,perf:['비접촉 수면·활동 패턴 감지','이상 패턴 보호자 알림','카메라 없이 프라이버시 보호'],cases:'1인 가구 안부 확인'},
+    t24:{trl:8,perf:['피부 수분·유분 측정','맞춤 케어 루틴 추천','측정 이력 트래킹'],cases:'아침 스킨케어 루틴 추천'},
+    t11:{trl:8,perf:['온도 이력 기록','이상 온도 노출 시 색 변화 경고','무전원 라벨 구조'],cases:'신선식품 택배 배송 확인'}
+  };
+  var TRL_LABEL = {6:'시제품 실증',7:'실환경 실증',8:'상용화 준비'};
   var CAT_BY_MISSION = {m1:'env',m2:'food',m3:'life',m4:'mobility',m5:'city',m6:'health',m7:'life'};
   var CAT_BY_INT = {'환경·에너지':'env','일상·생활':'life','건강·의료':'health','모빌리티':'mobility','식음료':'food','미래도시':'city'};
 
@@ -1397,6 +1519,16 @@ body.tabs-on .view.active{padding-bottom:74px}
     $('#sheetFunc').textContent = t.fn;
     $('#sheetEx').textContent = t.ex;
     $('#sheetTags').innerHTML = t.tags.map(function(g){ return '<i>#' + g + '</i>'; }).join('');
+    /* [백로그 ②] 스펙 더보기 — 열 때마다 접힌 상태로 초기화 */
+    var sp = SPEC_DB[id];
+    $('#sheetSpecBtn').style.display = sp ? '' : 'none';
+    $('#sheetSpec').hidden = true;
+    $('#sheetSpecBtn').setAttribute('aria-expanded','false');
+    if (sp){
+      $('#sheetTrl').textContent = 'TRL ' + sp.trl + ' · ' + (TRL_LABEL[sp.trl] || '기술 성숙도');
+      $('#sheetPerf').innerHTML = sp.perf.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+      $('#sheetCase').innerHTML = '<b>적용 시나리오</b> — ' + sp.cases;
+    }
     var cur = blindSel.filter(function(x){ return x.id===id; })[0];
     sheetReason = cur ? cur.reason : null;
     $$('#sheetReasons button').forEach(function(b){
@@ -1414,6 +1546,12 @@ body.tabs-on .view.active{padding-bottom:74px}
   }
   $('#sheetMask').addEventListener('click', closeSheet);
   $('#sheetClose').addEventListener('click', closeSheet);
+  $('#sheetSpecBtn').addEventListener('click', function(){
+    var opening = $('#sheetSpec').hidden;
+    $('#sheetSpec').hidden = !opening;
+    this.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    if (opening) pushEvent({ t:'spec_opened', id: sheetId });
+  });
   $$('#sheetReasons button').forEach(function(b){
     b.addEventListener('click', function(){
       var r = b.getAttribute('data-reason');
@@ -1709,6 +1847,13 @@ body.tabs-on .view.active{padding-bottom:74px}
   function startGen(){
     pushEvent({ t:'remix_started' });
     $('#rxSetup').style.display = 'none'; $('#genPanel').classList.add('on');
+    /* [백로그 ④] 선택한 기술칩이 서로 교차하며 섞이는 리믹스 모션 */
+    var picks = remixPick || [];
+    var xs = picks.length === 2 ? [-62, 62] : [-88, 0, 88];
+    $('#genChips').innerHTML = picks.map(function(id, i){
+      var t = TECH_BY_ID[id];
+      return '<span class="gchip" style="--x0:' + (xs[i] || 0) + 'px;animation-delay:' + (i * -0.9) + 's;z-index:' + (i + 1) + '">No.' + t.no + ' ' + REVEAL_DB[id].tech + '</span>';
+    }).join('') + '<span class="gspark">✦</span>';
     genStep = 0; $('#genMsg').textContent = GEN_MSGS[0]; $('#genBar').style.width = '8%';
     genTimer = setInterval(function(){
       genStep++;
@@ -1806,6 +1951,10 @@ body.tabs-on .view.active{padding-bottom:74px}
     $('#pubConsent').checked = false;
     $('#btnRegen').disabled = !!r.regenUsed;
     $('#btnRegen').textContent = r.regenUsed ? '다시 만들기 (사용함)' : '다시 만들기 (1회)';
+    /* [백로그 ③] 도입 상담 — 결과별 1회 요청 */
+    var led = (s.leads || []).some(function(l){ return l.resultId === r.id; });
+    $('#btnConsult').disabled = led;
+    $('#btnConsult').textContent = led ? '✓ 도입 상담 요청됨' : '🤝 도입 상담 요청 (B2B)';
     updatePub();
   }
   function updatePub(){
@@ -1857,6 +2006,225 @@ body.tabs-on .view.active{padding-bottom:74px}
     toast('게시 완료! 다음 REMIX LIVE(매시 정각) 전광판 후보에 올랐어요 🎬');
   });
   $('#rsBack').addEventListener('click', function(){ renderRemixSetup(); show('#view-remix'); });
+
+  /* ---------- [백로그 ①] 9:16 스토리 이미지 원탭 저장 ---------- */
+  var STORY_FONT = '"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo",sans-serif';
+  function loadImage(src){
+    return new Promise(function(resolve){
+      if (!src){ resolve(null); return; }
+      var im = new Image();
+      im.onload = function(){ resolve(im); };
+      im.onerror = function(){ resolve(null); };
+      im.src = src;
+    });
+  }
+  function drawCover(ctx, im, x, y, w, h){
+    var s = Math.max(w / im.width, h / im.height);
+    var sw = w / s, sh = h / s;
+    ctx.drawImage(im, (im.width - sw) / 2, (im.height - sh) / 2, sw, sh, x, y, w, h);
+  }
+  function roundRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function wrapLines(ctx, text, maxW, maxLines){
+    var lines = [], line = '', i, ch;
+    for (i = 0; i < text.length; i++){
+      ch = text.charAt(i);
+      if (ctx.measureText(line + ch).width > maxW && line){ lines.push(line); line = ch; }
+      else line += ch;
+    }
+    if (line) lines.push(line);
+    if (maxLines && lines.length > maxLines){
+      lines = lines.slice(0, maxLines);
+      var last = lines[maxLines - 1];
+      while (last.length && ctx.measureText(last + '…').width > maxW) last = last.slice(0, -1);
+      lines[maxLines - 1] = last + '…';
+    }
+    return lines;
+  }
+  function buildStoryCanvas(r){
+    var W = 1080, H = 1920;
+    var cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    var ctx = cv.getContext('2d');
+    /* 마스코트 원본 무변형 원칙: mixi.png는 비율 그대로(contain) 축소만 한다 */
+    return Promise.all([loadImage(r.img), loadImage('mixi.png')]).then(function(imgs){
+      var art = imgs[0], mixi = imgs[1];
+      var bg = ctx.createLinearGradient(0, 0, 0, H);
+      bg.addColorStop(0, '#10142F'); bg.addColorStop(.55, '#1C1856'); bg.addColorStop(1, '#4527D8');
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      var glow = ctx.createRadialGradient(W * .8, 160, 0, W * .8, 160, 520);
+      glow.addColorStop(0, 'rgba(91,63,242,.5)'); glow.addColorStop(1, 'rgba(91,63,242,0)');
+      ctx.fillStyle = glow; ctx.fillRect(0, 0, W, 720);
+      ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+      ctx.font = '800 54px ' + STORY_FONT;
+      ctx.fillStyle = '#FFFFFF'; ctx.fillText('NO LOGO', 84, 150);
+      var w1 = ctx.measureText('NO LOGO ').width;
+      ctx.fillStyle = '#8FA2FF'; ctx.fillText('REMIX', 84 + w1, 150);
+      ctx.font = '700 26px ' + STORY_FONT;
+      ctx.fillStyle = 'rgba(255,255,255,.55)';
+      ctx.fillText('AI REMIX RESULT', 86, 196);
+      /* 스타일 락 결과 이미지 (912×912) */
+      var ix = 84, iy = 260, iw = W - 168, ih = iw;
+      ctx.save();
+      roundRect(ctx, ix, iy, iw, ih, 48); ctx.clip();
+      if (art){ drawCover(ctx, art, ix, iy, iw, ih); }
+      else {
+        var ph = ctx.createLinearGradient(ix, iy, ix + iw, iy + ih);
+        ph.addColorStop(0, '#BFD4FF'); ph.addColorStop(1, '#5B3FF2');
+        ctx.fillStyle = ph; ctx.fillRect(ix, iy, iw, ih);
+        ctx.font = '300px ' + STORY_FONT;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(r.em, ix + iw / 2, iy + ih / 2);
+        ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+      }
+      ctx.restore();
+      roundRect(ctx, ix, iy, iw, ih, 48);
+      ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 4; ctx.stroke();
+      /* 아이디어명 — 길면 축소해서 한 줄 유지 */
+      ctx.font = '800 88px ' + STORY_FONT;
+      var tw = ctx.measureText(r.title).width;
+      if (tw > iw) ctx.font = '800 ' + Math.max(52, Math.floor(88 * iw / tw)) + 'px ' + STORY_FONT;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText(r.title, 84, 1272);
+      /* 배지 */
+      ctx.font = '700 30px ' + STORY_FONT;
+      var badges = [r.style, r.type, 'ID ' + r.id], bx = 84, by = 1344;
+      badges.forEach(function(b){
+        var bw = ctx.measureText(b).width + 44;
+        roundRect(ctx, bx, by - 40, bw, 58, 29);
+        ctx.fillStyle = 'rgba(255,255,255,.14)'; ctx.fill();
+        ctx.fillStyle = '#D9DEFF'; ctx.fillText(b, bx + 22, by);
+        bx += bw + 16;
+      });
+      /* 한 줄 설명 (최대 2줄) */
+      ctx.font = '500 36px ' + STORY_FONT;
+      ctx.fillStyle = 'rgba(255,255,255,.92)';
+      wrapLines(ctx, r.desc, iw, 2).forEach(function(ln, i){ ctx.fillText(ln, 84, 1430 + i * 54); });
+      /* 사용된 기술 */
+      ctx.font = '800 28px ' + STORY_FONT;
+      ctx.fillStyle = '#8FA2FF';
+      ctx.fillText('사용된 기술', 84, 1548);
+      ctx.font = '600 30px ' + STORY_FONT;
+      r.techs.forEach(function(id, i){
+        var t = TECH_BY_ID[id], db = REVEAL_DB[id];
+        ctx.fillStyle = 'rgba(255,255,255,.85)';
+        ctx.fillText('No.' + t.no + '  ' + db.role + ' — ' + db.co, 84, 1598 + i * 48);
+      });
+      /* 해시태그 */
+      ctx.font = '800 38px ' + STORY_FONT;
+      ctx.fillStyle = '#79B8FF';
+      ctx.fillText('#NOLOGOREMIX  #나의아이디어', 84, 1790);
+      /* MIXI 워터마크 — 원본 비율 유지 */
+      if (mixi){
+        var mh = 150, mw = mixi.width * (mh / mixi.height);
+        if (mw > 220){ mw = 220; mh = mixi.height * (mw / mixi.width); }
+        ctx.globalAlpha = .95;
+        ctx.drawImage(mixi, W - mw - 72, 1730 - mh, mw, mh);
+        ctx.globalAlpha = 1;
+        ctx.font = '800 22px ' + STORY_FONT;
+        ctx.fillStyle = 'rgba(255,255,255,.6)';
+        ctx.textAlign = 'center';
+        ctx.fillText('MIXI', W - 72 - mw / 2, 1766);
+        ctx.textAlign = 'left';
+      }
+      /* 면책 — 하단 소형 캡션 */
+      ctx.font = '400 22px ' + STORY_FONT;
+      ctx.fillStyle = 'rgba(255,255,255,.45)';
+      ctx.textAlign = 'center';
+      wrapLines(ctx, '※ 관람객과 AI가 만든 콘셉트 제안이며, 실제 기술성과 상용화 가능성은 별도 검토가 필요합니다. (AI 활용 콘셉트)', W - 220, 2)
+        .forEach(function(ln, i){ ctx.fillText(ln, W / 2, 1848 + i * 34); });
+      ctx.textAlign = 'left';
+      return cv;
+    });
+  }
+  /* QA용: ?debug=1 로 열면 스토리 캔버스를 밖에서 검증할 수 있게 노출 */
+  if (location.search.indexOf('debug=1') >= 0) window.__nlrStory = buildStoryCanvas;
+  var storySaving = false;
+  function saveStoryImage(){
+    var r = getS().result;
+    if (!r){ toast('먼저 아이디어를 만들어주세요'); return; }
+    if (storySaving) return;
+    storySaving = true;
+    buildStoryCanvas(r).then(function(cv){
+      var fname = 'NOLOGOREMIX_' + r.id + '_story.png';
+      function fire(href, revoke){
+        var a = document.createElement('a');
+        a.href = href; a.download = fname;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        if (revoke) setTimeout(function(){ URL.revokeObjectURL(href); }, 1500);
+        pushEvent({ t:'story_saved', id: r.id });
+        toast('1080×1920 스토리 이미지를 저장했어요! 📱 #NOLOGOREMIX 와 함께 올려보세요');
+        storySaving = false;
+      }
+      if (cv.toBlob){
+        cv.toBlob(function(blob){
+          if (blob) fire(URL.createObjectURL(blob), true);
+          else { storySaving = false; toast('이미지 생성에 실패했어요. 다시 시도해주세요'); }
+        }, 'image/png');
+      } else fire(cv.toDataURL('image/png'), false);
+    }).catch(function(){ storySaving = false; toast('이미지 생성에 실패했어요. 다시 시도해주세요'); });
+  }
+  $('#btnStory').addEventListener('click', saveStoryImage);
+
+  /* ---------- [백로그 ④] 전광판 미리보기 ---------- */
+  function openBillboard(){
+    var s = getS(), r = s.result; if (!r) return;
+    var nick = ($('#pubNick').value || '').trim() || s.nickname || ('mixi_' + s.sessionId.slice(-4));
+    $('#blbImg').innerHTML = r.img
+      ? '<img src="' + r.img + '" alt="" onerror="this.parentElement.textContent=\'' + r.em + '\'">'
+      : r.em;
+    $('#blbTitle').textContent = r.title;
+    $('#blbNick').textContent = '@' + nick + ' · ' + r.style + ' · ' + r.type;
+    $('#blbDesc').textContent = r.desc;
+    $('#blbFootR').textContent = 'ID ' + r.id;
+    $('#blbCap').textContent = r.posted
+      ? '게시 완료! 다음 정각 REMIX LIVE에서 이렇게 걸릴 수 있어요 🎬'
+      : '미리보기예요 — 아이디어를 게시하면 매시 정각 REMIX LIVE 전광판 후보에 올라요';
+    $('#blbMask').classList.add('on');
+    pushEvent({ t:'billboard_previewed', id: r.id });
+  }
+  $('#btnBillboard').addEventListener('click', openBillboard);
+  $('#blbClose').addEventListener('click', function(){ $('#blbMask').classList.remove('on'); });
+  $('#blbMask').addEventListener('click', function(e){ if (e.target === this) this.classList.remove('on'); });
+
+  /* ---------- [백로그 ③] 도입 상담 요청 — 채용과 분리된 B2B 리드 ---------- */
+  var ctKindV = '매장·시설';
+  $$('#ctKind button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('#ctKind button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true'); ctKindV = b.getAttribute('data-k');
+    });
+  });
+  function closeConsult(){ $('#consultMask').classList.remove('on'); $('#consultSheet').classList.remove('on'); }
+  $('#btnConsult').addEventListener('click', function(){
+    var s = getS(), r = s.result; if (!r || this.disabled) return;
+    $('#ctTechs').innerHTML = r.techs.map(function(id){
+      var t = TECH_BY_ID[id], db = REVEAL_DB[id];
+      return '<div class="role-row"><span class="no">No.' + t.no + '</span><b style="font-size:11.5px">' + db.co + '</b><span>— ' + db.tech + ' (' + db.hall + ' ' + db.booth + ')</span></div>';
+    }).join('');
+    $('#ctConsent').checked = false; $('#ctSubmit').disabled = true;
+    $('#consultMask').classList.add('on'); $('#consultSheet').classList.add('on');
+  });
+  $('#ctConsent').addEventListener('change', function(){ $('#ctSubmit').disabled = !this.checked; });
+  $('#ctClose').addEventListener('click', closeConsult);
+  $('#consultMask').addEventListener('click', closeConsult);
+  $('#ctSubmit').addEventListener('click', function(){
+    var s = getS(), r = s.result; if (!r || !$('#ctConsent').checked) return;
+    s.leads = s.leads || [];
+    s.leads.push({ resultId: r.id, kind: 'b2b_consult', type: ctKindV, techs: r.techs.slice(), at: Date.now() });
+    saveSession(s);
+    pushEvent({ t:'lead_consent', kind:'b2b_consult', type: ctKindV });
+    closeConsult();
+    $('#btnConsult').disabled = true;
+    $('#btnConsult').textContent = '✓ 도입 상담 요청됨';
+    toast('상담 요청 완료! 해당 부스 담당자가 확인 후 연락드려요 🤝');
+  });
 
   /* ---------- P09 피드·투표 ---------- */
   var FEED = [
@@ -2000,14 +2368,14 @@ body.tabs-on .view.active{padding-bottom:74px}
   });
 
   /* ---------- P10 마이페이지 ---------- */
-  var TL_LABEL = {blind_card_viewed:'기술카드 상세 확인',blind_tech_selected:'블라인드 기술 선택',brand_revealed:'기업 공개 확인',qr_verify_started:'부스 인증 시작',qr_verify_success:'부스 방문 인증',token_acquired:'기술 토큰 획득',booth_feedback_submitted:'부스 만족도 남김',remix_started:'AI 리믹스 시작',remix_completed:'아이디어 생성 완료',result_edited:'아이디어 수정',result_posted:'아이디어 게시',vote_submitted:'투표 참여',share_clicked:'공유하기',lead_consent_completed:'기업 연락 동의'};
+  var TL_LABEL = {blind_card_viewed:'기술카드 상세 확인',blind_tech_selected:'블라인드 기술 선택',brand_revealed:'기업 공개 확인',qr_verify_started:'부스 인증 시작',qr_verify_success:'부스 방문 인증',token_acquired:'기술 토큰 획득',booth_feedback_submitted:'부스 만족도 남김',remix_started:'AI 리믹스 시작',remix_completed:'아이디어 생성 완료',result_edited:'아이디어 수정',result_posted:'아이디어 게시',vote_submitted:'투표 참여',share_clicked:'공유하기',lead_consent_completed:'기업 연락 동의',story_saved:'스토리 이미지 저장',billboard_previewed:'전광판 미리보기',spec_opened:'스펙 더보기 확인',lead_consent:'도입 상담 요청 (B2B)'};
   function renderMy(){
     var s = getS(), v = s.verified || [];
     $('#myNick').value = s.nickname || ('mixi_' + s.sessionId.slice(-4));
     $('#mySid').textContent = s.sessionId;
     var stats = [['발견 기술',(s.selectedTechs||[]).length],['방문 부스',v.length],['아이디어',s.result?1:0],['받은 투표',(s.result&&s.result.votes)||0]];
     $('#myStats').innerHTML = stats.map(function(x){ return '<div class="stat"><b>' + x[1] + '</b><span>' + x[0] + '</span></div>'; }).join('');
-    var badges = [['🧭','Explorer',v.length>=1],['◈','Collector',v.length>=2],['✨','Creator',!!s.result],['📣','Sharer',(s.events||[]).some(function(e){ return e.t==='share_clicked'||e.t==='result_posted'; })]];
+    var badges = [['🧭','Explorer',v.length>=1],['◈','Collector',v.length>=2],['✨','Creator',!!s.result],['📣','Sharer',(s.events||[]).some(function(e){ return e.t==='share_clicked'||e.t==='result_posted'||e.t==='story_saved'; })]];
     $('#myBadges').innerHTML = badges.map(function(b){ return '<div class="badge' + (b[2]?' got':'') + '"><div class="b-ico">' + b[0] + '</div><span>' + b[1] + '</span></div>'; }).join('');
     $('#myIdeas').innerHTML = s.result
       ? '<div class="f-card mine"><div class="em">' + s.result.em + '</div><div class="f-body"><b>' + s.result.title + '</b><span>' + s.result.id + ' · ' + (s.result.posted ? '게시됨' : '미게시') + '</span></div><button class="vote-btn" data-dl="1"><span class="hrt">⬇</span>저장</button></div>'
@@ -2034,7 +2402,8 @@ body.tabs-on .view.active{padding-bottom:74px}
     });
   });
   $('#myIdeas').addEventListener('click', function(e){
-    if (e.target.closest('[data-dl]')) toast('데모에서는 이미지 저장을 생략해요 (실서비스: 9:16 카드 다운로드)');
+    /* [백로그 ①] 마이페이지에서도 9:16 스토리 이미지 저장 */
+    if (e.target.closest('[data-dl]')) saveStoryImage();
   });
   $('#btnDelete').addEventListener('click', function(){
     if (window.confirm('세션 데이터를 모두 삭제할까요? 되돌릴 수 없어요.')){
@@ -2067,7 +2436,7 @@ body.tabs-on .view.active{padding-bottom:74px}
       : (s.verified||[]).length ? ('토큰' + s.verified.length + '개')
       : (s.selectedTechs||[]).length ? '블라인드선택'
       : s.missionId ? '미션선택' : '온보딩';
-    var shared = evs.some(function(e){ return e.t === 'share_clicked'; }) ? 'O' : 'X';
+    var shared = evs.some(function(e){ return e.t === 'share_clicked' || e.t === 'story_saved'; }) ? 'O' : 'X';
     return 'NLR-TEST | ' + s.sessionId + ' | 도달:' + stage + ' | 소요:' + mins
       + ' | 토큰:' + (s.verified||[]).length + ' | 투표:' + (s.votedId ? 'O' : 'X')
       + ' | 공유:' + shared + ' | 동의:' + (s.optIn ? 'O' : 'X')
