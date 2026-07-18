@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02 기업 관심 데이터 대시보드 — NO LOGO REMIX</title>
+<!-- S02 기업 관심 데이터 대시보드 · 기준 1440×1024, 화면 크기에 맞춰 자동 스케일
+     [M] KPI 카드 4종 고정 · 참여 퍼널 · 모든 수치 '가상 예시' 표기 + 2030 관심 신호 정의
+     [S] KPI 산식 · 인기 조합 TOP 5 · 관심 문제 분포 · 관심 분야 · 만족도 · 리포트 분리 안내 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--navy:#10142F;--ink:#17181C;--ink2:#62646C;
+  --line:#E4E2F2;--surface:#F7F6FD;--lav:#F2EFFF;--green:#18A874;--blue:#4D7CFE}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#E9E8F2;
+  font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink)}
+.stage{position:absolute;top:50%;left:50%;width:1440px;height:1024px;transform-origin:center;
+  background:#F6F7FB;border-radius:18px;box-shadow:0 30px 80px -30px rgba(16,20,47,.4);
+  padding:34px 40px;display:flex;flex-direction:column;gap:18px}
+/* 헤더 */
+.hd{display:flex;align-items:center;gap:16px}
+.hd h1{font-size:24px;font-weight:800}
+.hd h1 small{font-size:13px;color:var(--ink2);font-weight:600;margin-left:10px}
+.hd .anon{font-size:11.5px;font-weight:700;color:var(--green);background:#E6F7F0;border:1px solid #BFE9D8;padding:5px 11px;border-radius:99px}
+.hd .sp{flex:1}
+.chip{font-size:12.5px;font-weight:700;background:#fff;border:1.5px solid var(--line);border-radius:11px;padding:9px 14px;color:var(--ink);cursor:pointer;font-family:inherit}
+.chip.primary{background:var(--purple);border-color:var(--purple);color:#fff}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;position:relative}
+.kpi small{font-size:12.5px;color:var(--ink2);font-weight:700}
+.kpi b{display:block;font-size:34px;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11.5px;color:var(--green);font-weight:700}
+.kpi .fake{position:absolute;top:12px;right:12px;font-size:9px;font-weight:800;color:#A96A00;background:#FFF4E0;border:1px solid #F5DCA8;padding:2px 7px;border-radius:99px}
+/* 본문 그리드 */
+.body{flex:1;display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;min-height:0}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;position:relative;display:flex;flex-direction:column;min-height:0}
+.card h3{font-size:14.5px;font-weight:800}
+.card h3 small{font-size:10.5px;color:var(--ink2);font-weight:600;margin-left:6px}
+.card .fake{position:absolute;top:14px;right:14px;font-size:9px;font-weight:800;color:#A96A00;background:#FFF4E0;border:1px solid #F5DCA8;padding:2px 7px;border-radius:99px}
+.funnel{grid-row:1/3}
+/* 퍼널 */
+.fn-rows{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:8px}
+.fn-row{display:flex;align-items:center;gap:12px}
+.fn-row .lb{flex:0 0 64px;font-size:12.5px;font-weight:800;color:var(--purple-ink)}
+.fn-row .bar{flex:1;height:34px;background:var(--surface);border-radius:9px;overflow:hidden;position:relative}
+.fn-row .bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#8A73FF,var(--purple))}
+.fn-row .bar b{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);font-variant-numeric:tabular-nums}
+.fn-row .pct{flex:0 0 64px;text-align:right;font-size:12px;color:var(--ink2);font-weight:700;font-variant-numeric:tabular-nums}
+.fn-note{margin-top:10px;font-size:11px;color:var(--ink2);background:var(--surface);border-radius:10px;padding:9px 12px;line-height:1.6}
+.fn-note b{color:var(--purple-ink)}
+/* 조합 TOP5 */
+.combo-rows{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:6px}
+.cb-row{display:flex;align-items:center;gap:10px}
+.cb-row .rk{width:22px;height:22px;border-radius:50%;background:var(--lav);color:var(--purple-ink);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 22px}
+.cb-row:first-child .rk{background:#F5B301;color:#3A2A00}
+.cb-row .nm{flex:1;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cb-row .bar{flex:0 0 120px;height:9px;background:var(--surface);border-radius:99px;overflow:hidden}
+.cb-row .bar i{display:block;height:100%;background:linear-gradient(90deg,#8A73FF,var(--purple));border-radius:99px}
+.cb-row .v{flex:0 0 44px;text-align:right;font-size:11.5px;color:var(--ink2);font-weight:700;font-variant-numeric:tabular-nums}
+/* 관심 문제 분포 */
+.pr-rows{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:6px}
+.pr-row{display:flex;align-items:center;gap:10px}
+.pr-row .nm{flex:0 0 168px;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-row .bar{flex:1;height:12px;background:var(--surface);border-radius:99px;overflow:hidden}
+.pr-row .bar i{display:block;height:100%;background:linear-gradient(90deg,#79B8FF,var(--blue));border-radius:99px}
+.pr-row .v{flex:0 0 40px;text-align:right;font-size:11.5px;font-weight:800;color:var(--purple-ink)}
+/* 도넛 + 만족도 */
+.duo{display:flex;gap:14px;flex:1;align-items:center;justify-content:space-evenly}
+.donut-wrap{text-align:center}
+.legend{margin-top:8px;display:flex;flex-direction:column;gap:3px;text-align:left}
+.legend div{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink2)}
+.legend i{width:9px;height:9px;border-radius:3px;flex:0 0 9px}
+.sat-wrap{text-align:center}
+.sat-wrap .ring{position:relative;width:120px;height:120px;margin:0 auto}
+.sat-wrap .ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--purple-ink)}
+.sat-wrap .lbl{font-size:11px;color:var(--ink2);margin-top:6px;font-weight:700}
+/* 산식 */
+.formula{display:flex;flex-direction:column;gap:9px;margin-top:8px;flex:1;justify-content:space-evenly}
+.formula div{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:11.5px;line-height:1.55}
+.formula b{color:var(--purple-ink)}
+/* 푸터 */
+.ft{display:flex;align-items:center;gap:14px;font-size:11.5px;color:var(--ink2);line-height:1.5}
+.ft .warn{font-weight:800;color:#A96A00;background:#FFF4E0;border:1px solid #F5DCA8;padding:4px 10px;border-radius:99px;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="hd">
+    <h1>S02 기업 관심 데이터 대시보드<small>NO LOGO REMIX · D-23 스마트 에너지 제어 기술</small></h1>
+    <span class="anon">익명 집계 데이터</span>
+    <span class="sp"></span>
+    <button class="chip">기간 · 2026.07.16 ~ 전체 ▾</button>
+    <button class="chip primary" id="csv">⬇ CSV 다운로드</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><span class="fake">가상 예시</span><small>블라인드 노출 수</small><b>12,845</b><span>▲ 전일 대비 +8.2%</span></div>
+    <div class="kpi"><span class="fake">가상 예시</span><small>블라인드 선택 수</small><b>5,231</b><span>선택률 40.7%</span></div>
+    <div class="kpi"><span class="fake">가상 예시</span><small>부스 방문 수 (QR 인증)</small><b>3,782</b><span>방문 전환율 72.3%</span></div>
+    <div class="kpi"><span class="fake">가상 예시</span><small>리믹스 결과물 수</small><b>2,341</b><span>조합 참여율 61.9%</span></div>
+  </div>
+
+  <div class="body">
+    <div class="card funnel">
+      <span class="fake">가상 예시</span>
+      <h3>참여 퍼널<small>노출 → 선택 → 공개 → 방문 → 리믹스 → 공유</small></h3>
+      <div class="fn-rows" id="fnRows"></div>
+      <div class="fn-note"><b>해석.</b> 기업 공개 후 실제 부스 방문 전환율이 <b>72.3%</b>로, 블라인드 선택이 강한 방문 의도로 이어졌습니다. 이 수치는 구매 의향이 아닌 <b>2030 관심 신호</b>로 해석합니다.</div>
+    </div>
+
+    <div class="card">
+      <span class="fake">가상 예시</span>
+      <h3>인기 기술 조합 TOP 5<small>내 기술과 함께 조합된 횟수</small></h3>
+      <div class="combo-rows" id="cbRows"></div>
+    </div>
+
+    <div class="card">
+      <span class="fake">가상 예시</span>
+      <h3>선택한 문제 TOP 5<small>내 기술을 고른 관람객의 미션</small></h3>
+      <div class="pr-rows" id="prRows"></div>
+    </div>
+
+    <div class="card">
+      <span class="fake">가상 예시</span>
+      <h3>참여자 관심 분야 · 만족도</h3>
+      <div class="duo">
+        <div class="donut-wrap">
+          <svg width="130" height="130" viewBox="0 0 42 42" id="donut" role="img" aria-label="관심 분야 분포"></svg>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="sat-wrap">
+          <div class="ring">
+            <svg width="120" height="120" viewBox="0 0 42 42">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#EDEBF8" stroke-width="5"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#5B3FF2" stroke-width="5" stroke-linecap="round"
+                stroke-dasharray="92 8" stroke-dashoffset="25" transform="rotate(0 21 21)"/>
+            </svg>
+            <b>4.6<span style="font-size:13px;color:#9A97B4">/5</span></b>
+          </div>
+          <div class="lbl">참여자 만족도 (부스 피드백)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>KPI 산식<small>대시보드 고정 표기</small></h3>
+      <div class="formula">
+        <div><b>부스 방문 전환율</b> = QR 인증자 ÷ 기술 선택자 = 3,782 ÷ 5,231 = <b>72.3%</b></div>
+        <div><b>공유율</b> = 유효 SNS 공유자 ÷ 결과물 완성자 = 1,654 ÷ 2,341 = <b>70.7%</b></div>
+        <div><b>숨은 기업 발견지수</b> = 중소기업 선택 비중 ÷ 참여 비중 = <b>1.38</b> <span style="color:var(--green);font-weight:700">(인지도 대비 초과 선택)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft">
+    <span class="warn">※ 가상 예시 데이터</span>
+    <span>본 수치는 프로토타입 시연용 가상 예시이며, 실제 운영 시 실시간으로 집계됩니다. 개인정보는 수집하지 않으며 <b>익명 집계값만</b> 제공합니다. 모든 지표는 구매 의향·시장 검증이 아닌 <b>2030 관심 신호</b>로 정의합니다. 기업별 리포트와 전체 전시 리포트는 분리 제공됩니다.</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var stage = document.getElementById('stage');
+  function fit(){
+    var s = Math.min(window.innerWidth/1470, window.innerHeight/1054);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+
+  /* 퍼널 */
+  var FN = [
+    ['노출', 12845, 100], ['선택', 5231, 40.7], ['공개', 4812, 37.5],
+    ['방문', 3782, 29.4], ['리믹스', 2341, 18.2], ['공유', 1654, 12.9]
+  ];
+  document.getElementById('fnRows').innerHTML = FN.map(function(f){
+    return '<div class="fn-row"><span class="lb">' + f[0] + '</span>'
+      + '<span class="bar"><i style="width:' + f[2] + '%"></i><b>' + f[1].toLocaleString() + '</b></span>'
+      + '<span class="pct">' + f[2] + '%</span></div>';
+  }).join('');
+
+  /* 인기 조합 TOP5 */
+  var CB = [
+    ['No.12 에너지 제어 + 센서 + 단열', 423], ['No.12 + 고효율 단열 신소재', 381],
+    ['No.12 + AI 기반 예측 제어', 327], ['No.12 + 분산형 에너지 저장', 296], ['No.12 + 스마트 센서', 256]
+  ];
+  var maxCb = CB[0][1];
+  document.getElementById('cbRows').innerHTML = CB.map(function(c, i){
+    return '<div class="cb-row"><span class="rk">' + (i+1) + '</span><span class="nm">' + c[0] + '</span>'
+      + '<span class="bar"><i style="width:' + Math.round(c[1]/maxCb*100) + '%"></i></span>'
+      + '<span class="v">' + c[1] + '회</span></div>';
+  }).join('');
+
+  /* 선택한 문제 TOP5 */
+  var PR = [
+    ['폭염 속 자취방 전기료 줄이기', 28], ['정전에도 작동하는 미래도시', 22],
+    ['탄소 배출 줄이기', 18], ['실내 공기질 개선', 17], ['스마트홈 자동화', 15]
+  ];
+  document.getElementById('prRows').innerHTML = PR.map(function(p){
+    return '<div class="pr-row"><span class="nm">' + p[0] + '</span>'
+      + '<span class="bar"><i style="width:' + Math.round(p[1]/PR[0][1]*100) + '%"></i></span>'
+      + '<span class="v">' + p[1] + '%</span></div>';
+  }).join('');
+
+  /* 관심 분야 도넛 */
+  var SEG = [
+    ['환경·에너지', 32, '#5B3FF2'], ['일상·생활', 24, '#8A73FF'],
+    ['모빌리티', 18, '#4D7CFE'], ['미래도시', 14, '#79B8FF'], ['건강·의료', 12, '#C4B8FF']
+  ];
+  var svg = '', off = 25;
+  SEG.forEach(function(s){
+    svg += '<circle cx="21" cy="21" r="15.9" fill="none" stroke="' + s[2] + '" stroke-width="6" '
+      + 'stroke-dasharray="' + s[1] + ' ' + (100 - s[1]) + '" stroke-dashoffset="' + off + '"></circle>';
+    off -= s[1];
+  });
+  svg += '<text x="21" y="20" text-anchor="middle" font-size="5.5" font-weight="800" fill="#2A1E7A">관심</text>'
+       + '<text x="21" y="27" text-anchor="middle" font-size="5.5" font-weight="800" fill="#2A1E7A">분야</text>';
+  document.getElementById('donut').innerHTML = svg;
+  document.getElementById('legend').innerHTML = SEG.map(function(s){
+    return '<div><i style="background:' + s[2] + '"></i>' + s[0] + ' ' + s[1] + '%</div>';
+  }).join('');
+
+  document.getElementById('csv').addEventListener('click', function(){
+    alert('데모에서는 CSV 다운로드를 생략해요.\n실서비스: 기업별 리포트(익명 집계)를 CSV·PDF로 제공합니다.');
+  });
+})();
+</script>
+</body>
+</html>

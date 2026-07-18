@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실사용 운영 시나리오 — 2026 그린에너텍 × NO LOGO REMIX</title>
+<meta name="description" content="실존 전시(그린에너텍, 송도컨벤시아) 기준의 적용 시뮬레이션 — 관리자 미션 설계·가상 20부스·관람객 페르소나 4인 실주행 검증">
+<!-- 실사용 운영 시나리오 페이지 · 전시 정보는 공식 사이트·보도로 검증된 사실, 참가기업·부스 구성은 '가상 시뮬레이션' -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--blue:#2E6BFF;--green:#0E9F6E;--ink:#17181C;--ink2:#5C5F6B;
+  --line:#E4E6F2;--lav:#F1F3FE;--surface:#F8F9FE;--warn-bg:#FFF4E0;--warn:#A96A00}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);background:#fff}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:76px 0}
+h2.sec{font-size:clamp(24px,3.2vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
+p.lead{font-size:clamp(14.5px,1.5vw,17px);color:var(--ink2);line-height:1.75;margin-top:12px;word-break:keep-all}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:2.5px;color:var(--blue);margin-bottom:12px}
+.tag-sim{display:inline-block;font-size:10.5px;font-weight:800;color:var(--warn);background:var(--warn-bg);border:1px solid #F5DCA8;padding:3px 9px;border-radius:99px;vertical-align:middle}
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .bar{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:22px}
+nav .logo{font-weight:800;font-size:15.5px;white-space:nowrap}
+nav .logo b{color:var(--blue)}
+nav a{color:var(--ink2);text-decoration:none;font-size:13px;font-weight:700}
+nav a:hover{color:var(--blue)}
+nav .links{display:flex;gap:18px;flex:1;justify-content:center;flex-wrap:wrap}
+nav .cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff !important;padding:9px 16px;border-radius:11px;white-space:nowrap}
+@media(max-width:820px){nav .links{display:none}}
+.hero2{background:linear-gradient(165deg,#F4F7FF 0%,#EDF0FD 100%);border-bottom:1px solid var(--line);padding:76px 0}
+.hero2 h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.28;letter-spacing:-.02em;margin-top:14px}
+.hero2 h1 b{color:var(--blue)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+@media(max-width:900px){.grid3,.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px 24px}
+.card.soft{background:var(--surface)}
+.card b.t{display:block;font-size:16px}
+.card p{font-size:13px;color:var(--ink2);line-height:1.65;margin-top:8px;word-break:keep-all}
+.kv{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.kv span{font-size:12.5px;font-weight:800;background:#fff;border:1.5px solid var(--line);padding:8px 14px;border-radius:99px;color:var(--purple-ink)}
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:13px}
+th,td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top;line-height:1.55}
+th{background:var(--lav);color:var(--purple-ink);font-size:12.5px;white-space:nowrap}
+td small{color:var(--ink2)}
+.mission-row b{color:var(--purple-ink)}
+.pcard{border:1.5px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.pcard .top{display:flex;gap:12px;align-items:center;padding:18px 20px;background:var(--surface);border-bottom:1.5px solid var(--line)}
+.pcard .ava{width:46px;height:46px;border-radius:50%;background:linear-gradient(140deg,#79B8FF,#5B3FF2);display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 46px}
+.pcard .top b{font-size:15.5px;display:block}
+.pcard .top span{font-size:11.5px;color:var(--ink2)}
+.pcard .body{padding:16px 20px 20px}
+.pcard .jr{font-size:12px;color:var(--ink2);line-height:1.7;word-break:keep-all}
+.pcard .res{margin-top:12px;background:var(--lav);border-radius:14px;padding:12px 14px}
+.pcard .res b{font-size:14px;color:var(--purple-ink)}
+.pcard .res p{font-size:11.5px;color:var(--ink2);margin-top:5px;line-height:1.6;word-break:keep-all}
+.pcard .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.pcard .chips i{font-style:normal;font-size:9.5px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--purple-ink);padding:3px 8px;border-radius:99px}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:700px){.shots{grid-template-columns:1fr}}
+.shots figure{border:1.5px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.shots img{width:100%}
+.shots figcaption{font-size:11.5px;color:var(--ink2);padding:10px 14px;text-align:center}
+.log{margin-top:30px;border-left:3px solid var(--green);padding:4px 0 4px 20px}
+.log .item{padding:10px 0}
+.log b{font-size:14px}
+.log b .fix{font-size:10px;color:#fff;background:var(--green);padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.log p{font-size:12.5px;color:var(--ink2);margin-top:4px;line-height:1.6;word-break:keep-all}
+.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:700px){.tl{grid-template-columns:1fr}}
+.tl .ph{border:1.5px solid var(--line);border-radius:18px;padding:20px 22px}
+.tl .ph .d{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#fff;background:var(--blue);display:inline-block;padding:4px 10px;border-radius:99px}
+.tl .ph:nth-child(2) .d{background:var(--purple)}
+.tl .ph:nth-child(3) .d{background:var(--green)}
+.tl .ph ul{margin:12px 0 0 16px;font-size:12.5px;color:var(--ink2);line-height:1.9}
+.bt{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:13px;font-weight:800;font-size:14px;text-decoration:none}
+.bt.p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.bt.g{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line)}
+footer{background:#10142F;color:#8E97C9;padding:44px 24px;font-size:12px;line-height:1.9}
+footer b{color:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <span class="logo">NO LOGO <b>REMIX</b> · 운영 시나리오</span>
+    <div class="links">
+      <a href="#target">대상 전시</a><a href="#missions">미션 설계</a><a href="#booths">가상 부스</a>
+      <a href="#personas">페르소나 실주행</a><a href="#log">검증·개선</a><a href="#plan">운영 계획</a>
+    </div>
+    <a class="cta" href="pitch.html">발표 소개로 ←</a>
+  </div>
+</nav>
+
+<header class="hero2">
+  <div class="wrap">
+    <span class="eyebrow">REAL-WORLD OPERATION SCENARIO</span>
+    <h1>실존 전시에 적용한다면 —<br><b>2026 그린에너텍</b> × NO LOGO REMIX</h1>
+    <p class="lead">"만약 우리가 이 서비스를 실제로 운영한다면"을 끝까지 밀어붙인 시뮬레이션입니다. 실존 전시회의 검증된 정보 위에서 미션을 설계하고, 가상 참가기업 20부스를 구성하고, 서로 다른 관람객 페르소나 4인이 <b>배포된 프로토타입에서 전체 여정을 실제로 완주</b>했습니다. <span class="tag-sim">참가기업·부스 구성은 가상 시뮬레이션</span></p>
+    <div class="kv">
+      <span>📍 송도컨벤시아 (본선 개최지와 동일)</span>
+      <span>🗓 2026. 8. 5 ~ 8. 7</span>
+      <span>🏢 130개사 · 250부스</span>
+      <span>🤝 주최 인천광역시 · 주관에 인천관광공사 포함</span>
+    </div>
+  </div>
+</header>
+
+<section id="target">
+  <div class="wrap">
+    <span class="eyebrow">TARGET EXHIBITION — 검증된 사실</span>
+    <h2 class="sec">왜 그린에너텍인가</h2>
+    <p class="lead">그린에너텍은 인천시가 주최하고 인천관광공사 등이 주관하는 <b>인천 유일의 탄소중립·신재생에너지 특화 B2B 전시회</b>입니다(5회차, 130개사·250부스). 전시 분야는 에너지 신기술 · 에너지 인프라 · 기후테크 3개 대분류이며, 친환경 플라스틱·탄소중립 공동관과 수출상담회·ESG 콘퍼런스가 함께 열립니다. <small>(공식 사이트·보도 검증, 2026.7 확인)</small></p>
+    <div class="grid4">
+      <div class="card soft"><b class="t">🏅 중소기업 중심 구조</b><p>인천항만공사 공동관은 중소기업 한정 지원(부스비 50%). 브랜드 인지도 없는 기업이 많을수록 <b>블라인드의 가치가 극대화</b>됩니다.</p></div>
+      <div class="card soft"><b class="t">🚪 B2B 전시의 대중 접점 부재</b><p>수출·구매상담회 중심 B2B 행사 — 2030 일반 관람객을 위한 참여 장치가 없는 것이 우리가 채울 공백입니다.</p></div>
+      <div class="card soft"><b class="t">📍 송도컨벤시아</b><p>경진대회 본선 개최지와 같은 장소. "이 전시장에서 열리는 실제 전시" 기준의 시나리오입니다.</p></div>
+      <div class="card soft"><b class="t">🤝 주관사 = 인천관광공사</b><p>대회 후원사가 실제 주관하는 전시 — 수상 이후 파일럿 제안까지 이어질 수 있는 현실적 경로입니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="missions" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">ORGANIZER'S THEME DESIGN</span>
+    <h2 class="sec">전시 관리자의 해결과제 → 관람객 미션 6종</h2>
+    <p class="lead">주최사의 과제는 "B2B 기술을 2030의 생활문제로 번역하는 것". 그린에너텍의 공식 전시 분야에서 미션을 도출했습니다 — 관람객은 기술 용어가 아니라 자기 문제로 입장합니다.</p>
+    <table>
+      <tr><th>전시 분야 (공식)</th><th>관리자의 질문</th><th>관람객 미션 (P02 카드)</th></tr>
+      <tr class="mission-row"><td>에너지 인프라 — 저장·그리드</td><td>ESS·그리드 기술을 어떻게 체감시키나</td><td><b>🔌 정전 걱정 없는 우리 동네 만들기</b></td></tr>
+      <tr class="mission-row"><td>에너지 신기술 — 태양광·BIPV</td><td>발전 기술을 일상 언어로</td><td><b>🪟 우리 집 창문으로 전기 만들기</b></td></tr>
+      <tr class="mission-row"><td>에너지 인프라 — 히트펌프·단열</td><td>효율 기술의 비용 절감 번역</td><td><b>❄️ 여름 냉방비 반으로 줄이기</b></td></tr>
+      <tr class="mission-row"><td>기후테크 — 친환경 플라스틱 공동관</td><td>소재 기술의 생활 접점</td><td><b>🧴 플라스틱 없는 일주일 살기</b></td></tr>
+      <tr class="mission-row"><td>에너지·자원 순환 — 폐배터리</td><td>순환경제를 손에 잡히게</td><td><b>🔋 버려지는 배터리 다시 살리기</b></td></tr>
+      <tr class="mission-row"><td>에너지 인프라 — V2G</td><td>미래 기술의 개인 편익 번역</td><td><b>🚗 내 전기차로 용돈 벌기</b></td></tr>
+    </table>
+    <p class="lead" style="font-size:13px">※ 미션 세트는 전시 ID(?exhibition=)로 전시별 교체되는 구조 — 데모 앱의 범용 미션 8종은 여러 전시 유형을 커버하는 기본 세트입니다.</p>
+  </div>
+</section>
+
+<section id="booths">
+  <div class="wrap">
+    <span class="eyebrow">VIRTUAL EXHIBITORS <span class="tag-sim">가상</span></span>
+    <h2 class="sec">가상 참가기업 20부스 구성</h2>
+    <p class="lead">전 기술 카테고리는 국내에서 실재함을 개별 검증했습니다(정부 정책·산업 보도 근거 16종). 기업명은 전부 가상이며, 실제 운영 시 참가기업의 승인 정보로 대체됩니다.</p>
+    <table>
+      <tr><th>분야 (그린에너텍 공식 분류)</th><th>가상 부스 — 기술 카테고리 (전부 실재 검증됨)</th></tr>
+      <tr><td><b>에너지 신기술</b> (7)</td><td>페로브스카이트 태양전지 · BIPV 태양광 창호 · 수소연료전지 · 소형풍력 · 미세조류 바이오 · 지열 냉난방 · 태양광 O&amp;M 드론</td></tr>
+      <tr><td><b>에너지 인프라</b> (7)</td><td>가정용 ESS · VPP 전력중개 · 스마트미터(AMI) · V2G 충방전 · 건물에너지관리(BEMS) · 히트펌프 · 진공단열재</td></tr>
+      <tr><td><b>기후테크·순환</b> (6)</td><td>생분해 플라스틱 · 폐배터리 재활용 · CCUS 탄소포집 · 에너지 하베스팅 · 기후리스크 관리 SaaS · 자원순환 플랫폼</td></tr>
+    </table>
+    <p class="lead" style="font-size:13px">※ 에너지 하베스팅·미세조류는 연구·실증 단계 성격이 강해 '연구기관 스핀오프' 부스 콘셉트로 설정 — 조사에서 확인된 시장 성숙도를 반영했습니다.</p>
+  </div>
+</section>
+
+<section id="personas" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">PERSONA WALKTHROUGH — 실주행 완료</span>
+    <h2 class="sec">서로 다른 관람객 4인, 전 여정 완주</h2>
+    <p class="lead">머릿속 시나리오가 아니라 <b>배포된 프로토타입에서 실제로 클릭해 완주한 기록</b>입니다. 4인의 결과물은 지금 데모 아이디어 피드와 전광판에 시드로 올라가 있습니다.</p>
+    <div class="grid2">
+      <div class="pcard">
+        <div class="top"><div class="ava">🎓</div><div><b>김도윤 · 25 · 에너지공학 4학년 (취준)</b><span>@dyn_energy — 꼼꼼형, 온보딩 정독, 채용 연계 관심</span></div></div>
+        <div class="body">
+          <p class="jr">미션 '폭염 속 전기료' → 블라인드에서 에너지 기술 2개(선택 이유: 필요성·활용성) → 부스 2곳 인증(만족도 ★5) → 현실형·제품 → 게시 → <b>기업 연락 옵트인 ON</b></p>
+          <div class="res"><b>⚡ GRID NEST</b><p>실시간 전력 제어와 비상 전력 공급 기술을 결합한 폭염 대비 스마트 그리드 제품</p></div>
+          <div class="chips"><i>여정 완주</i><i>옵트인 전환</i><i>부스 만족도 ★5</i></div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="top"><div class="ava">📸</div><div><b>박세인 · 27 · 마케터 (인스타 헤비유저)</b><span>@sein_pick — 온보딩 스킵, 숫자코드 인증, 공유 우선</span></div></div>
+        <div class="body">
+          <p class="jr">미션 '플라스틱 없는 뷰티' → 친환경 용기+피부 센서(이유: 신기함) → QR 대신 <b>숫자코드로 인증</b>(대체 경로 검증) → 재미형 → <b>게시 전에 공유부터 클릭</b></p>
+          <div class="res"><b>🧺 ECO KIT</b><p>친환경 용기와 피부 데이터 측정 기술을 결합한 제로웨이스트 맞춤 뷰티 키트</p></div>
+          <div class="chips"><i>공유 클릭</i><i>대체 인증 경로</i><i>온보딩 스킵</i></div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="top"><div class="ava">☕</div><div><b>이준호 · 34 · 카페 사장 (예비창업자)</b><span>@juno_cafe — 미션 직접 입력, 기술 3개 조합, B2B 관심</span></div></div>
+        <div class="body">
+          <p class="jr"><b>미션 직접 입력 "카페 여름 전기요금 줄이기"</b>(40자 검증) → 서로 다른 3개 기업 기술 조합(최대치) → 부스 3곳 연속 인증 → 현실형·서비스</p>
+          <div class="res"><b>🏠 DAILY LOOP</b><p>전력 제어·단열·환경 센서 3개 기술을 결합해 카페 전기요금을 줄이는 서비스</p></div>
+          <div class="chips"><i>커스텀 미션</i><i>3기술 조합</i><i>3부스 완주</i></div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="top"><div class="ava">🎨</div><div><b>최하늘 · 21 · 시각디자인 전공 (전시 첫 방문)</b><span>@haneul_d — 비주얼 까다로움, 전광판 인증샷 목적</span></div></div>
+        <div class="body">
+          <p class="jr">미션 '정전 없는 미래도시' → 비상 전력+환경 센서(이유: 신기함) → 미래형·공간 → 결과명이 마음에 안 들어 <b>'CITY SAFE'를 'DREAM GRID'로 직접 수정</b>(1회 수정 검증, 2번째 시도는 차단됨)</p>
+          <div class="res"><b>🌃 DREAM GRID</b><p>정전에도 작동하는 미래도시 공간 콘셉트 — 본인이 직접 이름 붙임</p></div>
+          <div class="chips"><i>제목 1회 수정</i><i>재수정 차단 확인</i><i>소유감 검증</i></div>
+        </div>
+      </div>
+    </div>
+    <div class="shots">
+      <figure><img src="assets/personas/persona1-result.jpg" alt="김도윤의 실주행 결과 화면"><figcaption>김도윤 — GRID NEST 생성 직후 (실주행 캡처)</figcaption></figure>
+      <figure><img src="assets/personas/persona2-result.jpg" alt="박세인의 실주행 결과 화면"><figcaption>박세인 — 재미형 결과 생성 직후 (실주행 캡처)</figcaption></figure>
+      <figure><img src="assets/personas/persona4-result.jpg" alt="최하늘의 실주행 결과 화면"><figcaption>최하늘 — 제목 수정 전 화면 (실주행 캡처)</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap">
+    <span class="eyebrow">VALIDATION LOG</span>
+    <h2 class="sec">실주행이 찾아낸 것들 — 그리고 바로 고쳤습니다</h2>
+    <div class="log">
+      <div class="item"><b>한국어 조사 오류 발견 <span class="fix">수정 완료</span></b><p>최하늘의 결과문에서 "비상 전력 공급<b>와</b>" 오류 발견 → 받침 유무를 판별하는 와/과 처리 로직 추가. AI 결과문의 완성도는 공유 의향에 직결되는 디테일.</p></div>
+      <div class="item"><b>결과명-미션 정합성 문제 <span class="fix">수정 완료</span></b><p>뷰티 미션 조합에 'SLEEP SENSE'가 나오는 사례 발견 → 결과명 선정 시 미션 카테고리를 우선하도록 개선. 이름이 내 미션과 무관하면 소유감이 깨짐.</p></div>
+      <div class="item"><b>결과명 중복 문제 <span class="fix">수정 완료</span></b><p>같은 카테고리 조합이 모두 같은 이름(COOL LOOP)을 받던 구조 → 카테고리별 이름 풀 + 조합 해시 방식으로 다양화. 4인의 결과가 전부 다른 이름으로 생성됨을 확인.</p></div>
+      <div class="item"><b>대체 경로 전부 실동작 확인</b><p>숫자코드 인증(박세인) · 커스텀 미션 입력(이준호) · 3기술 조합·3부스 연속 인증(이준호) · 제목 1회 수정과 재수정 차단(최하늘) — 명세의 엣지 케이스가 실제로 작동.</p></div>
+    </div>
+    <div id="backlog" style="margin-top:44px">
+      <h2 class="sec" style="font-size:clamp(20px,2.4vw,26px)">페르소나 관점 검증이 남긴 개선 백로그</h2>
+      <p class="lead">4인 페르소나 에이전트가 각자의 눈으로 배포 웹을 검토한 결과입니다. 2건은 즉시 반영했고, 나머지는 파일럿 전 반영할 백로그로 관리합니다. (예상 공유 확률: 김도윤 55% · 박세인 35% · 이준호 40% · 최하늘 55%)</p>
+      <div class="log" style="border-color:var(--blue)">
+        <div class="item"><b>커스텀 미션이 추천에 미반영 <span class="fix">즉시 수정</span></b><p>이준호 검증 — 직접 입력한 미션("카페 전기요금")이 기술 추천 점수에 반영되지 않던 문제 → 미션 키워드 매칭 가중치 추가. 직접 입력자가 프리셋 사용자보다 덜 맞는 추천을 받던 역설 해소.</p></div>
+        <div class="item"><b>전광판 송출 안내 부재 <span class="fix">즉시 수정</span></b><p>최하늘 검증 — 게시 후 내 작품이 전광판에 뜨는지 알 수 없던 블랙박스 → 게시 완료 안내에 "다음 REMIX LIVE(매시 정각) 전광판 후보" 명시.</p></div>
+        <div class="item"><b>백로그 ①: 9:16 스토리 이미지 원탭 저장</b><p>박세인 — 결과 카드를 인스타 스토리 규격 PNG로 저장하는 버튼. 공유율에 직결되는 1순위 백로그.</p></div>
+        <div class="item"><b>백로그 ②: 기술카드 '스펙 더보기'</b><p>김도윤 — 핵심 성능 수치·기술 성숙도·적용 사례를 접이식으로 제공(블라인드 유지 가능). 이공계 관람객의 선택 근거 강화.</p></div>
+        <div class="item"><b>백로그 ③: 리드 이원화 — '도입 상담'과 '채용'의 분리</b><p>이준호 — 자영업자·바이어형 관람객을 위한 "도입 상담 요청" 버튼을 결과 화면에 추가하고, 옵트인 문구에서 채용과 분리.</p></div>
+        <div class="item"><b>백로그 ④: 생성 대기 60초의 콘텐츠화 · 전광판 미리보기</b><p>박세인·최하늘 — 대기 중 기술카드 리믹스 애니메이션, 결과 화면에 전광판 목업 미리보기 제공.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="plan" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">OPERATION PLAN</span>
+    <h2 class="sec">운영 계획과 측정</h2>
+    <div class="tl">
+      <div class="ph"><span class="d">D-14 ~ D-1</span>
+        <ul><li>참가기업 20개사 기술카드 승인 수집 (기업당 약 30분)</li><li>SNS 블라인드 퀴즈 티저 — 주최사·참가기업 계정, 크리에이터 협업</li><li>퀴즈 참여자 토큰 선지급 + 사전등록 연결</li></ul>
+      </div>
+      <div class="ph"><span class="d">행사 3일 (8.5~8.7)</span>
+        <ul><li>중앙 팝업 운영 — 인력 4~6명, 부스별 QR 비치</li><li>매시 정각 REMIX LIVE 단체 리빌</li><li>전광판 승인 게시 · 이중 검수</li></ul>
+      </div>
+      <div class="ph"><span class="d">사후</span>
+        <ul><li>인기작 숏폼 재가공 · 비관람객 원격 투표 랜딩</li><li>기업별 2030 관심 데이터 리포트 제공</li><li>파일럿 개선점 → 차기 전시 자산화</li></ul>
+      </div>
+    </div>
+    <div class="kv" style="margin-top:34px">
+      <span>KPI — 블라인드 선택 수</span><span>부스 방문 전환율 (목표: 선택자의 50%+)</span><span>결과물 완성률</span><span>SNS 공유율</span><span>중소기업 선택 비중</span><span>옵트인 리드 수</span>
+    </div>
+    <div style="margin-top:36px;display:flex;gap:10px;flex-wrap:wrap">
+      <a class="bt p" href="index.html">📱 이 시나리오를 데모로 체험</a>
+      <a class="bt g" href="live.html">🖥 전광판</a>
+      <a class="bt g" href="dashboard.html">📊 기업 대시보드</a>
+      <a class="bt g" href="pitch.html">📖 발표 소개</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>실사용 운영 시나리오</b> — NO LOGO REMIX × 2026 그린에너텍 (팀 연수와 아이들)<br>
+    ※ 전시회 정보(일정·장소·주최·규모·분야)는 그린에너텍 공식 사이트 및 언론 보도로 검증된 사실입니다 (greenenertec.com, 2026.7 확인).<br>
+    ※ 참가기업·부스 구성·관람객 데이터는 가상 시뮬레이션이며, 기술 카테고리 16종은 국내 실재 여부를 개별 검증했습니다.<br>
+    ※ 본 시나리오는 해당 전시회와의 협의 없이 작성된 학생 공모전 출품용 적용 제안입니다.
+  </div>
+</footer>
+
+</body>
+</html>

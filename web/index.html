@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NO LOGO REMIX — 브랜드는 숨기고, 기술을 발견하세요</title>
+<meta name="description" content="브랜드를 가린 기술을 선택하고, 부스를 방문해 토큰을 모으고, AI로 아이디어를 만드는 참여형 전시 플랫폼">
+<!--
+  NO LOGO REMIX 온보딩 웹 (P01 시작 + 온보딩 카루셀 + P02 미션 선택 데모)
+  · 확정 콘셉트 보드 기반 / 기능제안서 v3.1 [M] 항목 반영
+  · MIXI 마스코트: 같은 폴더에 mixi.png 를 넣으면 자동으로 실제 이미지가 사용되고,
+    없으면 내장 SVG 플레이스홀더가 표시됩니다.
+  · 전시 ID 자동 설정: ?exhibition=EXPO2026 형태의 URL 파라미터 지원
+-->
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --purple:#5B3FF2; --purple-deep:#4527D8; --purple-ink:#2A1E7A;
+  --navy:#10142F; --lavender:#F2EFFF; --surface:#F7F6FD;
+  --ink:#17181C; --ink-2:#62646C; --line:#E4E2F2;
+  --green:#18A874; --blue:#4D7CFE; --sky:#79B8FF;
+  --radius:20px; --shell-w:420px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  color:var(--ink); background:#EDEAFB; min-height:100dvh;
+  display:flex; align-items:center; justify-content:center;
+  padding:28px 16px;
+}
+/* ---------- 배경 데코 ---------- */
+.bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bg::before{content:"";position:absolute;inset:-20%;
+  background:
+    radial-gradient(38% 30% at 18% 12%, rgba(91,63,242,.14), transparent 70%),
+    radial-gradient(30% 26% at 85% 20%, rgba(77,124,254,.14), transparent 70%),
+    radial-gradient(36% 30% at 75% 88%, rgba(91,63,242,.10), transparent 70%),
+    linear-gradient(160deg,#F1EEFC 0%,#E9E5FA 100%);}
+.bg .cube{position:absolute;font-size:22px;opacity:.14;color:var(--purple-ink);
+  animation:driftY 9s ease-in-out infinite}
+@keyframes driftY{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-14px) rotate(6deg)}}
+/* ---------- 폰 셸 ---------- */
+.shell{
+  position:relative;z-index:1;width:100%;max-width:var(--shell-w);
+  background:#fff;border-radius:30px;overflow:hidden;
+  box-shadow:0 30px 70px -28px rgba(42,30,122,.35), 0 4px 18px rgba(42,30,122,.10);
+  border:1px solid #fff;
+}
+@media (max-width:480px){
+  body{padding:0;background:#fff}
+  .shell{max-width:none;min-height:100dvh;border-radius:0;box-shadow:none}
+  .view.active{min-height:100dvh}
+}
+.view{display:none;flex-direction:column;min-height:640px}
+.view.active{display:flex;animation:viewIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+/* ---------- 공통 헤더 ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 6px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.4px;line-height:1.05}
+.brand .no{color:var(--ink)} .brand .remix{color:var(--purple)}
+.brand small{display:block;font-size:9px;font-weight:600;color:var(--ink-2);letter-spacing:2.6px;margin-top:2px}
+.back{appearance:none;border:0;background:transparent;width:44px;height:44px;margin-left:-12px;
+  border-radius:12px;font-size:20px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.back:hover{background:var(--lavender)}
+.step-note{font-size:12px;font-weight:700;color:var(--purple);background:var(--lavender);
+  padding:6px 12px;border-radius:999px}
+/* ---------- 버튼 ---------- */
+.btn{appearance:none;border:0;width:100%;min-height:54px;border-radius:16px;
+  font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.btn-primary{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-deep) 100%);color:#fff;
+  box-shadow:0 12px 24px -10px rgba(91,63,242,.55)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 28px -10px rgba(91,63,242,.6)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary:disabled{background:#D9D6EC;color:#9A97B4;box-shadow:none;cursor:not-allowed;transform:none}
+.btn-ghost{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--purple);background:var(--lavender)}
+/* ==================================================================
+   VIEW 1 — P01 시작·온보딩
+================================================================== */
+.hero{padding:10px 26px 0;text-align:center}
+.hero h1{font-size:27px;font-weight:800;line-height:1.32;margin-top:14px;letter-spacing:-.02em}
+.hero h1 .accent{color:var(--purple)}
+.hero p.sub{margin-top:10px;font-size:13.5px;line-height:1.65;color:var(--ink-2);word-break:keep-all}
+.exhibition-badge{display:none;margin:12px auto 0;width:fit-content;font-size:11.5px;font-weight:700;
+  color:var(--green);background:#E6F7F0;border:1px solid #BFE9D8;padding:5px 12px;border-radius:999px}
+.exhibition-badge.on{display:block}
+/* MIXI */
+.mixi-wrap{position:relative;width:190px;height:190px;margin:6px auto 0;animation:mixiFloat 4.2s ease-in-out infinite}
+@keyframes mixiFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.mixi-wrap img{width:100%;height:100%;object-fit:contain}
+.mixi-shadow{width:110px;height:14px;margin:-4px auto 0;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(42,30,122,.22),transparent);animation:shadowPulse 4.2s ease-in-out infinite}
+@keyframes shadowPulse{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.82);opacity:.7}}
+.mixi-bubble{position:absolute;top:16px;right:-30px;background:#fff;border:1.5px solid var(--line);
+  border-radius:14px 14px 14px 4px;padding:8px 11px;font-size:11px;font-weight:700;color:var(--purple-ink);
+  box-shadow:0 8px 18px -8px rgba(42,30,122,.25);animation:bubblePop .5s .9s cubic-bezier(.2,1.4,.4,1) backwards}
+@keyframes bubblePop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+/* LED 눈 깜빡임 (SVG 내부) */
+.led-blink{animation:ledBlink 3.6s steps(1) infinite}
+@keyframes ledBlink{0%,88%,100%{opacity:1}92%,96%{opacity:.1}}
+/* 5단계 플로우 */
+.flow{display:flex;justify-content:space-between;align-items:flex-start;
+  margin:18px 22px 0;padding:16px 12px 13px;background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;position:relative}
+.flow::before{content:"";position:absolute;top:36px;left:44px;right:44px;height:0;
+  border-top:2px dashed #CFC9EE;z-index:0}
+.fstep{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;width:64px;
+  animation:riseIn .55s cubic-bezier(.2,.9,.3,1) backwards}
+.fstep:nth-child(1){animation-delay:.15s}.fstep:nth-child(2){animation-delay:.25s}
+.fstep:nth-child(3){animation-delay:.35s}.fstep:nth-child(4){animation-delay:.45s}
+.fstep:nth-child(5){animation-delay:.55s}
+@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.fstep .ico{width:40px;height:40px;border-radius:13px;background:#fff;border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--purple);box-shadow:0 4px 10px -4px rgba(42,30,122,.18)}
+.fstep:nth-child(1) .ico{background:var(--navy);border-color:var(--navy);color:#B9C6FF}
+.fstep b{font-size:11.5px;color:var(--ink)}
+.fstep span{font-size:8.5px;color:var(--ink-2);letter-spacing:.2px;text-align:center;line-height:1.2}
+.cta-zone{margin-top:auto;padding:20px 22px calc(18px + env(safe-area-inset-bottom))}
+.cta-zone .btn + .btn{margin-top:10px}
+.time-note{margin-top:12px;text-align:center;font-size:12px;color:var(--ink-2)}
+.privacy-note{margin-top:6px;text-align:center;font-size:11px;color:var(--ink-2)}
+.privacy-note a{color:var(--purple);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+/* ==================================================================
+   VIEW 2 — 온보딩 카루셀
+================================================================== */
+.carousel{flex:1;display:flex;flex-direction:column;padding:0 22px}
+.slide{display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 0 14px}
+.slide.on{display:flex;animation:viewIn .4s cubic-bezier(.2,.8,.2,1)}
+.slide .stage{width:100%;max-width:290px;height:250px;margin-top:14px;display:flex;align-items:center;justify-content:center;position:relative}
+.slide h2{font-size:21px;font-weight:800;margin-top:20px;letter-spacing:-.01em}
+.slide h2 .accent{color:var(--purple)}
+.slide p{margin-top:9px;font-size:13px;line-height:1.65;color:var(--ink-2);word-break:keep-all;max-width:300px}
+/* 슬라이드1: 블라인드 카드 */
+.blind-card{width:196px;background:linear-gradient(165deg,#1A2044 0%,var(--navy) 70%);
+  border-radius:18px;padding:18px 16px 16px;color:#fff;text-align:left;
+  box-shadow:0 22px 44px -16px rgba(16,20,47,.65);transform:rotate(-3deg)}
+.blind-card .no{display:flex;justify-content:space-between;font-size:9.5px;color:#9FA8D6;letter-spacing:1px;font-weight:600}
+.qcube{width:74px;height:74px;margin:16px auto;display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed #5E6AA8;border-radius:16px;font-size:30px;color:#AEB9F5;
+  background:rgba(91,63,242,.16);animation:cubeGlow 2.6s ease-in-out infinite}
+@keyframes cubeGlow{0%,100%{box-shadow:0 0 0 rgba(121,140,255,0)}50%{box-shadow:0 0 26px rgba(121,140,255,.5)}}
+.blind-card .prob{font-size:12.5px;font-weight:700;line-height:1.5}
+.blind-card .tags{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.blind-card .tags i{font-style:normal;font-size:8.5px;background:rgba(255,255,255,.12);padding:3px 7px;border-radius:99px;color:#C9D2FF}
+.lock-badge{position:absolute;bottom:16px;right:8px;background:#fff;color:var(--purple-ink);
+  font-size:10.5px;font-weight:800;padding:7px 12px;border-radius:99px;border:1.5px solid var(--line);
+  box-shadow:0 10px 20px -8px rgba(42,30,122,.35);transform:rotate(4deg)}
+/* 슬라이드2: QR 토큰 */
+.token-stage .qr-frame{width:120px;height:120px;border-radius:18px;background:#fff;border:1.5px solid var(--line);
+  box-shadow:0 14px 30px -12px rgba(42,30,122,.3);display:flex;align-items:center;justify-content:center;position:relative}
+.token-stage .qr-frame::before,.token-stage .qr-frame::after{content:"";position:absolute;width:26px;height:26px;border:3px solid var(--purple)}
+.token-stage .qr-frame::before{top:-3px;left:-3px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.token-stage .qr-frame::after{bottom:-3px;right:-3px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.token-coin{position:absolute;right:6px;bottom:-6px;width:86px;height:86px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#8A73FF 0%,var(--purple) 46%,var(--purple-deep) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 16px 30px -10px rgba(91,63,242,.6), inset 0 0 0 5px rgba(255,255,255,.22);
+  animation:coinPop 2.8s ease-in-out infinite}
+@keyframes coinPop{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+.token-coin b{font-size:20px}.token-coin span{font-size:8px;letter-spacing:2px;font-weight:700;opacity:.85}
+.count-chip{position:absolute;left:10px;top:6px;background:var(--navy);color:#fff;font-size:11px;font-weight:700;
+  padding:7px 12px;border-radius:99px;transform:rotate(-5deg)}
+.count-chip em{font-style:normal;color:#9DF2CB}
+/* 슬라이드3: 리믹스 결과 */
+.remix-stage .mini-result{width:216px;background:#fff;border:1.5px solid var(--line);border-radius:18px;
+  overflow:hidden;box-shadow:0 20px 40px -16px rgba(42,30,122,.35);text-align:left}
+.mini-result .img{height:96px;background:
+  radial-gradient(60% 90% at 70% 20%,rgba(255,255,255,.5),transparent),
+  linear-gradient(140deg,#BFD4FF 0%,#8FB0FF 45%,#5B3FF2 130%);
+  display:flex;align-items:center;justify-content:center;font-size:34px}
+.mini-result .body{padding:12px 14px 14px}
+.mini-result b{font-size:14px;color:var(--purple-ink)}
+.mini-result p{font-size:10.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+.mini-result .chips{display:flex;gap:4px;margin-top:9px;flex-wrap:wrap}
+.mini-result .chips i{font-style:normal;font-size:8.5px;background:var(--lavender);color:var(--purple-ink);
+  font-weight:700;padding:3px 7px;border-radius:99px}
+.spark{position:absolute;font-size:18px;animation:sparkTw 1.8s ease-in-out infinite}
+@keyframes sparkTw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+/* 카루셀 컨트롤 */
+.dots{display:flex;gap:7px;justify-content:center;margin:18px 0 14px}
+.dots i{width:8px;height:8px;border-radius:99px;background:#D9D5F0;transition:all .3s}
+.dots i.on{width:24px;background:var(--purple)}
+.car-ctrl{display:flex;gap:10px;padding:0 22px calc(18px + env(safe-area-inset-bottom))}
+.car-ctrl .btn-ghost{flex:0 0 112px}
+/* ==================================================================
+   VIEW 3 — P02 미션 선택
+================================================================== */
+.mission-head{padding:4px 22px 0}
+.mission-head h2{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.mission-head p{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.cats{display:flex;gap:6px;overflow-x:auto;padding:14px 22px 4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto;font-size:12px;font-weight:700;color:var(--ink-2);background:var(--surface);
+  border:1.5px solid var(--line);padding:8px 13px;border-radius:999px;cursor:pointer;min-height:36px;
+  transition:all .2s}
+.cat[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 4px}
+.m-card{position:relative;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;
+  padding:13px 12px;cursor:pointer;font-family:inherit;transition:all .18s;min-height:82px}
+.m-card .emoji{font-size:20px}
+.m-card b{display:block;font-size:12.5px;line-height:1.4;margin-top:7px;color:var(--ink);word-break:keep-all}
+.m-card .exhib{display:inline-block;font-size:8px;font-weight:800;color:var(--purple);background:var(--lavender);
+  padding:2px 7px;border-radius:99px;margin-top:7px}
+.m-card .check{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:50%;
+  border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;transition:all .18s}
+.m-card[aria-pressed="true"]{border-color:var(--purple);background:var(--lavender);
+  box-shadow:0 8px 20px -10px rgba(91,63,242,.4)}
+.m-card[aria-pressed="true"] .check{background:var(--purple);border-color:var(--purple)}
+.custom-zone{display:none;padding:2px 22px}
+.custom-zone.on{display:block;animation:riseIn .3s ease}
+.custom-zone textarea{width:100%;min-height:64px;resize:none;border:1.5px solid var(--purple);border-radius:14px;
+  padding:11px 12px;font-family:inherit;font-size:13px;background:#fff;color:var(--ink)}
+.custom-zone textarea:focus{outline:3px solid rgba(91,63,242,.25)}
+.custom-zone .cnt{text-align:right;font-size:11px;color:var(--ink-2);margin-top:4px}
+.int-label{padding:14px 22px 0;font-size:13px;font-weight:800}
+.int-label span{color:var(--ink-2);font-weight:600;font-size:11.5px}
+.ints{display:flex;flex-wrap:wrap;gap:7px;padding:10px 22px 6px}
+.int{font-size:12px;font-weight:700;background:#fff;color:var(--ink);border:1.5px solid var(--line);
+  border-radius:999px;padding:9px 14px;cursor:pointer;min-height:38px;transition:all .18s;font-family:inherit}
+.int[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+.cta-reason{text-align:center;font-size:11.5px;color:var(--ink-2);margin-top:9px;min-height:16px}
+.cta-reason.ok{color:var(--green);font-weight:700}
+/* ==================================================================
+   VIEW 3.5 — P03 블라인드 기술카드
+================================================================== */
+.blind-head{padding:4px 22px 0}
+.blind-head h2{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.blind-head p{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.search-row{display:none;padding:12px 22px 0}
+.search-row.on{display:block;animation:riseIn .25s ease}
+.search-row input{width:100%;min-height:44px;border:1.5px solid var(--purple);border-radius:12px;padding:0 14px;font-family:inherit;font-size:13px;background:#fff;color:var(--ink)}
+.search-row input:focus{outline:3px solid rgba(91,63,242,.25)}
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 22px 8px}
+.b-card{position:relative;text-align:left;border:0;border-radius:16px;cursor:pointer;font-family:inherit;
+  background:linear-gradient(165deg,#1B2148 0%,var(--navy) 75%);color:#fff;padding:12px;
+  box-shadow:0 10px 22px -12px rgba(16,20,47,.55);transition:transform .15s ease, box-shadow .2s ease}
+.b-card:hover{transform:translateY(-2px)}
+.b-card:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.b-card .bno{display:flex;justify-content:space-between;font-size:7.5px;letter-spacing:.7px;color:#8E97C9;font-weight:700}
+.b-card .cube-sm{width:40px;height:40px;margin:10px auto 8px;display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed #5E6AA8;border-radius:11px;font-size:17px;color:#AEB9F5;background:rgba(91,63,242,.16)}
+.b-card .b-prob{display:block;font-size:11.5px;font-weight:700;line-height:1.45;min-height:33px;word-break:keep-all}
+.b-card .b-func{display:block;font-size:9.5px;color:#A9B3E2;line-height:1.5;margin-top:5px;min-height:28px;word-break:keep-all}
+.b-card .tags{display:flex;gap:3px;margin-top:8px;flex-wrap:wrap}
+.b-card .tags i{font-style:normal;font-size:7.5px;background:rgba(255,255,255,.12);padding:2px 6px;border-radius:99px;color:#C9D2FF}
+.b-card .b-foot{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
+.b-card .use{font-size:8px;color:#9DA8DC}
+.b-card .use b{color:#9DF2CB;letter-spacing:1px}
+.b-card .priv{font-size:7.5px;background:rgba(255,255,255,.92);color:var(--purple-ink);font-weight:800;padding:3px 7px;border-radius:99px}
+.b-card .new-flag{position:absolute;top:-6px;left:10px;background:var(--blue);color:#fff;font-size:8px;font-weight:800;padding:3px 8px;border-radius:99px}
+.b-card.sel{box-shadow:0 0 0 2.5px var(--purple), 0 14px 26px -12px rgba(91,63,242,.6)}
+.b-card .sel-chip{display:none;position:absolute;top:8px;right:8px;background:var(--purple);color:#fff;
+  font-size:8.5px;font-weight:800;padding:4px 8px;border-radius:99px}
+.b-card.sel .sel-chip{display:block}
+.b-empty{display:none;padding:34px 22px;text-align:center;color:var(--ink-2);font-size:13px;line-height:1.7}
+.b-empty.on{display:block}
+/* 선택 현황 바 [M] */
+.sel-bar{position:sticky;bottom:0;margin-top:auto;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border-top:1.5px solid var(--line);padding:12px 22px calc(14px + env(safe-area-inset-bottom))}
+.sel-bar .chips{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.sel-bar .chips:empty{display:none}
+.sel-bar .chips i{font-style:normal;font-size:10.5px;font-weight:800;background:var(--lavender);color:var(--purple-ink);
+  padding:5px 10px;border-radius:99px}
+.sel-bar .row{display:flex;align-items:center;gap:12px}
+.sel-bar .cnt-txt{font-size:13px;font-weight:800;white-space:nowrap}
+.sel-bar .cnt-txt b{color:var(--purple)}
+.sel-bar .btn{min-height:48px;font-size:14.5px}
+.sel-bar .cta-reason{margin-top:8px}
+/* 바텀시트 (카드 상세) [M] */
+.sheet-mask{position:fixed;inset:0;background:rgba(16,20,47,.5);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+.sheet-mask.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,105%);width:100%;max-width:var(--shell-w);
+  background:#fff;border-radius:24px 24px 0 0;z-index:41;padding:10px 22px calc(20px + env(safe-area-inset-bottom));
+  transition:transform .32s cubic-bezier(.2,.9,.25,1);max-height:82dvh;overflow-y:auto;
+  box-shadow:0 -18px 44px -18px rgba(16,20,47,.45)}
+.sheet.on{transform:translate(-50%,0)}
+.sheet .grip{width:44px;height:4px;border-radius:99px;background:#E0DEF0;margin:4px auto 14px}
+.sheet .s-no{font-size:10px;letter-spacing:1px;color:var(--ink-2);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.sheet .s-no .priv{font-size:9px;background:var(--navy);color:#fff;padding:4px 9px;border-radius:99px;letter-spacing:0}
+.sheet h3{font-size:18px;font-weight:800;margin-top:8px;line-height:1.4;word-break:keep-all}
+.sheet .sec{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.sheet .sec b{display:block;font-size:11px;color:var(--purple);margin-bottom:4px}
+.sheet .sec p{font-size:12.5px;line-height:1.6;word-break:keep-all}
+.sheet .tags{display:flex;gap:5px;margin-top:12px;flex-wrap:wrap}
+.sheet .tags i{font-style:normal;font-size:10px;background:var(--lavender);color:var(--purple-ink);font-weight:700;padding:4px 9px;border-radius:99px}
+.sheet .reason-label{margin-top:16px;font-size:12.5px;font-weight:800}
+.sheet .reason-label span{font-weight:600;color:var(--ink-2);font-size:11px}
+.sheet .reasons{display:flex;gap:7px;margin-top:8px}
+.sheet .reasons button{flex:1;min-height:42px;border:1.5px solid var(--line);background:#fff;border-radius:12px;
+  font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink);transition:all .15s}
+.sheet .reasons button[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+.sheet .s-cta{display:flex;gap:9px;margin-top:16px}
+.sheet .s-cta .btn{min-height:50px;font-size:14.5px}
+.sheet .s-cta .btn-ghost{flex:0 0 96px}
+/* ==================================================================
+   P04 기업 공개 · P05 부스 인증
+================================================================== */
+.rv-head{padding:4px 22px 0;text-align:center}
+.rv-head .done-line{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--purple);animation:riseIn .4s ease}
+.rv-head h2{font-size:20px;font-weight:800;margin-top:6px;line-height:1.35}
+.rv-prog{font-size:11.5px;color:var(--ink-2);margin-top:4px}
+.co-card{margin:14px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:18px;
+  box-shadow:0 16px 34px -18px rgba(42,30,122,.35);animation:flipIn .55s cubic-bezier(.2,.8,.25,1)}
+@keyframes flipIn{from{transform:rotateY(80deg);opacity:0}to{transform:none;opacity:1}}
+.co-top{display:flex;align-items:center;gap:12px}
+.co-logo{width:52px;height:52px;border-radius:16px;background:var(--lavender);border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--purple);flex:0 0 52px}
+.co-top b{font-size:17px;display:block}
+.co-top span{font-size:11px;color:var(--ink-2)}
+.co-tech{margin-top:12px;font-size:14px;font-weight:800;color:var(--purple-ink)}
+.co-desc{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:5px;word-break:keep-all}
+.co-story{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:11.5px;line-height:1.6;color:var(--ink-2);word-break:keep-all}
+.booth-row{display:flex;gap:10px;margin-top:12px;align-items:stretch}
+.booth-info{flex:1;background:var(--lavender);border-radius:14px;padding:12px}
+.booth-info small{font-size:10px;color:var(--purple-ink);font-weight:700}
+.booth-info b{display:block;font-size:18px;color:var(--purple-ink);margin-top:2px}
+.booth-info span{font-size:10.5px;color:var(--ink-2)}
+.map-box{flex:1;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.bm-list{margin:12px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 16px}
+.bm-list b{font-size:12px;color:var(--purple)}
+.bm-list ul{list-style:none;margin-top:6px}
+.bm-list li{font-size:12px;padding:4px 0;color:var(--ink)}
+.bm-list li::before{content:"✓ ";color:var(--green);font-weight:800}
+/* P05 */
+.vf-card{margin:14px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:18px;text-align:center}
+.vf-qr{width:150px;height:150px;margin:8px auto;border-radius:18px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#8E97C9;font-size:11px;position:relative}
+.vf-qr::before,.vf-qr::after{content:"";position:absolute;width:28px;height:28px;border:3px solid var(--purple)}
+.vf-qr::before{top:-3px;left:-3px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.vf-qr::after{bottom:-3px;right:-3px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.vf-links{display:flex;justify-content:center;gap:14px;margin-top:10px;flex-wrap:wrap}
+.vf-links a{font-size:11.5px;color:var(--purple);font-weight:700;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.code-row{display:none;gap:8px;margin-top:12px}
+.code-row.on{display:flex}
+.code-row input{flex:1;min-height:46px;border:1.5px solid var(--purple);border-radius:12px;padding:0 12px;font-family:inherit;font-size:14px;letter-spacing:3px;text-align:center}
+.code-row .btn{flex:0 0 84px;min-height:46px;font-size:13px}
+.banner{display:none;margin:12px 22px 0;border-radius:14px;padding:12px 14px;font-size:12.5px;font-weight:700;line-height:1.5}
+.banner.on{display:block;animation:riseIn .3s ease}
+.banner.err{background:#FDECEC;color:#C03538;border:1.5px solid #F5C6C8}
+.banner.warn{background:#FFF4E0;color:#A96A00;border:1.5px solid #F5DCA8}
+.succ-panel{display:none;text-align:center;padding:8px 22px 0}
+.succ-panel.on{display:block;animation:riseIn .4s ease}
+.succ-coin{width:110px;height:110px;margin:14px auto 6px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#8A73FF 0%,var(--purple) 46%,var(--purple-deep) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 18px 36px -12px rgba(91,63,242,.6), inset 0 0 0 6px rgba(255,255,255,.22);animation:coinPop 1.4s ease-in-out}
+.succ-coin b{font-size:30px}.succ-coin span{font-size:9px;letter-spacing:2px;font-weight:700;opacity:.85}
+.succ-panel h3{font-size:19px;font-weight:800;margin-top:8px}
+.succ-panel .own{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+.succ-panel .own b{color:var(--purple)}
+/* ==================================================================
+   P06 토큰함 · P07 리믹스 · P08 결과
+================================================================== */
+.tok-list{padding:12px 22px 4px;display:flex;flex-direction:column;gap:9px}
+.tok{position:relative;display:flex;align-items:center;gap:11px;background:#fff;border:1.5px solid var(--line);
+  border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;text-align:left;transition:all .15s;width:100%}
+.tok:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tok[aria-pressed="true"]{border-color:var(--purple);background:var(--lavender);box-shadow:0 8px 18px -10px rgba(91,63,242,.4)}
+.tok .t-ico{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex:0 0 42px;background:var(--lavender)}
+.tok .t-body{flex:1;min-width:0}
+.tok .t-body b{display:block;font-size:13px}
+.tok .t-body span{display:block;font-size:10.5px;color:var(--ink-2);margin-top:2px}
+.tok .t-badge{font-size:9px;font-weight:800;color:var(--green);background:#E6F7F0;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.tok .t-x{position:absolute;top:-7px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;
+  border:0;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.tok.lock{border-style:dashed;background:var(--surface)}
+.tok.lock .t-ico{background:#EDEBF8;color:#9A97B4}
+.tok.lock b{color:var(--ink-2)}
+.prog-mini{margin:4px 22px 0;font-size:11.5px;color:var(--ink-2)}
+.prog-mini b{color:var(--purple)}
+/* P07 */
+.rx-sec{margin:12px 22px 0}
+.rx-sec>b{display:block;font-size:12.5px;font-weight:800;margin-bottom:8px}
+.rx-sec>b span{font-weight:600;color:var(--ink-2);font-size:11px}
+.rx-chips{display:flex;gap:7px;flex-wrap:wrap}
+.rx-chips .tokchip{font-size:11.5px;font-weight:800;background:var(--navy);color:#fff;padding:8px 12px;border-radius:12px}
+.opt-row{display:flex;gap:7px}
+.opt-row button{flex:1;min-height:44px;border:1.5px solid var(--line);background:#fff;border-radius:12px;
+  font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink);transition:all .15s}
+.opt-row button[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+.mission-chip{display:flex;align-items:center;justify-content:space-between;background:var(--surface);
+  border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;font-size:12.5px;font-weight:700;gap:10px}
+.mission-chip button{border:0;background:transparent;color:var(--purple);font-weight:800;font-size:11.5px;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.gen-panel{display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+.gen-panel.on{display:flex}
+.gen-mixi{font-size:52px;animation:mixiFloat 2.6s ease-in-out infinite}
+.gen-mixi-img{width:150px;border-radius:22px;border:1.5px solid var(--line);animation:mixiFloat 2.6s ease-in-out infinite;box-shadow:0 16px 32px -14px rgba(46,107,255,.45)}
+.gen-msg{font-size:14.5px;font-weight:800;margin-top:16px;min-height:22px}
+.gen-sub{font-size:11.5px;color:var(--ink-2);margin-top:6px}
+.gen-bar{width:100%;max-width:260px;height:8px;border-radius:99px;background:var(--lavender);margin-top:18px;overflow:hidden}
+.gen-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .8s ease}
+/* P08 */
+.result-card{margin:12px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:20px;overflow:hidden;
+  box-shadow:0 18px 38px -18px rgba(42,30,122,.35)}
+.r-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:56px;
+  background:radial-gradient(70% 100% at 70% 15%,rgba(255,255,255,.55),transparent),linear-gradient(140deg,#BFD4FF 0%,#8FB0FF 45%,var(--purple) 130%)}
+.r-body{padding:14px 16px 16px}
+.r-title{display:flex;align-items:center;gap:8px}
+.r-title h3{font-size:20px;font-weight:800;color:var(--purple-ink);letter-spacing:.5px;flex:1}
+.r-badges{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.r-badges i{font-style:normal;font-size:9.5px;font-weight:800;background:var(--lavender);color:var(--purple-ink);padding:4px 9px;border-radius:99px}
+.r-desc-row{display:flex;gap:8px;align-items:flex-start;margin-top:9px}
+.r-desc{font-size:12.5px;line-height:1.65;color:var(--ink);word-break:keep-all;flex:1}
+.pencil{border:0;background:var(--surface);width:30px;height:30px;min-width:30px;border-radius:9px;cursor:pointer;font-size:13px;color:var(--purple)}
+.r-roles{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px}
+.r-roles>b{font-size:11px;color:var(--purple)}
+.role-row{display:flex;gap:8px;align-items:center;margin-top:7px;font-size:11.5px;flex-wrap:wrap}
+.role-row .no{font-weight:800;background:var(--navy);color:#fff;font-size:9px;padding:3px 7px;border-radius:99px;white-space:nowrap}
+.role-row span{color:var(--ink-2)}
+.disclaimer{margin:12px 22px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:10px 13px;font-size:10.5px;color:var(--ink-2);line-height:1.6}
+.pub-zone{margin:12px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px 15px}
+.pub-zone>b{font-size:12px}
+.pub-zone .nick-row{display:flex;gap:8px;margin-top:8px}
+.pub-zone input[type="text"]{flex:1;min-height:44px;border:1.5px solid var(--line);border-radius:11px;padding:0 12px;font-family:inherit;font-size:13px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:11px;color:var(--ink-2);line-height:1.5;cursor:pointer}
+.consent input{width:17px;height:17px;margin-top:1px;accent-color:var(--purple)}
+.r-ctas{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 22px 4px}
+.r-ctas .btn{min-height:46px;font-size:13px}
+.r-ctas .wide{grid-column:1/-1}
+/* ==================================================================
+   P09 아이디어 피드 · P10 마이페이지 · 탭바
+================================================================== */
+.top3{display:flex;gap:8px;padding:12px 22px 0}
+.top3 .t3{flex:1;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:9px;text-align:center;position:relative}
+.top3 .t3 .rank{position:absolute;top:-8px;left:8px;width:20px;height:20px;border-radius:50%;background:var(--purple);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.top3 .t3:first-child .rank{background:#F5B301}
+.top3 .t3 .em{font-size:24px}
+.top3 .t3 b{display:block;font-size:9.5px;margin-top:3px}
+.top3 .t3 span{font-size:9px;color:var(--ink-2)}
+.feed{padding:12px 22px 8px;display:flex;flex-direction:column;gap:9px}
+.f-card{display:flex;gap:11px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:11px;align-items:center}
+.f-card.mine{border-color:var(--purple);background:var(--lavender)}
+.f-card{cursor:pointer}
+.f-card .em{width:54px;height:54px;flex:0 0 54px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:26px;
+  background:linear-gradient(140deg,#E4ECFF,#D4DEFF);overflow:hidden}
+.f-card .em img{width:100%;height:100%;object-fit:cover}
+/* 아이디어 상세 시트 */
+.is-img{height:158px;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:54px;
+  background:linear-gradient(140deg,#E4ECFF,#D4DEFF);margin-top:4px}
+.is-img img{width:100%;height:100%;object-fit:cover}
+#ideaSheet h3{margin-top:12px}
+#ideaSheet .r-badges{margin-top:8px}
+.f-card .f-body{flex:1;min-width:0}
+.f-card .f-body b{font-size:13.5px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.f-card .f-body b i{font-style:normal;font-size:8.5px;font-weight:800;background:var(--purple);color:#fff;padding:2px 6px;border-radius:99px}
+.f-card .f-body>span{display:block;font-size:10px;color:var(--ink-2);margin-top:3px}
+.vote-btn{border:1.5px solid var(--line);background:#fff;border-radius:12px;min-width:58px;min-height:44px;cursor:pointer;
+  font-family:inherit;font-size:10.5px;font-weight:800;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.vote-btn .hrt{font-size:13px}
+.vote-btn[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+.vote-btn:disabled{opacity:.55;cursor:not-allowed}
+.bb-chip{font-size:9.5px;font-weight:800;color:var(--blue);background:#EAF0FF;border:1px solid #C9D8FF;padding:3px 8px;border-radius:99px;font-family:inherit}
+/* P10 */
+.my-head{display:flex;align-items:center;gap:12px;padding:10px 22px 0}
+.my-ava{width:54px;height:54px;border-radius:50%;background:linear-gradient(140deg,#79B8FF,#5B3FF2);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 54px}
+.my-head input{border:0;border-bottom:1.5px dashed var(--line);font-family:inherit;font-size:16px;font-weight:800;width:100%;background:transparent;color:var(--ink);padding:2px 0}
+.my-head small{font-size:10.5px;color:var(--ink-2)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:14px 22px 0}
+.stat{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center}
+.stat b{display:block;font-size:17px;color:var(--purple)}
+.stat span{font-size:9.5px;color:var(--ink-2)}
+.sec-label{padding:16px 22px 0;font-size:13px;font-weight:800}
+.badges-row{display:flex;gap:8px;padding:9px 22px 0;flex-wrap:wrap}
+.badge{width:64px;text-align:center;opacity:.35}
+.badge.got{opacity:1}
+.badge .b-ico{width:46px;height:46px;margin:0 auto;border-radius:50%;background:var(--lavender);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff}
+.badge.got .b-ico{background:linear-gradient(140deg,#8A73FF,#5B3FF2);border-color:transparent}
+.badge span{display:block;font-size:9px;font-weight:700;margin-top:4px;color:var(--ink-2)}
+.timeline{padding:8px 22px 0}
+.tl-row{display:flex;gap:9px;font-size:11.5px;padding:5px 0;color:var(--ink)}
+.tl-row .tm{color:var(--ink-2);font-variant-numeric:tabular-nums;flex:0 0 40px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:9px 22px 0;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+.set-row .s-txt b{font-size:12.5px;display:block}
+.set-row .s-txt span{font-size:10.5px;color:var(--ink-2);line-height:1.45;display:block;margin-top:2px;word-break:keep-all}
+.switch{position:relative;width:46px;height:26px;flex:0 0 46px}
+.switch input{opacity:0;width:100%;height:100%;position:absolute;cursor:pointer;z-index:1;margin:0}
+.switch i{position:absolute;inset:0;border-radius:99px;background:#DDDAF0;transition:.2s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.switch input:checked+i{background:var(--purple)}
+.switch input:checked+i::after{left:23px}
+.stars{display:flex;gap:6px}
+.stars button{border:0;background:transparent;font-size:21px;cursor:pointer;color:#DDDAF0;padding:2px}
+.stars button.on{color:#F5B301}
+.danger{color:#C03538 !important}
+/* 탭바 */
+.tabbar{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:var(--shell-w);
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1.5px solid var(--line);z-index:30;
+  display:none;padding:6px 8px calc(8px + env(safe-area-inset-bottom))}
+.tabbar.on{display:flex}
+.tabbar button{flex:1;border:0;background:transparent;font-family:inherit;cursor:pointer;color:#9A97B4;
+  display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9.5px;font-weight:700;padding:4px 0;min-height:44px}
+.tabbar button .t-em{font-size:17px}
+.tabbar button.on{color:var(--purple)}
+body.tabs-on .view.active{padding-bottom:74px}
+/* ---------- 완료 패널 ---------- */
+.done-panel{padding:26px 26px 0;text-align:center;flex:1;display:flex;flex-direction:column}
+.done-panel .big{width:96px;height:96px;margin:26px auto 0;border-radius:28px;
+  background:linear-gradient(140deg,var(--purple) 0%,var(--blue) 120%);display:flex;align-items:center;justify-content:center;
+  font-size:42px;box-shadow:0 20px 40px -14px rgba(91,63,242,.55);animation:coinPop 3s ease-in-out infinite}
+.done-panel h2{font-size:21px;font-weight:800;margin-top:22px}
+.done-panel p{font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:10px;word-break:keep-all}
+.done-sum{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:14px 16px;text-align:left;font-size:12.5px;line-height:2}
+.done-sum b{color:var(--purple-ink)}
+/* ---------- 토스트 ---------- */
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);
+  background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;
+  opacity:0;pointer-events:none;transition:all .3s;z-index:50;max-width:86vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <span class="cube" style="top:12%;left:7%">◇</span>
+  <span class="cube" style="top:22%;right:9%;animation-delay:1.2s">?</span>
+  <span class="cube" style="bottom:18%;left:11%;animation-delay:2s">✦</span>
+  <span class="cube" style="bottom:10%;right:14%;animation-delay:.6s">◈</span>
+</div>
+
+<main class="shell">
+
+  <!-- ============ VIEW 1 · P01 시작 ============ -->
+  <section class="view active" id="view-start" aria-label="시작 화면">
+    <div class="top">
+      <div class="brand"><span class="no">NO LOGO</span> <span class="remix">REMIX</span><small>BLIND · VISIT · REMIX</small></div>
+      <span class="step-note">STEP 1 / 10</span>
+    </div>
+    <div class="hero">
+      <h1>브랜드는 숨기고,<br><span class="accent">기술을 발견하세요!</span></h1>
+      <p class="sub">기업 이름은 나중에 공개됩니다. 기술을 선택하고, 부스를 방문하고, 아이디어를 만들어 공유해보세요.</p>
+      <div class="exhibition-badge" id="exBadge" role="status"></div>
+
+      <div class="mixi-wrap">
+        <div class="mixi-bubble">안녕! 나는 MIXI야 👋</div>
+        <!-- mixi.png가 폴더에 있으면 사용, 없으면 아래 SVG 표시 -->
+        <img id="mixiImg" src="mixi.png" alt="" style="display:none" aria-hidden="true">
+        <svg id="mixiSvg" viewBox="0 0 200 200" role="img" aria-label="마스코트 MIXI">
+          <defs>
+            <linearGradient id="gBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6FA8FF"/><stop offset="1" stop-color="#3D6EF0"/>
+            </linearGradient>
+            <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EAF2FF" stop-opacity=".9"/><stop offset="1" stop-color="#BFD4FF" stop-opacity=".45"/>
+            </linearGradient>
+          </defs>
+          <!-- 몸통 -->
+          <ellipse cx="100" cy="152" rx="40" ry="34" fill="url(#gBody)"/>
+          <path d="M100 133 l7 10 -7 10 -7 -10 z" fill="#EAF2FF" opacity=".9"/>
+          <!-- 팔 (흔드는 팔) -->
+          <ellipse cx="146" cy="128" rx="13" ry="17" fill="#5488F5" transform="rotate(-30 146 128)">
+            <animateTransform attributeName="transform" type="rotate" values="-30 146 128;-52 146 128;-30 146 128" dur="1.6s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="56" cy="146" rx="12" ry="16" fill="#5488F5" transform="rotate(18 56 146)"/>
+          <!-- 헬멧 유리 -->
+          <circle cx="100" cy="86" r="62" fill="url(#gGlass)" stroke="#9CBAF7" stroke-width="3"/>
+          <!-- 얼굴 플레이트 -->
+          <ellipse cx="100" cy="88" rx="49" ry="42" fill="#FDFEFF" stroke="#D9E4FA" stroke-width="2"/>
+          <!-- 바이저 -->
+          <rect x="63" y="66" width="74" height="42" rx="21" fill="#131A3F"/>
+          <!-- LED 눈: "1 1" -->
+          <g class="led-blink" fill="#7FB4FF">
+            <rect x="84" y="76" width="5" height="20" rx="1.5"/>
+            <rect x="80" y="76" width="5" height="5" rx="1.5"/>
+            <rect x="80" y="91" width="13" height="5" rx="1.5"/>
+            <rect x="112" y="76" width="5" height="20" rx="1.5"/>
+            <rect x="108" y="76" width="5" height="5" rx="1.5"/>
+            <rect x="108" y="91" width="13" height="5" rx="1.5"/>
+          </g>
+          <!-- 이어컵 -->
+          <circle cx="38" cy="88" r="11" fill="#CFE0FF" stroke="#9CBAF7" stroke-width="2.5"/>
+          <circle cx="162" cy="88" r="11" fill="#CFE0FF" stroke="#9CBAF7" stroke-width="2.5"/>
+          <!-- 가슴 별 -->
+          <path d="M100 158 l4.5 8 8 4.5 -8 4.5 -4.5 8 -4.5 -8 -8 -4.5 8 -4.5 z" fill="#DCEBFF"/>
+        </svg>
+      </div>
+      <div class="mixi-shadow" aria-hidden="true"></div>
+    </div>
+
+    <div class="flow" role="list" aria-label="참여 5단계">
+      <div class="fstep" role="listitem">
+        <div class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7 4v10l-7 4-7-4V7z"/><path d="M12 12l7-4M12 12v9M12 12L5 8"/></svg></div>
+        <b>발견</b><span>Blind Pick</span>
+      </div>
+      <div class="fstep" role="listitem">
+        <div class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 4v16"/></svg></div>
+        <b>공개</b><span>Brand Reveal</span>
+      </div>
+      <div class="fstep" role="listitem">
+        <div class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <b>방문</b><span>Booth Visit</span>
+      </div>
+      <div class="fstep" role="listitem">
+        <div class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.2 2.2M16.2 16.2l2.2 2.2M18.4 5.6l-2.2 2.2M7.8 16.2l-2.2 2.2"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+        <b>AI 리믹스</b><span>AI Remix</span>
+      </div>
+      <div class="fstep" role="listitem">
+        <div class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg></div>
+        <b>공유</b><span>Live Share</span>
+      </div>
+    </div>
+
+    <div class="cta-zone">
+      <button class="btn btn-primary" id="btnStart">체험 시작하기</button>
+      <button class="btn btn-ghost" id="btnContinue" style="display:none">이어서 하기</button>
+      <p class="time-note">예상 소요시간 : 약 <b>10~15분</b></p>
+      <p class="privacy-note">로그인 없이 익명으로 참여해요 · <a href="#" id="privacyLink">개인정보 최소수집 안내</a></p>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 2 · 온보딩 카루셀 ============ -->
+  <section class="view" id="view-onboard" aria-label="참여 방법 안내">
+    <div class="top">
+      <button class="back" id="obBack" aria-label="뒤로가기">←</button>
+      <span class="step-note" id="obStep">참여 방법 1 / 3</span>
+    </div>
+    <div class="carousel">
+      <!-- 슬라이드 1 -->
+      <div class="slide on" data-slide="0">
+        <div class="stage">
+          <div class="blind-card">
+            <div class="no"><span>BLIND TECH CARD</span><span>No.12 / 20</span></div>
+            <div class="qcube">?</div>
+            <div class="prob">에너지 사용을 최적화하는<br>지능형 제어 기술</div>
+            <div class="tags"><i>#에너지절감</i><i>#AI</i><i>#스마트제어</i></div>
+          </div>
+          <div class="lock-badge">🔒 기업명 비공개</div>
+        </div>
+        <h2>이름 대신 <span class="accent">기술</span>을 보고 고르세요</h2>
+        <p>기업명·로고는 선택 전까지 공개되지 않아요. 기술이 해결하는 문제만 보고 관심 기술을 고릅니다.</p>
+      </div>
+      <!-- 슬라이드 2 -->
+      <div class="slide" data-slide="1">
+        <div class="stage token-stage">
+          <span class="count-chip">보유 토큰 <em>1 / 3</em></span>
+          <div class="qr-frame"><svg width="66" height="66" viewBox="0 0 24 24" fill="var(--navy)"><path d="M3 3h8v8H3zM5 5v4h4V5zM13 3h8v8h-8zM15 5v4h4V5zM3 13h8v8H3zM5 15v4h4v-4zM13 13h3v3h-3zM18 13h3v3h-3zM13 18h3v3h-3zM18 18h3v3h-3z"/></svg></div>
+          <div class="token-coin"><b>◈</b><span>TOKEN</span></div>
+        </div>
+        <h2>부스를 방문해 <span class="accent">토큰</span>을 모아요</h2>
+        <p>공개된 기업의 실제 부스에서 QR을 스캔하면 기술 토큰이 활성화돼요. 서로 다른 기업의 토큰 2~3개를 모아보세요.</p>
+      </div>
+      <!-- 슬라이드 3 -->
+      <div class="slide" data-slide="2">
+        <div class="stage remix-stage">
+          <span class="spark" style="top:8px;left:18px">✦</span>
+          <span class="spark" style="top:30px;right:10px;animation-delay:.5s">✧</span>
+          <span class="spark" style="bottom:12px;left:6px;animation-delay:1s">✦</span>
+          <div class="mini-result">
+            <div class="img">❄️</div>
+            <div class="body">
+              <b>COOL LOOP</b>
+              <p>실시간 에너지 제어와 단열 소재를 결합한 스마트 에너지 루틴</p>
+              <div class="chips"><i>No.12 에너지 제어</i><i>No.07 단열 소재</i></div>
+            </div>
+          </div>
+        </div>
+        <h2>AI로 섞어 <span class="accent">나만의 아이디어</span>를!</h2>
+        <p>모은 기술을 조합하면 MIXI가 새로운 아이디어와 콘셉트 이미지를 만들어줘요. 전광판에 게시하고 투표에 참여하세요.</p>
+      </div>
+      <div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    </div>
+    <div class="car-ctrl">
+      <button class="btn btn-ghost" id="obSkip">건너뛰기</button>
+      <button class="btn btn-primary" id="obNext">다음</button>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 3 · P02 미션 선택 ============ -->
+  <section class="view" id="view-mission" aria-label="관심 문제·미션 선택">
+    <div class="top">
+      <button class="back" id="msBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 2 / 10</span>
+    </div>
+    <div class="mission-head">
+      <h2>어떤 문제를 해결하고 싶나요?</h2>
+      <p>하나의 미션을 선택하면 관련 기술을 추천해드려요.</p>
+    </div>
+
+    <div class="cats" role="group" aria-label="카테고리 필터">
+      <button class="cat" aria-pressed="true" data-cat="all">전체</button>
+      <button class="cat" aria-pressed="false" data-cat="env">환경·에너지</button>
+      <button class="cat" aria-pressed="false" data-cat="life">일상·생활</button>
+      <button class="cat" aria-pressed="false" data-cat="health">건강·의료</button>
+      <button class="cat" aria-pressed="false" data-cat="mobility">모빌리티</button>
+      <button class="cat" aria-pressed="false" data-cat="food">식음료</button>
+      <button class="cat" aria-pressed="false" data-cat="city">미래도시</button>
+    </div>
+
+    <div class="m-grid" role="group" aria-label="미션 카드 — 1개 필수 선택 (실제 국내 전시 분야와 연계)">
+      <button class="m-card" data-cat="env" data-mission="m1" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🔥</span><b>폭염 속 자취방<br>전기료 줄이기</b>
+        <span class="exhib">⚡ 에너지·기후 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="food" data-mission="m2" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🥗</span><b>1인 가구 식품<br>낭비 줄이기</b>
+        <span class="exhib">🍽 푸드테크 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="life" data-mission="m3" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🧴</span><b>플라스틱 없는<br>뷰티 루틴 만들기</b>
+        <span class="exhib">💄 뷰티·화장품 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="mobility" data-mission="m4" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🚈</span><b>출퇴근 시간을<br>줄이는 이동 서비스</b>
+        <span class="exhib">🚗 모빌리티 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="city" data-mission="m5" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🌃</span><b>정전에도 작동하는<br>미래도시 만들기</b>
+        <span class="exhib">🏙 스마트시티 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="health" data-mission="m6" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">❤️</span><b>혼자 사는 가족의<br>건강 지키기</b>
+        <span class="exhib">🩺 의료·헬스케어 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="life" data-mission="m7" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">🤖</span><b>집안일을 돕는<br>로봇과 살아보기</b>
+        <span class="exhib">🦾 로봇 전시 연계</span><span class="check">✓</span>
+      </button>
+      <button class="m-card" data-cat="all" data-mission="custom" aria-pressed="false">
+        <span class="emoji" aria-hidden="true">✏️</span><b>직접 문제<br>입력하기</b>
+        <span class="exhib">✨ 나만의 미션</span><span class="check">✓</span>
+      </button>
+    </div>
+
+    <div class="custom-zone" id="customZone">
+      <label for="customInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">해결하고 싶은 문제 직접 입력 (40자 이내)</label>
+      <textarea id="customInput" maxlength="40" placeholder="해결하고 싶은 문제를 40자 이내로 적어주세요"></textarea>
+      <div class="cnt"><span id="cnt">0</span>/40</div>
+    </div>
+
+    <div class="int-label">관심 분야 <span>· 최대 3개 선택 (선택)</span></div>
+    <div class="ints" role="group" aria-label="관심 분야 — 최대 3개">
+      <button class="int" aria-pressed="false" data-int="환경·에너지">🌱 환경·에너지</button>
+      <button class="int" aria-pressed="false" data-int="일상·생활">🏠 일상·생활</button>
+      <button class="int" aria-pressed="false" data-int="건강·의료">❤️ 건강·의료</button>
+      <button class="int" aria-pressed="false" data-int="모빌리티">🚗 모빌리티</button>
+      <button class="int" aria-pressed="false" data-int="식음료">☕ 식음료</button>
+      <button class="int" aria-pressed="false" data-int="미래도시">🏙️ 미래도시</button>
+    </div>
+
+    <div class="cta-zone">
+      <button class="btn btn-primary" id="btnMission" disabled>기술 발견하러 가기</button>
+      <p class="cta-reason" id="ctaReason" aria-live="polite">메인 미션 1개를 선택하면 진행할 수 있어요</p>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 3.5 · P03 블라인드 기술카드 ============ -->
+  <section class="view" id="view-blind" aria-label="블라인드 기술카드 선택">
+    <div class="top">
+      <button class="back" id="blBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 3 / 10</span>
+    </div>
+    <div class="blind-head">
+      <h2>이름 대신 기술을 보고 골라보세요</h2>
+      <p>선택하기 전까지 기업명은 공개되지 않습니다.</p>
+    </div>
+    <div class="cats" role="group" aria-label="정렬·필터 — 인기순은 공정성을 위해 제공하지 않음">
+      <button class="cat" aria-pressed="true" data-bsort="recommend">추천순</button>
+      <button class="cat" aria-pressed="false" data-bsort="new">새로운 기술</button>
+      <button class="cat" aria-pressed="false" data-bsort="interest">관심분야</button>
+      <button class="cat" aria-pressed="false" data-bsort="search">🔍 검색</button>
+    </div>
+    <div class="search-row" id="bSearchRow">
+      <label for="bSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">기술 검색</label>
+      <input id="bSearch" type="search" placeholder="문제·기능·태그로 검색해보세요">
+    </div>
+    <div class="b-grid" id="bGrid" role="group" aria-label="블라인드 기술카드 목록 — 최대 3개 선택"></div>
+    <div class="b-empty" id="bEmpty">조건에 맞는 기술이 없어요.<br>다른 필터나 검색어를 시도해보세요.</div>
+    <div class="sel-bar">
+      <div class="chips" id="selChips"></div>
+      <div class="row">
+        <span class="cnt-txt">선택한 기술 <b id="selCnt">0</b> / 3</span>
+        <button class="btn btn-primary" id="btnBlindDone" disabled>선택 완료</button>
+      </div>
+      <p class="cta-reason" id="blindReason" aria-live="polite">기술을 1개 이상 선택하면 진행할 수 있어요</p>
+    </div>
+  </section>
+
+  <!-- ============ P04 · 기업 공개·부스 안내 ============ -->
+  <section class="view" id="view-reveal" aria-label="기업 공개·부스 안내">
+    <div class="top">
+      <button class="back" id="rvBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 4 / 10</span>
+    </div>
+    <div class="rv-head">
+      <div class="done-line">🎉 REVEAL COMPLETE!</div>
+      <h2>당신이 고른 기술의<br>주인공을 공개합니다!</h2>
+      <p class="rv-prog" id="rvProg">기업 공개 1 / 1</p>
+    </div>
+    <div class="co-card" id="coCard"></div>
+    <div class="bm-list"><b>부스에서 확인할 미션</b><ul id="bmList"></ul></div>
+    <div class="cta-zone">
+      <button class="btn btn-primary" id="btnGoBooth">부스로 이동하기</button>
+      <p class="cta-reason">부스 방문 전까지 기술 토큰은 잠금 상태예요 🔒</p>
+    </div>
+  </section>
+
+  <!-- ============ P05 · 부스 방문 QR 인증 ============ -->
+  <section class="view" id="view-verify" aria-label="부스 방문 QR 인증">
+    <div class="top">
+      <button class="back" id="vfBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 5 / 10</span>
+    </div>
+    <div id="vfMain">
+      <div class="blind-head" style="text-align:center">
+        <h2>부스에 도착했나요?</h2>
+        <p id="vfSub">부스의 QR을 스캔하고 기술 토큰을 획득하세요!</p>
+      </div>
+      <div class="vf-card">
+        <div class="vf-qr">QR 코드를 스캔해주세요</div>
+        <div class="vf-links">
+          <a id="lnkCode" role="button" tabindex="0">숫자 인증코드 입력</a>
+          <a id="lnkErr" role="button" tabindex="0">잘못된 QR 상태 보기</a>
+          <a id="lnkHelp" role="button" tabindex="0">직원 도움 요청</a>
+        </div>
+        <div class="code-row" id="codeRow">
+          <input id="codeInput" inputmode="numeric" maxlength="4" placeholder="데모 코드 2026" aria-label="숫자 인증코드">
+          <button class="btn btn-primary" id="btnCode">확인</button>
+        </div>
+      </div>
+      <div class="banner err" id="bnErr" role="alert">잘못된 부스 QR이에요. <b id="bnErrBooth"></b> 부스의 QR을 스캔해주세요.</div>
+      <div class="banner warn" id="bnDup" role="alert">이미 인증한 부스예요. 다른 기술의 부스를 방문해보세요!</div>
+      <div class="bm-list" style="margin-top:12px">
+        <b>인증 전 체크</b>
+        <ul><li>부스에서 기술 설명을 들었나요?</li><li>제품·서비스를 직접 체험했나요?</li><li>QR을 스캔하면 토큰이 발급됩니다</li></ul>
+      </div>
+      <div class="cta-zone">
+        <button class="btn btn-primary" id="btnVerify">부스 인증하기 (QR 스캔 데모)</button>
+      </div>
+    </div>
+    <div class="succ-panel" id="succPanel">
+      <div class="succ-coin"><b>◈</b><span>TOKEN</span></div>
+      <h3>기술 토큰을 획득했어요!</h3>
+      <p class="own">현재 보유 토큰 <b id="tokCnt">1</b> / 3</p>
+      <div class="stars" style="justify-content:center;margin-top:12px" id="boothStars" aria-label="부스 만족도 — 선택 사항">
+        <button data-star="1" aria-label="별 1점">★</button><button data-star="2" aria-label="별 2점">★</button><button data-star="3" aria-label="별 3점">★</button><button data-star="4" aria-label="별 4점">★</button><button data-star="5" aria-label="별 5점">★</button>
+      </div>
+      <p style="font-size:10.5px;color:var(--ink-2);margin-top:2px">부스는 어땠나요? (선택)</p>
+      <div class="cta-zone" style="padding-left:0;padding-right:0">
+        <button class="btn btn-primary" id="vNext">다음 기술 공개</button>
+        <button class="btn btn-ghost" id="vWallet">토큰함 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P06 · 나의 기술 토큰 ============ -->
+  <section class="view" id="view-wallet" aria-label="나의 기술 토큰">
+    <div class="top">
+      <button class="back" id="wBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 6 / 10</span>
+    </div>
+    <div class="blind-head">
+      <h2>나의 기술 토큰</h2>
+      <p id="wSub">리믹스까지 기술이 더 필요해요.</p>
+    </div>
+    <p class="prog-mini" id="wProg"></p>
+    <div class="tok-list" id="tokList"></div>
+    <div class="cta-zone">
+      <button class="btn btn-primary" id="btnToRemix" disabled>AI 리믹스 시작하기</button>
+      <p class="cta-reason" id="wReason" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ============ P07 · AI 리믹스 설정·생성 ============ -->
+  <section class="view" id="view-remix" aria-label="AI 리믹스 설정·생성">
+    <div class="top">
+      <button class="back" id="rxBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 7 / 10</span>
+    </div>
+    <div id="rxSetup">
+      <div class="blind-head">
+        <h2>기술을 섞어 새로운<br>아이디어를 만들어보세요</h2>
+        <p>MIXI가 선택한 기술의 연결점을 찾아드려요.</p>
+      </div>
+      <div class="rx-sec"><b>선택한 기술 <span>· 2~3개</span></b><div class="rx-chips" id="rxToks"></div></div>
+      <div class="rx-sec"><b>해결 미션</b>
+        <div class="mission-chip"><span id="rxMission"></span><button id="rxMissionEdit">변경</button></div>
+      </div>
+      <div class="rx-sec"><b>결과 스타일</b>
+        <div class="opt-row" id="rxStyle" role="group" aria-label="결과 스타일">
+          <button aria-pressed="false" data-v="현실형">현실형</button>
+          <button aria-pressed="true" data-v="미래형">미래형</button>
+          <button aria-pressed="false" data-v="재미형">재미형</button>
+        </div>
+      </div>
+      <div class="rx-sec"><b>결과물 유형</b>
+        <div class="opt-row" id="rxType" role="group" aria-label="결과물 유형">
+          <button aria-pressed="true" data-v="제품">제품</button>
+          <button aria-pressed="false" data-v="서비스">서비스</button>
+          <button aria-pressed="false" data-v="공간·도시">공간·도시</button>
+        </div>
+      </div>
+      <div class="rx-sec">
+        <div class="mission-chip" style="background:var(--lavender);border-color:#DCD6F7">
+          <span style="font-weight:600;font-size:11.5px;color:var(--purple-ink);line-height:1.5">🎨 <b>스타일 락</b> — 모든 결과 이미지는 동일한 'NLR 스튜디오 스타일'(배경·조명·구도 고정)로 생성돼요. 내용만 달라집니다.</span>
+        </div>
+      </div>
+      <div class="cta-zone">
+        <button class="btn btn-primary" id="btnGenerate">AI 아이디어 생성하기</button>
+        <p class="cta-reason">예상 소요시간 약 1분 · 데모에서는 약 5초</p>
+      </div>
+    </div>
+    <div class="gen-panel" id="genPanel">
+      <img class="gen-mixi-img" src="assets/mixi-remix.jpg" alt="" aria-hidden="true" onerror="this.outerHTML='<div class=&quot;gen-mixi&quot;>🤖</div>'">
+      <p class="gen-msg" id="genMsg" aria-live="polite">기술 분석 중…</p>
+      <p class="gen-sub">MIXI가 기술을 연결하고 있어요 (예상 단계 표시)</p>
+      <div class="gen-bar"><i id="genBar"></i></div>
+      <button class="btn btn-ghost" id="genCancel" style="margin-top:22px;max-width:140px">취소</button>
+    </div>
+  </section>
+
+  <!-- ============ P08 · 아이디어 결과 확인 ============ -->
+  <section class="view" id="view-result" aria-label="아이디어 결과 확인">
+    <div class="top">
+      <button class="back" id="rsBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 8 / 10</span>
+    </div>
+    <div class="blind-head" style="text-align:center"><h2>AI가 만들어낸 나만의 아이디어!</h2></div>
+    <div class="result-card">
+      <div class="r-img" id="rImg">❄️</div>
+      <div class="r-body">
+        <div class="r-title"><h3 id="rTitle"></h3><button class="pencil" id="editTitle" aria-label="아이디어명 수정 — 1회 가능">✎</button></div>
+        <div class="r-badges" id="rBadges"></div>
+        <div class="r-desc-row"><p class="r-desc" id="rDesc"></p><button class="pencil" id="editDesc" aria-label="설명 수정 — 1회 가능">✎</button></div>
+        <div class="r-roles"><b>어떤 기술이 어떻게 쓰였나요?</b><div id="rRoles"></div></div>
+      </div>
+    </div>
+    <div class="disclaimer">※ 관람객과 AI가 만든 콘셉트 제안이며, 실제 기술성과 상용화 가능성은 별도 검토가 필요합니다. (AI 활용 콘셉트)</div>
+    <div class="pub-zone">
+      <b>아이디어 피드에 게시하기</b>
+      <div class="nick-row"><input type="text" id="pubNick" maxlength="12" aria-label="공개 닉네임"></div>
+      <label class="consent"><input type="checkbox" id="pubConsent"><span>내 아이디어를 닉네임과 함께 아이디어 피드·전광판에 공개하는 데 동의해요 (체크하지 않으면 게시되지 않아요)</span></label>
+    </div>
+    <div class="r-ctas">
+      <button class="btn btn-primary wide" id="btnPost" disabled>아이디어 피드에 게시</button>
+      <button class="btn btn-ghost" id="btnShare">SNS 공유</button>
+      <button class="btn btn-ghost" id="btnRegen">다시 만들기 (1회)</button>
+    </div>
+    <div class="cta-zone" style="padding-top:6px">
+      <p class="cta-reason" id="pubReason" aria-live="polite">게시하려면 공개 동의에 체크해주세요 (기본 꺼짐 · 옵트인)</p>
+    </div>
+  </section>
+
+  <!-- ============ P09 · 아이디어 트리·투표·공유 ============ -->
+  <section class="view" id="view-feed" aria-label="아이디어 트리·투표·공유">
+    <div class="top">
+      <button class="back" id="fdBack" aria-label="뒤로가기">←</button>
+      <span class="step-note">STEP 9 / 10</span>
+    </div>
+    <div class="blind-head">
+      <h2>오늘 전시회에서 태어난 아이디어</h2>
+      <p>마음에 드는 아이디어에 한 표를 보내세요. (1인 1표)</p>
+    </div>
+    <div class="cats" role="group" aria-label="피드 필터">
+      <button class="cat" aria-pressed="true" data-ff="new">최신</button>
+      <button class="cat" aria-pressed="false" data-ff="hot">인기</button>
+      <button class="cat" aria-pressed="false" data-ff="hidden">Hidden Champion</button>
+    </div>
+    <div class="top3" id="top3"></div>
+    <div class="feed" id="feedList"></div>
+  </section>
+
+  <!-- ============ P10 · 마이페이지·참여 결과 ============ -->
+  <section class="view" id="view-my" aria-label="마이페이지·참여 결과">
+    <div class="top">
+      <div class="brand"><span class="no">NO LOGO</span> <span class="remix">REMIX</span><small>MY PAGE</small></div>
+      <span class="step-note">STEP 10 / 10</span>
+    </div>
+    <div class="my-head">
+      <div class="my-ava" aria-hidden="true">🤖</div>
+      <div style="flex:1">
+        <input id="myNick" maxlength="12" aria-label="닉네임 수정">
+        <small>익명 참가자 · 세션 <span id="mySid"></span></small>
+      </div>
+    </div>
+    <div class="stats" id="myStats"></div>
+    <div class="sec-label">획득 배지</div>
+    <div class="badges-row" id="myBadges"></div>
+    <div class="sec-label">나의 아이디어</div>
+    <div class="feed" id="myIdeas" style="padding-top:8px"></div>
+    <div class="sec-label">활동 기록</div>
+    <div class="timeline" id="myTl"></div>
+    <div class="sec-label">설정</div>
+    <div class="set-row">
+      <div class="s-txt"><b>기업 연락 수신 동의</b><span>관심 기업의 자료·채용·상담 연락을 받아요. 기본은 꺼짐이며 언제든 해제할 수 있어요.</span></div>
+      <label class="switch"><input type="checkbox" id="optIn" aria-label="기업 연락 수신 동의 — 기본 꺼짐"><i></i></label>
+    </div>
+    <div class="set-row">
+      <div class="s-txt"><b>오늘 체험 만족도</b><span>별점을 남겨주세요 (선택)</span></div>
+      <div class="stars" id="satStars" aria-label="체험 만족도">
+        <button data-star="1" aria-label="별 1점">★</button><button data-star="2" aria-label="별 2점">★</button><button data-star="3" aria-label="별 3점">★</button><button data-star="4" aria-label="별 4점">★</button><button data-star="5" aria-label="별 5점">★</button>
+      </div>
+    </div>
+    <div class="cta-zone">
+      <button class="btn btn-ghost" id="btnTestCopy2">🧪 테스트 결과 복사 (파일럿용)</button>
+      <button class="btn btn-ghost" id="btnSummary">데모 여정 요약 보기</button>
+      <button class="btn btn-ghost danger" id="btnDelete" style="border-color:#F5C6C8">세션 데이터 전체 삭제</button>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 4 · 데모 완료 ============ -->
+  <section class="view" id="view-done" aria-label="온보딩 완료">
+    <div class="top">
+      <div class="brand"><span class="no">NO LOGO</span> <span class="remix">REMIX</span><small>ONBOARDING DEMO</small></div>
+      <span class="step-note">데모 완료</span>
+    </div>
+    <div class="done-panel">
+      <div class="big">🎉</div>
+      <h2>데모 여정 완주! 🎊</h2>
+      <p>P01 온보딩부터 P10 마이페이지까지<br>NO LOGO REMIX의 핵심 여정을 모두 체험했어요.</p>
+      <div class="done-sum" id="doneSum"></div>
+      <div class="cta-zone" style="padding-left:0;padding-right:0">
+        <a class="btn btn-ghost" href="pitch.html" target="_blank" rel="noopener">📖 발표 소개 페이지 열기</a>
+        <button class="btn btn-ghost" id="btnTestCopy">🧪 테스트 결과 복사 (파일럿용)</button>
+        <a class="btn btn-ghost" href="live.html" target="_blank" rel="noopener">🖥 S01 현장 전광판 열기 (1920×1080)</a>
+        <a class="btn btn-ghost" href="dashboard.html" target="_blank" rel="noopener">📊 S02 기업 대시보드 열기 (1440×1024)</a>
+        <button class="btn btn-primary" id="btnRestart">처음부터 다시 보기</button>
+        <button class="btn btn-ghost" id="btnResetSession">세션 초기화 (이어서 하기 테스트)</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="tabbar" id="tabbar" aria-label="하단 내비게이션">
+  <button data-tab="home"><span class="t-em" aria-hidden="true">🏠</span>홈</button>
+  <button data-tab="wallet"><span class="t-em" aria-hidden="true">◈</span>토큰함</button>
+  <button data-tab="remix"><span class="t-em" aria-hidden="true">✦</span>리믹스</button>
+  <button data-tab="feed"><span class="t-em" aria-hidden="true">💡</span>아이디어</button>
+  <button data-tab="my"><span class="t-em" aria-hidden="true">👤</span>마이</button>
+</nav>
+
+<!-- P03 카드 상세 바텀시트 -->
+<div class="sheet-mask" id="sheetMask"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="grip" aria-hidden="true"></div>
+  <div class="s-no"><span id="sheetNo">BLIND TECH CARD</span><span class="priv">🔒 기업명 비공개</span></div>
+  <h3 id="sheetTitle"></h3>
+  <div class="sec"><b>해결하는 문제</b><p id="sheetProb"></p></div>
+  <div class="sec"><b>핵심 기능</b><p id="sheetFunc"></p></div>
+  <div class="sec"><b>활용 예시</b><p id="sheetEx"></p></div>
+  <div class="tags" id="sheetTags"></div>
+  <div class="reason-label">이 기술을 고른 이유 <span>· 선택 사항</span></div>
+  <div class="reasons" id="sheetReasons" role="group" aria-label="선택 이유">
+    <button aria-pressed="false" data-reason="필요성">필요성</button>
+    <button aria-pressed="false" data-reason="신기함">신기함</button>
+    <button aria-pressed="false" data-reason="활용성">활용성</button>
+  </div>
+  <div class="s-cta">
+    <button class="btn btn-ghost" id="sheetClose">닫기</button>
+    <button class="btn btn-primary" id="sheetSelect">이 기술 선택하기</button>
+  </div>
+</div>
+
+<!-- P09 아이디어 상세 바텀시트 -->
+<div class="sheet-mask" id="ideaMask"></div>
+<div class="sheet" id="ideaSheet" role="dialog" aria-modal="true" aria-labelledby="isTitle">
+  <div class="grip" aria-hidden="true"></div>
+  <div class="is-img" id="isImg"></div>
+  <h3 id="isTitle"></h3>
+  <div class="r-badges" id="isBadges"></div>
+  <div class="sec"><b>한 줄 소개</b><p id="isDesc"></p></div>
+  <div class="sec"><b>사용된 기술</b><div id="isTechs"></div></div>
+  <div class="s-cta">
+    <button class="btn btn-ghost" id="isClose">닫기</button>
+    <button class="btn btn-primary" id="isVote">♥ 이 아이디어에 투표하기</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  var SKEY = 'nlr_session_v1';
+  var $  = function(s){ return document.querySelector(s); };
+  var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  /* ---------- 세션 ---------- */
+  function loadSession(){
+    try { return JSON.parse(localStorage.getItem(SKEY) || 'null'); } catch(e){ return null; }
+  }
+  function saveSession(s){ try { localStorage.setItem(SKEY, JSON.stringify(s)); } catch(e){} }
+  function newSession(){
+    var id = 'nlr-' + Math.random().toString(36).slice(2,10);
+    return { sessionId:id, exhibitionId:exId, missionId:null, missionLabel:null, customText:'', interests:[], createdAt:new Date().toISOString() };
+  }
+  /* 전시 ID: URL 파라미터 자동 설정 [M] */
+  var exId = new URLSearchParams(location.search).get('exhibition') || null;
+  var session = loadSession();
+  if (session && exId && !session.exhibitionId){ session.exhibitionId = exId; saveSession(session); }
+  if (exId){
+    var b = $('#exBadge');
+    b.textContent = '✓ 전시 연결됨 · ' + exId;
+    b.classList.add('on');
+  }
+
+  /* ---------- MIXI 이미지 폴백 ---------- */
+  var mimg = $('#mixiImg');
+  mimg.addEventListener('load', function(){ mimg.style.display='block'; $('#mixiSvg').style.display='none'; });
+  mimg.addEventListener('error', function(){ mimg.remove(); });
+
+  /* ---------- 뷰 전환 ---------- */
+  function show(id){
+    $$('.view').forEach(function(v){ v.classList.remove('active'); });
+    $(id).classList.add('active');
+    updateTabbar(id);
+    $('.shell').scrollTop = 0; window.scrollTo(0,0);
+  }
+
+  /* ---------- 토스트 ---------- */
+  var toastTimer = null;
+  function toast(msg){
+    var t = $('#toast'); t.textContent = msg; t.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 2200);
+  }
+
+  /* ---------- P01: 시작 / 이어서 하기 [M] ---------- */
+  function refreshContinue(){
+    var s = loadSession();
+    $('#btnContinue').style.display = (s && s.missionId) ? 'flex' : 'none';
+  }
+  refreshContinue();
+
+  $('#btnStart').addEventListener('click', function(){
+    session = loadSession() || newSession();
+    if (exId) session.exhibitionId = exId;
+    saveSession(session);
+    show('#view-onboard'); setSlide(0);
+  });
+  $('#btnContinue').addEventListener('click', function(){
+    session = loadSession();
+    if (!session){ toast('저장된 세션이 없어요'); refreshContinue(); return; }
+    restoreMission(session);
+    initBlind(true);
+    var vv = session.verified || [];
+    if (session.result && session.result.posted){ renderFeed(); show('#view-feed'); }
+    else if (session.result){ renderResult(); show('#view-result'); }
+    else if (vv.length){ renderWallet(); show('#view-wallet'); }
+    else if (session.selectedTechs && session.selectedTechs.length){ show('#view-blind'); }
+    else { show('#view-mission'); }
+    toast('저장된 참여 기록을 불러왔어요');
+  });
+  $('#privacyLink').addEventListener('click', function(e){
+    e.preventDefault();
+    toast('익명 세션 ID만 브라우저에 저장돼요. 연락처 제공은 마이페이지에서 직접 동의할 때만 활성화됩니다.');
+  });
+
+  /* ---------- 온보딩 카루셀 ---------- */
+  var slide = 0, SLIDES = 3;
+  function setSlide(n){
+    slide = n;
+    $$('.slide').forEach(function(s,i){ s.classList.toggle('on', i===n); });
+    $$('.dots i').forEach(function(d,i){ d.classList.toggle('on', i===n); });
+    $('#obStep').textContent = '참여 방법 ' + (n+1) + ' / ' + SLIDES;
+    $('#obNext').textContent = (n === SLIDES-1) ? '미션 선택하기' : '다음';
+  }
+  $('#obNext').addEventListener('click', function(){
+    if (slide < SLIDES-1) setSlide(slide+1);
+    else show('#view-mission');
+  });
+  $('#obSkip').addEventListener('click', function(){ show('#view-mission'); });
+  $('#obBack').addEventListener('click', function(){
+    if (slide > 0) setSlide(slide-1); else show('#view-start');
+  });
+
+  /* ---------- P02: 미션 선택 ---------- */
+  var missionId = null, missionLabel = null;
+  var LIMIT_INT = 3;
+
+  function updateCTA(){
+    var custom = missionId === 'custom';
+    var customTxt = $('#customInput').value.trim();
+    var ok = !!missionId && (!custom || customTxt.length > 0);
+    var btn = $('#btnMission'), reason = $('#ctaReason');
+    btn.disabled = !ok;
+    reason.classList.toggle('ok', ok);
+    if (!missionId) reason.textContent = '메인 미션 1개를 선택하면 진행할 수 있어요';
+    else if (custom && !customTxt) reason.textContent = '해결하고 싶은 문제를 입력해주세요 (40자 이내)';
+    else reason.textContent = '✓ 준비 완료! 선택한 미션에 맞는 기술을 추천해드려요';
+  }
+
+  $$('.m-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      var id = card.getAttribute('data-mission');
+      var pressed = card.getAttribute('aria-pressed') === 'true';
+      $$('.m-card').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+      if (pressed){ missionId = null; missionLabel = null; }
+      else {
+        card.setAttribute('aria-pressed','true');
+        missionId = id;
+        missionLabel = card.querySelector('b').innerHTML
+          .replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+      }
+      $('#customZone').classList.toggle('on', missionId === 'custom');
+      if (missionId === 'custom') $('#customInput').focus();
+      updateCTA();
+    });
+  });
+
+  $('#customInput').addEventListener('input', function(){
+    $('#cnt').textContent = String(this.value.length);
+    updateCTA();
+  });
+
+  /* 카테고리 필터 (미션 화면 전용 — 다른 화면의 .cat 칩과 분리) */
+  $$('#view-mission .cat').forEach(function(cat){
+    cat.addEventListener('click', function(){
+      $$('#view-mission .cat').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+      cat.setAttribute('aria-pressed','true');
+      var key = cat.getAttribute('data-cat');
+      $$('.m-card').forEach(function(card){
+        var cc = card.getAttribute('data-cat');
+        card.style.display = (key==='all' || cc===key || cc==='all') ? '' : 'none';
+      });
+    });
+  });
+
+  /* 관심 분야 최대 3개 */
+  $$('.int').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var on = chip.getAttribute('aria-pressed') === 'true';
+      if (!on){
+        var count = $$('.int[aria-pressed="true"]').length;
+        if (count >= LIMIT_INT){ toast('관심 분야는 최대 3개까지 선택할 수 있어요'); return; }
+      }
+      chip.setAttribute('aria-pressed', on ? 'false' : 'true');
+    });
+  });
+
+  function restoreMission(s){
+    missionId = s.missionId; missionLabel = s.missionLabel;
+    $$('.m-card').forEach(function(c){
+      c.setAttribute('aria-pressed', c.getAttribute('data-mission')===s.missionId ? 'true':'false');
+    });
+    $('#customZone').classList.toggle('on', s.missionId==='custom');
+    $('#customInput').value = s.customText || '';
+    $('#cnt').textContent = String(($('#customInput').value||'').length);
+    $$('.int').forEach(function(chip){
+      chip.setAttribute('aria-pressed', (s.interests||[]).indexOf(chip.getAttribute('data-int'))>=0 ? 'true':'false');
+    });
+    updateCTA();
+  }
+
+  $('#msBack').addEventListener('click', function(){ show('#view-onboard'); setSlide(SLIDES-1); });
+
+  $('#btnMission').addEventListener('click', function(){
+    if ($('#btnMission').disabled) return;
+    session = loadSession() || newSession();
+    session.missionId = missionId;
+    session.missionLabel = (missionId==='custom') ? $('#customInput').value.trim() : missionLabel;
+    session.customText = (missionId==='custom') ? $('#customInput').value.trim() : '';
+    session.interests = $$('.int[aria-pressed="true"]').map(function(c){ return c.getAttribute('data-int'); });
+    if (exId) session.exhibitionId = exId;
+    saveSession(session);
+    initBlind(true);
+    show('#view-blind');
+    toast('미션이 저장됐어요! 이제 기술을 골라보세요');
+    refreshContinue();
+  });
+
+  /* ---------- P03: 블라인드 기술카드 ----------
+     [기능 제약 §1-2 ①] 기업명·로고 등 기업 식별 정보는 Reveal(P04) 전까지
+     화면·DOM은 물론 이 데이터에도 포함하지 않는다.
+     실제 서비스에서는 서버가 Reveal 시점에만 기업 필드를 반환한다. */
+  var TECHS = [
+    {id:'t12',no:12,cat:'env',isNew:false,use:3,prob:'여름철 냉방 사용 증가로 인한 전기요금 부담',fn:'전력 사용을 실시간으로 모니터링하고 필요 시 자동으로 기기 출력을 제어',ex:'자취방 에어컨에 연결하면 실내 온도와 전기요금을 함께 관리할 수 있어요.',tags:['에너지절감','AI','스마트제어']},
+    {id:'t07',no:7,cat:'env',isNew:false,use:2,prob:'벽과 창을 통한 열 손실로 낭비되는 냉난방 에너지',fn:'얇은 두께로 높은 단열 성능을 내는 나노 단열 소재',ex:'오래된 원룸 창문에 시공하면 냉난방비를 줄일 수 있어요.',tags:['건축','단열소재']},
+    {id:'t03',no:3,cat:'life',isNew:true,use:3,prob:'실내 온도·습도 변화를 놓쳐 생기는 불쾌함과 낭비',fn:'저전력 센서로 온·습도를 실시간 감지하고 알림 제공',ex:'스마트홈 앱과 연동해 환기·제습 타이밍을 알려줘요.',tags:['스마트홈','IoT','센서']},
+    {id:'t15',no:15,cat:'food',isNew:false,use:3,prob:'유통기한을 놓쳐 버려지는 1인 가구의 식재료',fn:'식재료 상태를 분석해 소비 순서와 레시피를 추천',ex:'냉장고 속 재료로 오늘 만들 수 있는 메뉴를 제안해요.',tags:['식품','AI분석']},
+    {id:'t21',no:21,cat:'life',isNew:false,use:2,prob:'화장품 포장에서 발생하는 플라스틱 사용 과다',fn:'생분해 소재로 만든 화장품 용기와 리필 포장',ex:'다 쓴 용기를 리필 스테이션에서 다시 채워 쓸 수 있어요.',tags:['친환경','포장']},
+    {id:'t09',no:9,cat:'mobility',isNew:true,use:3,prob:'매일 달라지는 출퇴근 시간과 예측이 어려운 교통',fn:'교통 데이터를 학습해 최적 출발 시간과 경로를 안내',ex:'출근 30분 전, 오늘의 가장 빠른 경로를 알려줘요.',tags:['교통','AI','모빌리티']},
+    {id:'t18',no:18,cat:'city',isNew:false,use:1,prob:'정전이 나면 함께 멈추는 도시의 필수 인프라',fn:'건물 단위로 전력을 저장·공급하는 분산형 에너지 모듈',ex:'정전 시에도 엘리베이터와 비상조명이 계속 작동해요.',tags:['에너지저장','스마트시티']},
+    {id:'t05',no:5,cat:'health',isNew:true,use:2,prob:'혼자 사는 사람의 건강 이상을 놓치는 문제',fn:'비접촉 센서로 수면·활동 패턴을 모니터링하고 이상 감지',ex:'평소와 다른 패턴이 감지되면 보호자에게 알려줘요.',tags:['헬스케어','센서']},
+    {id:'t24',no:24,cat:'health',isNew:false,use:3,prob:'피부 상태와 맞지 않는 뷰티 루틴으로 인한 낭비',fn:'피부 수분·유분을 측정해 맞춤 루틴을 제안',ex:'아침마다 오늘 피부에 필요한 케어 단계를 알려줘요.',tags:['뷰티','센서','맞춤형']},
+    {id:'t11',no:11,cat:'food',isNew:false,use:1,prob:'배송 과정의 온도 변화로 상하는 신선식품',fn:'온도 이력을 기록하고 이상 시 경고하는 스마트 라벨',ex:'택배 상자의 라벨 색만 봐도 신선도를 확인할 수 있어요.',tags:['물류','식품안전']}
+  ];
+  var TECH_BY_ID = {}; TECHS.forEach(function(t){ TECH_BY_ID[t.id] = t; });
+  var CAT_BY_MISSION = {m1:'env',m2:'food',m3:'life',m4:'mobility',m5:'city',m6:'health',m7:'life'};
+  var CAT_BY_INT = {'환경·에너지':'env','일상·생활':'life','건강·의료':'health','모빌리티':'mobility','식음료':'food','미래도시':'city'};
+
+  var blindOrder = null, blindSel = [], bSort = 'recommend', bQuery = '';
+  var sheetId = null, sheetReason = null, dwellStart = 0;
+  var interestNoticeShown = false;
+
+  function shuffle(a){
+    for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+  function recScore(t){
+    var s = 0, sess = loadSession() || {};
+    var mc = CAT_BY_MISSION[sess.missionId];
+    if (mc && t.cat === mc) s += 2;
+    /* 페르소나 검증 반영: 직접 입력 미션도 키워드 매칭으로 추천에 반영 */
+    if (sess.missionId === 'custom' && sess.customText){
+      var hay = t.prob + ' ' + t.fn + ' ' + t.tags.join(' ');
+      var words = sess.customText.split(/\s+/).filter(function(w){ return w.length >= 2; });
+      for (var wi = 0; wi < words.length; wi++){
+        if (hay.indexOf(words[wi]) >= 0){ s += 2; break; }
+      }
+    }
+    (sess.interests||[]).forEach(function(n){ if (CAT_BY_INT[n] === t.cat) s += 1; });
+    if (t.isNew) s += .5;
+    return s;
+  }
+  function pushEvent(ev){
+    var s = loadSession(); if (!s) return;
+    ev.at = Date.now();
+    s.events = (s.events||[]).slice(-99); s.events.push(ev); saveSession(s);
+  }
+  function isSelected(id){ return blindSel.some(function(x){ return x.id===id; }); }
+
+  /* [M] 최초 진입 시 무작위 기본 정렬 */
+  function initBlind(restore){
+    if (!blindOrder) blindOrder = shuffle(TECHS.map(function(t){ return t.id; }));
+    if (restore){
+      var s = loadSession();
+      blindSel = (s && s.selectedTechs) ? s.selectedTechs.slice(0,3) : [];
+    }
+    renderBlind();
+  }
+
+  function visibleTechs(){
+    var sess = loadSession() || {};
+    var list = blindOrder.map(function(id){ return TECH_BY_ID[id]; });
+    if (bSort === 'recommend'){
+      list = list.slice().sort(function(a,b){ return recScore(b) - recScore(a); });
+    } else if (bSort === 'new'){
+      list = list.filter(function(t){ return t.isNew; });
+    } else if (bSort === 'interest'){
+      var cats = (sess.interests||[]).map(function(n){ return CAT_BY_INT[n]; });
+      if (!cats.length){
+        if (!interestNoticeShown){ toast('선택한 관심 분야가 없어 전체 기술을 보여드려요'); interestNoticeShown = true; }
+      } else {
+        list = list.filter(function(t){ return cats.indexOf(t.cat) >= 0; });
+      }
+    } else if (bSort === 'search'){
+      var q = bQuery.trim().toLowerCase();
+      if (q) list = list.filter(function(t){
+        return (t.prob + ' ' + t.fn + ' ' + t.tags.join(' ')).toLowerCase().indexOf(q) >= 0;
+      });
+    }
+    return list;
+  }
+
+  function renderBlind(){
+    var list = visibleTechs();
+    var html = list.map(function(t){
+      var sel = isSelected(t.id);
+      return '<button class="b-card' + (sel?' sel':'') + '" data-id="' + t.id + '" aria-pressed="' + sel + '">'
+        + (t.isNew ? '<span class="new-flag">NEW</span>' : '')
+        + '<span class="sel-chip">✓ 선택됨</span>'
+        + '<span class="bno"><span>BLIND TECH</span><span>No.' + t.no + ' / 20</span></span>'
+        + '<span class="cube-sm" aria-hidden="true">?</span>'
+        + '<span class="b-prob">' + t.prob + '</span>'
+        + '<span class="b-func">' + t.fn + '</span>'
+        + '<span class="tags">' + t.tags.map(function(g){ return '<i>#' + g + '</i>'; }).join('') + '</span>'
+        + '<span class="b-foot"><span class="use">일상 활용 <b>' + '●●●'.slice(0,t.use) + '○○○'.slice(0,3-t.use) + '</b></span>'
+        + '<span class="priv">🔒 기업명 비공개</span></span>'
+        + '</button>';
+    }).join('');
+    $('#bGrid').innerHTML = html;
+    $('#bEmpty').classList.toggle('on', list.length === 0);
+    updateSelBar();
+  }
+
+  /* [M] 선택 현황 표시 (n/3 + 선택 카드 요약) */
+  function updateSelBar(){
+    $('#selCnt').textContent = String(blindSel.length);
+    $('#selChips').innerHTML = blindSel.map(function(x){
+      var t = TECH_BY_ID[x.id];
+      return '<i>No.' + t.no + (x.reason ? ' · ' + x.reason : '') + '</i>';
+    }).join('');
+    var btn = $('#btnBlindDone'), reason = $('#blindReason');
+    btn.disabled = blindSel.length === 0;
+    reason.classList.toggle('ok', blindSel.length > 0);
+    reason.textContent = blindSel.length === 0
+      ? '기술을 1개 이상 선택하면 진행할 수 있어요'
+      : '✓ 선택 완료를 누르면 기업 공개(P04) 단계로 넘어가요';
+  }
+
+  /* 바텀시트: 카드 상세 [M] + 선택 이유 [S] + 체류시간 측정 [S] */
+  function openSheet(id){
+    var t = TECH_BY_ID[id]; if (!t) return;
+    sheetId = id; dwellStart = Date.now();
+    $('#sheetNo').textContent = 'BLIND TECH CARD · No.' + t.no + ' / 20';
+    $('#sheetTitle').textContent = t.prob;
+    $('#sheetProb').textContent = t.prob;
+    $('#sheetFunc').textContent = t.fn;
+    $('#sheetEx').textContent = t.ex;
+    $('#sheetTags').innerHTML = t.tags.map(function(g){ return '<i>#' + g + '</i>'; }).join('');
+    var cur = blindSel.filter(function(x){ return x.id===id; })[0];
+    sheetReason = cur ? cur.reason : null;
+    $$('#sheetReasons button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-reason') === sheetReason ? 'true' : 'false');
+    });
+    $('#sheetSelect').textContent = cur ? '선택 해제하기' : '이 기술 선택하기';
+    $('#sheetMask').classList.add('on'); $('#sheet').classList.add('on');
+  }
+  function closeSheet(){
+    if (sheetId){
+      pushEvent({ t:'blind_card_viewed', id:sheetId, ms: Date.now() - dwellStart });
+    }
+    sheetId = null;
+    $('#sheetMask').classList.remove('on'); $('#sheet').classList.remove('on');
+  }
+  $('#sheetMask').addEventListener('click', closeSheet);
+  $('#sheetClose').addEventListener('click', closeSheet);
+  $$('#sheetReasons button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var r = b.getAttribute('data-reason');
+      sheetReason = (sheetReason === r) ? null : r;
+      $$('#sheetReasons button').forEach(function(x){
+        x.setAttribute('aria-pressed', x.getAttribute('data-reason') === sheetReason ? 'true' : 'false');
+      });
+    });
+  });
+  /* [M] 최대 3개 선택 + 확인 단계 */
+  $('#sheetSelect').addEventListener('click', function(){
+    if (!sheetId) return;
+    if (isSelected(sheetId)){
+      blindSel = blindSel.filter(function(x){ return x.id !== sheetId; });
+      toast('선택을 해제했어요');
+    } else {
+      if (blindSel.length >= 3){ toast('기술은 최대 3개까지 선택할 수 있어요'); return; }
+      blindSel.push({ id: sheetId, reason: sheetReason });
+      pushEvent({ t:'blind_tech_selected', id: sheetId, reason: sheetReason });
+      var t = TECH_BY_ID[sheetId];
+      toast('No.' + t.no + ' 기술을 선택했어요 (' + blindSel.length + '/3)');
+    }
+    var s = loadSession();
+    if (s){ s.selectedTechs = blindSel; saveSession(s); }
+    closeSheet(); renderBlind();
+  });
+
+  $('#bGrid').addEventListener('click', function(e){
+    var card = e.target.closest('.b-card');
+    if (card) openSheet(card.getAttribute('data-id'));
+  });
+
+  /* 정렬·필터 — 공정성 제약: 인기순 미제공 */
+  $$('[data-bsort]').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      $$('[data-bsort]').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+      chip.setAttribute('aria-pressed','true');
+      bSort = chip.getAttribute('data-bsort');
+      $('#bSearchRow').classList.toggle('on', bSort === 'search');
+      if (bSort === 'search') $('#bSearch').focus();
+      renderBlind();
+    });
+  });
+  $('#bSearch').addEventListener('input', function(){ bQuery = this.value; renderBlind(); });
+
+  $('#blBack').addEventListener('click', function(){ show('#view-mission'); });
+
+  $('#btnBlindDone').addEventListener('click', function(){
+    if ($('#btnBlindDone').disabled) return;
+    var s = loadSession() || newSession();
+    s.selectedTechs = blindSel; saveSession(s);
+    startReveal();
+    refreshContinue();
+  });
+
+  /* ==================================================================
+     P04~P10 로직
+     REVEAL_DB는 서버가 Reveal 시점에 반환하는 기업 정보 시뮬레이션 —
+     P03 화면·DOM에는 절대 주입하지 않는다 (§1-2 ①).
+  ================================================================== */
+  var REVEAL_DB = {
+    t12:{co:'에이팩스 솔루션',tech:'스마트 에너지 제어 시스템',desc:'전력 사용을 실시간으로 모니터링하고 AI 기반으로 자동 제어해 에너지를 절감하는 기술이에요.',story:'여름철 전기요금 걱정에서 출발해, 집 안 어디서나 쓰는 에너지 관리 기술을 연구하고 있어요.',hall:'B홀',booth:'B-12',walk:'3분',role:'실시간 전력 제어'},
+    t07:{co:'그린매터',tech:'나노 단열 소재',desc:'얇게 시공해도 높은 단열 성능을 내는 친환경 나노 소재예요.',story:'버려지는 냉난방 에너지를 줄이는 건축 소재를 만드는 소재 전문 기업이에요.',hall:'C홀',booth:'C-05',walk:'5분',role:'열 손실 차단'},
+    t03:{co:'넥스트센서',tech:'저전력 환경 센서',desc:'동전 배터리 하나로 1년을 버티는 초저전력 온·습도 센서예요.',story:'센서가 어디에나 있는 세상을 위해 전력 소비를 극한까지 줄였어요.',hall:'A홀',booth:'A-08',walk:'2분',role:'실내 환경 감지'},
+    t15:{co:'프레시로직',tech:'AI 식재료 관리 솔루션',desc:'식재료 상태를 분석해 소비 순서와 레시피를 추천하는 AI 서비스예요.',story:'버려지는 음식이 아까워서, 냉장고를 똑똑하게 만드는 일을 시작했어요.',hall:'D홀',booth:'D-03',walk:'6분',role:'식재료 분석·추천'},
+    t21:{co:'리필랩',tech:'생분해 리필 패키지',desc:'다 쓰면 자연으로 돌아가는 생분해 소재 리필 용기예요.',story:'화장대 위 플라스틱을 줄이는 순환 포장을 실험하는 스타트업이에요.',hall:'C홀',booth:'C-17',walk:'5분',role:'친환경 용기'},
+    t09:{co:'무브온',tech:'AI 경로 예측 플랫폼',desc:'교통 데이터를 학습해 최적 출발 시간과 경로를 알려주는 서비스예요.',story:'매일 아침 5분을 아껴주는 이동 데이터 회사예요.',hall:'A홀',booth:'A-21',walk:'4분',role:'이동 데이터 예측'},
+    t18:{co:'시티셀',tech:'분산형 에너지 저장 모듈',desc:'건물 단위로 전력을 저장해 정전에도 필수 설비를 지키는 모듈이에요.',story:'도시가 멈추지 않도록, 작은 발전소를 건물마다 심고 있어요.',hall:'B홀',booth:'B-07',walk:'3분',role:'비상 전력 공급'},
+    t05:{co:'케어웨이브',tech:'비접촉 생활 모니터링 센서',desc:'몸에 닿지 않고 수면·활동 패턴을 감지하는 헬스케어 센서예요.',story:'혼자 사는 가족이 걱정되는 마음에서 시작한 기술이에요.',hall:'D홀',booth:'D-11',walk:'6분',role:'생활 패턴 감지'},
+    t24:{co:'더마픽',tech:'피부 진단 뷰티 디바이스',desc:'피부 수분·유분을 측정해 맞춤 루틴을 제안하는 디바이스예요.',story:'화장품보다 먼저, 내 피부를 아는 것에서 뷰티가 시작된다고 믿어요.',hall:'C홀',booth:'C-09',walk:'5분',role:'피부 데이터 측정'},
+    t11:{co:'콜드체인랩',tech:'신선도 스마트 라벨',desc:'온도 이력을 기록하고 이상 시 색으로 경고하는 라벨이에요.',story:'신선식품이 안전하게 도착하는 마지막 1km를 책임져요.',hall:'D홀',booth:'D-18',walk:'6분',role:'신선도 기록·경고'}
+  };
+  var CAT_META = {env:{em:'⚡',bg:'#E6F7F0'},life:{em:'🏠',bg:'#F2EFFF'},health:{em:'❤️',bg:'#FDECEF'},mobility:{em:'🚗',bg:'#EAF0FF'},food:{em:'🥗',bg:'#FFF4E0'},city:{em:'🌃',bg:'#E8F1FF'}};
+
+  function getS(){ var s = loadSession(); if (!s){ s = newSession(); saveSession(s); } return s; }
+  function verifiedIds(){ return getS().verified || []; }
+
+  /* ---------- 탭바 ---------- */
+  var TABBED = ['#view-wallet','#view-remix','#view-result','#view-feed','#view-my'];
+  var TAB_OF = {'#view-wallet':'wallet','#view-remix':'remix','#view-result':'remix','#view-feed':'feed','#view-my':'my'};
+  function updateTabbar(id){
+    var on = TABBED.indexOf(id) >= 0;
+    $('#tabbar').classList.toggle('on', on);
+    document.body.classList.toggle('tabs-on', on);
+    $$('#tabbar button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-tab') === TAB_OF[id]); });
+  }
+  $$('#tabbar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = b.getAttribute('data-tab');
+      if (t === 'home') show('#view-start');
+      else if (t === 'wallet'){ renderWallet(); show('#view-wallet'); }
+      else if (t === 'remix'){
+        ensurePick();
+        if (remixPick.length >= 2){ renderRemixSetup(); show('#view-remix'); }
+        else { renderWallet(); show('#view-wallet'); toast('리믹스하려면 토큰 2개 이상을 선택해주세요'); }
+      }
+      else if (t === 'feed'){ renderFeed(); show('#view-feed'); }
+      else if (t === 'my'){ renderMy(); show('#view-my'); }
+    });
+  });
+
+  /* ---------- P04 기업 공개 ---------- */
+  var revealQueue = [], revealIdx = 0;
+  function startReveal(){
+    var v = verifiedIds();
+    revealQueue = blindSel.map(function(x){ return x.id; }).filter(function(id){ return v.indexOf(id) < 0; });
+    if (!revealQueue.length){ renderWallet(); show('#view-wallet'); return; }
+    revealIdx = 0; renderReveal(); show('#view-reveal');
+  }
+  function mapSVG(hall){
+    var pos = {A:[26,21],B:[74,21],C:[26,59],D:[74,59]}; var p = pos[hall.charAt(0)] || [50,40];
+    return '<svg viewBox="0 0 100 80" width="100%" height="86" role="img" aria-label="전시장 지도 — ' + hall + '">'
+      + '<rect x="4" y="4" width="44" height="34" rx="5" fill="#F2EFFF" stroke="#D8D4F0"/>'
+      + '<rect x="52" y="4" width="44" height="34" rx="5" fill="#F2EFFF" stroke="#D8D4F0"/>'
+      + '<rect x="4" y="42" width="44" height="34" rx="5" fill="#F2EFFF" stroke="#D8D4F0"/>'
+      + '<rect x="52" y="42" width="44" height="34" rx="5" fill="#F2EFFF" stroke="#D8D4F0"/>'
+      + '<text x="26" y="24" font-size="9" fill="#9A97B4" text-anchor="middle">A홀</text>'
+      + '<text x="74" y="24" font-size="9" fill="#9A97B4" text-anchor="middle">B홀</text>'
+      + '<text x="26" y="62" font-size="9" fill="#9A97B4" text-anchor="middle">C홀</text>'
+      + '<text x="74" y="62" font-size="9" fill="#9A97B4" text-anchor="middle">D홀</text>'
+      + '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="5" fill="#5B3FF2"><animate attributeName="r" values="4;6;4" dur="1.6s" repeatCount="indefinite"/></circle>'
+      + '</svg>';
+  }
+  function renderReveal(){
+    var id = revealQueue[revealIdx], t = TECH_BY_ID[id], db = REVEAL_DB[id];
+    $('#rvProg').textContent = '기업 공개 ' + (revealIdx + 1) + ' / ' + revealQueue.length;
+    var card = $('#coCard');
+    card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
+    card.innerHTML =
+      '<div class="co-top"><div class="co-logo">' + db.co.charAt(0) + '</div>'
+      + '<div><b>' + db.co + '</b><span>TECH No.' + t.no + ' 의 주인공</span></div></div>'
+      + '<div class="co-tech">' + db.tech + '</div>'
+      + '<div class="co-desc">' + db.desc + '</div>'
+      + '<div class="co-story">💬 ' + db.story + '</div>'
+      + '<div class="booth-row"><div class="booth-info"><small>부스 위치</small><b>' + db.hall + ' ' + db.booth + '</b><span>예상 이동 시간 ' + db.walk + '</span></div>'
+      + '<div class="map-box">' + mapSVG(db.hall) + '</div></div>';
+    $('#bmList').innerHTML = ['기술 시연 직접 보기','직원에게 기술 설명 듣기','QR 인증하고 토큰 받기'].map(function(m){ return '<li>' + m + '</li>'; }).join('');
+    pushEvent({ t:'brand_revealed', id:id });
+  }
+  $('#rvBack').addEventListener('click', function(){ show('#view-blind'); });
+  $('#btnGoBooth').addEventListener('click', function(){ renderVerify(); show('#view-verify'); });
+
+  /* ---------- P05 부스 인증 ---------- */
+  var boothSat = 0;
+  function renderVerify(){
+    var id = revealQueue[revealIdx], db = REVEAL_DB[id];
+    $('#vfSub').innerHTML = '<b>' + db.co + '</b> (' + db.hall + ' ' + db.booth + ') 부스의 QR을 스캔해주세요';
+    $('#bnErrBooth').textContent = db.hall + ' ' + db.booth;
+    $('#bnErr').classList.remove('on'); $('#bnDup').classList.remove('on');
+    $('#codeRow').classList.remove('on'); $('#codeInput').value = '';
+    $('#succPanel').classList.remove('on'); $('#vfMain').style.display = '';
+    boothSat = 0; $$('#boothStars button').forEach(function(b){ b.classList.remove('on'); });
+    pushEvent({ t:'qr_verify_started', id:id });
+  }
+  function doVerify(){
+    var id = revealQueue[revealIdx];
+    var s = getS(); s.verified = s.verified || [];
+    if (s.verified.indexOf(id) >= 0){ $('#bnDup').classList.add('on'); return; }
+    s.verified.push(id); saveSession(s);
+    pushEvent({ t:'qr_verify_success', id:id });
+    pushEvent({ t:'token_acquired', id:id });
+    remixPick = null;
+    $('#vfMain').style.display = 'none';
+    $('#tokCnt').textContent = String(s.verified.length);
+    $('#vNext').style.display = (revealQueue.length > revealIdx + 1) ? 'flex' : 'none';
+    $('#succPanel').classList.add('on');
+    toast('기술 토큰을 획득했어요! (' + s.verified.length + '/3)');
+  }
+  $('#btnVerify').addEventListener('click', doVerify);
+  $('#lnkCode').addEventListener('click', function(){
+    $('#codeRow').classList.toggle('on');
+    if ($('#codeRow').classList.contains('on')) $('#codeInput').focus();
+  });
+  $('#btnCode').addEventListener('click', function(){
+    if ($('#codeInput').value.trim() === '2026'){ $('#bnErr').classList.remove('on'); doVerify(); }
+    else { $('#bnErr').classList.add('on'); toast('인증코드가 올바르지 않아요 (데모 코드: 2026)'); }
+  });
+  $('#lnkErr').addEventListener('click', function(){
+    $('#bnErr').classList.add('on');
+    setTimeout(function(){ $('#bnErr').classList.remove('on'); }, 2600);
+  });
+  $('#lnkHelp').addEventListener('click', function(){ toast('운영요원이 곧 도와드릴 거예요! (네트워크 장애 시 수동 인증 지원)'); });
+  $$('#boothStars button').forEach(function(b){
+    b.addEventListener('click', function(){
+      boothSat = parseInt(b.getAttribute('data-star'), 10);
+      $$('#boothStars button').forEach(function(x){ x.classList.toggle('on', parseInt(x.getAttribute('data-star'),10) <= boothSat); });
+      pushEvent({ t:'booth_feedback_submitted', star:boothSat });
+    });
+  });
+  $('#vfBack').addEventListener('click', function(){ show('#view-reveal'); });
+  $('#vNext').addEventListener('click', function(){ revealIdx++; renderReveal(); show('#view-reveal'); });
+  $('#vWallet').addEventListener('click', function(){ renderWallet(); show('#view-wallet'); });
+
+  /* ---------- P06 토큰함 ---------- */
+  var remixPick = null;
+  function ensurePick(){
+    var v = verifiedIds();
+    if (!remixPick) remixPick = v.slice(0,3);
+    remixPick = remixPick.filter(function(id){ return v.indexOf(id) >= 0; });
+  }
+  function renderWallet(){
+    ensurePick();
+    var s = getS(), v = s.verified || [];
+    blindSel = (s.selectedTechs || blindSel || []);
+    var selIds = blindSel.map(function(x){ return x.id; });
+    var html = '';
+    v.forEach(function(id){
+      var t = TECH_BY_ID[id], db = REVEAL_DB[id], m = CAT_META[t.cat] || CAT_META.env;
+      html += '<button class="tok" data-tok="' + id + '" aria-pressed="' + (remixPick.indexOf(id) >= 0) + '">'
+        + '<span class="t-ico" style="background:' + m.bg + '">' + m.em + '</span>'
+        + '<span class="t-body"><b>' + db.tech + '</b><span>' + db.co + ' · ' + db.hall + ' ' + db.booth + ' · ' + db.role + '</span></span>'
+        + '<span class="t-badge">획득 완료</span>'
+        + '<span class="t-x" data-x="' + id + '" role="button" aria-label="토큰 삭제">✕</span>'
+        + '</button>';
+    });
+    selIds.filter(function(id){ return v.indexOf(id) < 0; }).forEach(function(id){
+      var t = TECH_BY_ID[id];
+      html += '<button class="tok lock" data-visit="' + id + '"><span class="t-ico">🔒</span>'
+        + '<span class="t-body"><b>No.' + t.no + ' — 부스 방문 필요</b><span>탭하면 기업 공개 화면으로 이동해요</span></span></button>';
+    });
+    if (selIds.length < 3){
+      html += '<button class="tok lock" data-more="1"><span class="t-ico">＋</span>'
+        + '<span class="t-body"><b>기술을 더 수집하세요</b><span>블라인드 기술카드에서 새 기술 찾기</span></span></button>';
+    }
+    $('#tokList').innerHTML = html;
+    $('#wProg').innerHTML = '보유 토큰 <b>' + v.length + ' / 3</b> · 리믹스 조합 선택 <b>' + remixPick.length + '</b>개';
+    var coSeen = {}, sameCo = false;
+    remixPick.forEach(function(id){ var c = REVEAL_DB[id].co; if (coSeen[c]) sameCo = true; coSeen[c] = 1; });
+    var ok = remixPick.length >= 2 && remixPick.length <= 3 && !sameCo;
+    $('#wSub').textContent = v.length < 2
+      ? '리믹스까지 ' + (2 - v.length) + '개의 기술이 더 필요해요.'
+      : (ok ? '조합할 기술을 확인하고 리믹스를 시작하세요!' : '조합할 기술을 2개 이상 선택해주세요.');
+    var btn = $('#btnToRemix'), reason = $('#wReason');
+    btn.disabled = !ok;
+    reason.classList.toggle('ok', ok);
+    reason.textContent = sameCo ? '같은 기업의 기술만으로는 조합할 수 없어요 — 서로 다른 기업 기술을 선택해주세요'
+      : (v.length < 2 ? '리믹스에는 서로 다른 기업의 토큰 2개 이상이 필요해요'
+      : (remixPick.length < 2 ? '조합할 기술을 2개 이상 선택해주세요' : '✓ 준비 완료! 2~3개 기술을 AI가 조합해드려요'));
+  }
+  $('#tokList').addEventListener('click', function(e){
+    var x = e.target.closest('[data-x]');
+    if (x){
+      var id = x.getAttribute('data-x');
+      if (window.confirm('이 토큰을 삭제할까요? 부스 인증도 함께 취소돼요.')){
+        var s = getS();
+        s.verified = (s.verified||[]).filter(function(i){ return i !== id; });
+        s.selectedTechs = (s.selectedTechs||[]).filter(function(o){ return o.id !== id; });
+        saveSession(s);
+        blindSel = s.selectedTechs; remixPick = null;
+        renderWallet(); toast('토큰을 삭제했어요');
+      }
+      return;
+    }
+    var visit = e.target.closest('[data-visit]');
+    if (visit){ revealQueue = [visit.getAttribute('data-visit')]; revealIdx = 0; renderReveal(); show('#view-reveal'); return; }
+    if (e.target.closest('[data-more]')){ renderBlind(); show('#view-blind'); return; }
+    var tok = e.target.closest('.tok[data-tok]');
+    if (tok){
+      var tid = tok.getAttribute('data-tok');
+      if (remixPick.indexOf(tid) >= 0) remixPick = remixPick.filter(function(i){ return i !== tid; });
+      else { if (remixPick.length >= 3){ toast('조합은 최대 3개까지예요'); return; } remixPick.push(tid); }
+      renderWallet();
+    }
+  });
+  $('#wBack').addEventListener('click', function(){ renderBlind(); show('#view-blind'); });
+  $('#btnToRemix').addEventListener('click', function(){ if (!$('#btnToRemix').disabled){ renderRemixSetup(); show('#view-remix'); } });
+
+  /* ---------- P07 리믹스 ---------- */
+  var rxStyle = '미래형', rxType = '제품', genTimer = null, genStep = 0;
+  function renderRemixSetup(){
+    ensurePick();
+    $('#rxSetup').style.display = ''; $('#genPanel').classList.remove('on');
+    $('#rxToks').innerHTML = remixPick.map(function(id){
+      var t = TECH_BY_ID[id], db = REVEAL_DB[id];
+      return '<span class="tokchip">No.' + t.no + ' ' + db.tech + '</span>';
+    }).join('');
+    $('#rxMission').textContent = getS().missionLabel || '미션 미선택';
+  }
+  function optRow(rowId, setter){
+    $$('#' + rowId + ' button').forEach(function(b){
+      b.addEventListener('click', function(){
+        $$('#' + rowId + ' button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true'); setter(b.getAttribute('data-v'));
+      });
+    });
+  }
+  optRow('rxStyle', function(v){ rxStyle = v; });
+  optRow('rxType', function(v){ rxType = v; });
+  $('#rxMissionEdit').addEventListener('click', function(){ show('#view-mission'); toast('미션을 바꾼 뒤 다시 리믹스로 돌아오세요'); });
+  $('#rxBack').addEventListener('click', function(){ renderWallet(); show('#view-wallet'); });
+
+  var GEN_MSGS = ['기술 분석 중…','연결점 찾는 중…','아이디어 설계 중…','콘셉트 이미지 만드는 중…','결과 정리 중…'];
+  function startGen(){
+    pushEvent({ t:'remix_started' });
+    $('#rxSetup').style.display = 'none'; $('#genPanel').classList.add('on');
+    genStep = 0; $('#genMsg').textContent = GEN_MSGS[0]; $('#genBar').style.width = '8%';
+    genTimer = setInterval(function(){
+      genStep++;
+      if (genStep < GEN_MSGS.length){
+        $('#genMsg').textContent = GEN_MSGS[genStep];
+        $('#genBar').style.width = (8 + genStep * 22) + '%';
+      } else {
+        clearInterval(genTimer); genTimer = null;
+        $('#genBar').style.width = '100%';
+        setTimeout(function(){
+          buildResult(false); renderResult(); show('#view-result');
+          pushEvent({ t:'remix_completed' });
+        }, 350);
+      }
+    }, 900);
+  }
+  $('#btnGenerate').addEventListener('click', startGen);
+  $('#genCancel').addEventListener('click', function(){
+    if (genTimer){ clearInterval(genTimer); genTimer = null; }
+    renderRemixSetup();
+  });
+
+  /* ---------- P08 결과 ---------- */
+  /* 결과명 다양화: 카테고리별 이름 풀에서 기술 조합 해시로 결정 — 같은 카테고리라도 조합이 다르면 이름이 달라짐 */
+  var CAT_PRIORITY = ['food','health','mobility','city','life','env'];
+  var NAMES_BY_CAT = {
+    food:[['FOOD GUARD','🥗'],['FRESH LOOP','🍃'],['ZERO PLATE','🍽']],
+    health:[['LIGHT CARE','💗'],['CARE RING','🫶'],['SLEEP SENSE','🌙']],
+    mobility:[['GREEN DRIVE','🚗'],['MOVE LITE','🛴'],['PATH FINDER','🧭']],
+    city:[['CITY SAFE','🌃'],['GRID NEST','🏙'],['POWER BLOCK','🔋']],
+    life:[['GREEN CUBE','🌿'],['DAILY LOOP','🏠'],['ECO KIT','🧺']],
+    env:[['COOL LOOP','❄️'],['WATT SAVER','⚡'],['HEAT SHIFT','🌡']]
+  };
+  /* 스타일 락: 결과 이미지는 전부 동일한 'NLR 스튜디오 스타일'로 사전 생성된 세트 사용 */
+  var IMG_BY_NAME = {
+    'COOL LOOP':'cool-loop','WATT SAVER':'cool-loop','HEAT SHIFT':'cool-loop',
+    'FOOD GUARD':'food-guard','FRESH LOOP':'food-guard','ZERO PLATE':'food-guard',
+    'GREEN DRIVE':'green-drive','MOVE LITE':'green-drive','PATH FINDER':'green-drive',
+    'LIGHT CARE':'light-care','CARE RING':'light-care','SLEEP SENSE':'light-care',
+    'CITY SAFE':'city-safe','GRID NEST':'city-safe','POWER BLOCK':'city-safe',
+    'GREEN CUBE':'green-cube','DAILY LOOP':'green-cube','ECO KIT':'green-cube','AQUA +':'aqua-plus'
+  };
+  function resultImg(title){ var k = IMG_BY_NAME[title]; return k ? 'assets/results/' + k + '.jpg' : null; }
+  function buildResult(regen){
+    var s = getS();
+    var cats = remixPick.map(function(id){ return TECH_BY_ID[id].cat; });
+    /* 페르소나 검증 반영: 미션 카테고리가 조합에 포함되면 결과명도 미션 분야에서 — 이름-내용 정합성 */
+    var cat = null;
+    var mcat = CAT_BY_MISSION[s.missionId];
+    if (mcat && cats.indexOf(mcat) >= 0) cat = mcat;
+    if (!cat){
+      for (var i = 0; i < CAT_PRIORITY.length; i++){ if (cats.indexOf(CAT_PRIORITY[i]) >= 0){ cat = CAT_PRIORITY[i]; break; } }
+    }
+    if (!cat) cat = 'env';
+    var pool = NAMES_BY_CAT[cat];
+    var hash = 0, hkey = remixPick.slice().sort().join('|') + '|' + rxStyle;
+    for (var h = 0; h < hkey.length; h++) hash = (hash * 31 + hkey.charCodeAt(h)) % 997;
+    var variant = hash % pool.length;
+    if (regen) variant = (variant + 1) % pool.length;
+    var title = pool[variant][0], em = pool[variant][1];
+    var roles = remixPick.map(function(id){ return REVEAL_DB[id].role; });
+    /* 페르소나 검증 반영: 받침 유무에 따른 와/과 조사 처리 */
+    function josaWa(w){
+      var c = w.charCodeAt(w.length - 1);
+      if (c < 0xAC00 || c > 0xD7A3) return '와';
+      return ((c - 0xAC00) % 28) ? '과' : '와';
+    }
+    var tone = rxStyle === '재미형' ? '재미있게 풀어낸' : (rxStyle === '현실형' ? '당장 적용할 수 있는' : '미래형');
+    var desc = roles[0] + josaWa(roles[0]) + ' ' + roles[1] + (roles[2] ? ', ' + roles[2] : '') + ' 기술을 결합해 "' + (s.missionLabel || '나의 미션') + '" 문제를 돕는 ' + tone + ' ' + rxType;
+    if (desc.length > 100) desc = desc.slice(0,97) + '…';
+    s.result = {
+      id: 'R-' + Math.random().toString(36).slice(2,7).toUpperCase(),
+      title: title, desc: desc, em: em, img: resultImg(title), style: rxStyle, type: rxType,
+      techs: remixPick.slice(), posted: false, votes: 0,
+      edits: { title:false, desc:false },
+      regenUsed: !!regen
+    };
+    saveSession(s);
+  }
+  function renderResult(){
+    var s = getS(), r = s.result; if (!r) return;
+    ensurePick();
+    var rimgEl = $('#rImg');
+    if (r.img){
+      rimgEl.innerHTML = '<img src="' + r.img + '" alt="AI 콘셉트 이미지" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent=\'' + r.em + '\'">';
+    } else { rimgEl.textContent = r.em; }
+    $('#rTitle').textContent = r.title;
+    $('#rDesc').textContent = r.desc;
+    $('#rBadges').innerHTML = '<i>' + r.style + '</i><i>' + r.type + '</i><i>ID ' + r.id + '</i>';
+    $('#rRoles').innerHTML = r.techs.map(function(id){
+      var t = TECH_BY_ID[id], db = REVEAL_DB[id];
+      return '<div class="role-row"><span class="no">No.' + t.no + '</span><b style="font-size:11.5px">' + db.co + '</b><span>— ' + db.role + ' 담당 (' + db.hall + ' ' + db.booth + ')</span></div>';
+    }).join('');
+    $('#pubNick').value = s.nickname || ('mixi_' + s.sessionId.slice(-4));
+    $('#pubConsent').checked = false;
+    $('#btnRegen').disabled = !!r.regenUsed;
+    $('#btnRegen').textContent = r.regenUsed ? '다시 만들기 (사용함)' : '다시 만들기 (1회)';
+    updatePub();
+  }
+  function updatePub(){
+    var posted = (getS().result || {}).posted;
+    var ok = $('#pubConsent').checked && $('#pubNick').value.trim().length > 0;
+    $('#btnPost').disabled = !ok || posted;
+    $('#btnPost').textContent = posted ? '게시 완료' : '아이디어 피드에 게시';
+    $('#pubReason').textContent = posted ? '✓ 게시 완료! 아이디어 탭에서 확인하세요'
+      : (ok ? '✓ 게시 준비 완료' : '게시하려면 공개 동의에 체크해주세요 (기본 꺼짐 · 옵트인)');
+    $('#pubReason').classList.toggle('ok', ok || !!posted);
+  }
+  $('#pubConsent').addEventListener('change', updatePub);
+  $('#pubNick').addEventListener('input', updatePub);
+  function editOnce(kind){
+    var s = getS(), r = s.result; if (!r) return;
+    if (r.edits[kind]){ toast('수정은 항목당 1회만 가능해요'); return; }
+    var cur = kind === 'title' ? r.title : r.desc;
+    var max = kind === 'title' ? 15 : 100;
+    var v = window.prompt(kind === 'title' ? '아이디어명 수정 (15자 이내)' : '한 문장 설명 수정 (100자 이내)', cur);
+    if (v === null) return;
+    v = v.trim().slice(0, max);
+    if (!v) return;
+    if (kind === 'title') r.title = v; else r.desc = v;
+    r.edits[kind] = true; s.result = r; saveSession(s);
+    pushEvent({ t:'result_edited', field:kind });
+    renderResult(); toast('수정했어요 (해당 항목 1회 사용)');
+  }
+  $('#editTitle').addEventListener('click', function(){ editOnce('title'); });
+  $('#editDesc').addEventListener('click', function(){ editOnce('desc'); });
+  $('#btnRegen').addEventListener('click', function(){
+    var r = (getS().result || {});
+    if (r.regenUsed){ toast('다시 만들기는 1회만 가능해요'); return; }
+    buildResult(true); renderResult(); toast('새로운 조합으로 다시 만들었어요');
+  });
+  $('#btnShare').addEventListener('click', function(){
+    pushEvent({ t:'share_clicked' });
+    var r = getS().result || {};
+    var text = '[NO LOGO REMIX] ' + r.title + ' — ' + r.desc + ' #NOLOGOREMIX #나의아이디어 #미래를만들다';
+    if (navigator.share){ navigator.share({ title:r.title, text:text }).catch(function(){}); }
+    else if (navigator.clipboard){ navigator.clipboard.writeText(text); toast('공유 문구를 복사했어요!'); }
+    else toast('공유 문구: ' + text);
+  });
+  $('#btnPost').addEventListener('click', function(){
+    var s = getS(), r = s.result; if (!r || $('#btnPost').disabled) return;
+    s.nickname = $('#pubNick').value.trim();
+    r.posted = true; s.result = r; saveSession(s);
+    pushEvent({ t:'result_posted', id:r.id });
+    renderFeed(); show('#view-feed');
+    toast('게시 완료! 다음 REMIX LIVE(매시 정각) 전광판 후보에 올랐어요 🎬');
+  });
+  $('#rsBack').addEventListener('click', function(){ renderRemixSetup(); show('#view-remix'); });
+
+  /* ---------- P09 피드·투표 ---------- */
+  var FEED = [
+    {id:'F-01',title:'COOL LOOP',em:'❄️',img:'assets/results/cool-loop.jpg',cat:'에너지 절약 · 제품',nick:'mixi_0716',votes:1243,hidden:false,
+     desc:'실시간 에너지 제어와 단열 소재를 결합해 자취방 냉방비와 에너지 낭비를 줄이는 스마트 에너지 루틴',
+     techs:['No.12 실시간 전력 제어 — 에이팩스 솔루션','No.07 열 손실 차단 — 그린매터']},
+    {id:'F-02',title:'AQUA +',em:'💧',img:'assets/results/aqua-plus.jpg',cat:'제로웨이스트 · 제품',nick:'eco_maker',votes:987,hidden:true,
+     desc:'생분해 리필 용기와 피부 측정 센서를 결합한 제로웨이스트 맞춤 뷰티 디스펜서',
+     techs:['No.21 친환경 용기 — 리필랩','No.24 피부 데이터 측정 — 더마픽']},
+    {id:'F-03',title:'FOOD GUARD',em:'🥗',img:'assets/results/food-guard.jpg',cat:'식품 안전 · 서비스',nick:'fresh_2030',votes:856,hidden:false,
+     desc:'신선도 스마트 라벨과 AI 식재료 분석으로 버려지는 음식을 줄이는 신선 보관 서비스',
+     techs:['No.11 신선도 기록·경고 — 콜드체인랩','No.15 식재료 분석·추천 — 프레시로직']},
+    {id:'F-04',title:'GREEN DRIVE',em:'🚗',img:'assets/results/green-drive.jpg',cat:'모빌리티 · 서비스',nick:'move_on',votes:642,hidden:true,
+     desc:'경로 예측 AI와 분산 에너지 모듈을 결합한 공유 전기 마이크로 모빌리티 서비스',
+     techs:['No.09 이동 데이터 예측 — 무브온','No.18 비상 전력 공급 — 시티셀']},
+    {id:'F-05',title:'LIGHT CARE',em:'💗',img:'assets/results/light-care.jpg',cat:'헬스케어 · 제품',nick:'healthy_y',votes:521,hidden:false,
+     desc:'비접촉 생활 센서로 혼자 사는 가족의 이상 신호를 감지해 알려주는 케어 라이트',
+     techs:['No.05 생활 패턴 감지 — 케어웨이브','No.03 실내 환경 감지 — 넥스트센서']},
+    /* ↓ 페르소나 실주행(2026.7)에서 실제 생성된 아이디어 시드 */
+    {id:'P-01',title:'GRID NEST',em:'🏙',img:'assets/results/city-safe.jpg',cat:'폭염 속 전기료 · 제품',nick:'dyn_energy',votes:243,hidden:false,
+     desc:'실시간 전력 제어와 비상 전력 공급 기술을 결합해 폭염 속 자취방 전기료를 줄이는 스마트 그리드 제품',
+     techs:['No.12 실시간 전력 제어 — 에이팩스 솔루션','No.18 비상 전력 공급 — 시티셀']},
+    {id:'P-02',title:'ECO KIT',em:'🧺',img:'assets/results/green-cube.jpg',cat:'제로웨이스트 뷰티 · 제품',nick:'sein_pick',votes:198,hidden:false,
+     desc:'친환경 용기와 피부 데이터 측정 기술을 결합해 플라스틱 없는 뷰티 루틴을 재미있게 풀어낸 제품',
+     techs:['No.21 친환경 용기 — 리필랩','No.24 피부 데이터 측정 — 더마픽']},
+    {id:'P-03',title:'DAILY LOOP',em:'🏠',img:'assets/results/green-cube.jpg',cat:'카페 전기요금 · 서비스',nick:'juno_cafe',votes:176,hidden:true,
+     desc:'실시간 전력 제어와 열 손실 차단, 실내 환경 감지 기술을 결합해 카페 여름 전기요금을 줄이는 서비스',
+     techs:['No.12 실시간 전력 제어 — 에이팩스 솔루션','No.07 열 손실 차단 — 그린매터','No.03 실내 환경 감지 — 넥스트센서']},
+    {id:'P-04',title:'DREAM GRID',em:'🌃',img:'assets/results/city-safe.jpg',cat:'정전 없는 미래도시 · 공간',nick:'haneul_d',votes:231,hidden:false,
+     desc:'비상 전력 공급과 실내 환경 감지 기술을 결합해 정전에도 작동하는 미래도시를 그린 공간 콘셉트',
+     techs:['No.18 비상 전력 공급 — 시티셀','No.03 실내 환경 감지 — 넥스트센서']}
+  ];
+  var lastFeedItems = [];
+  var feedFilter = 'new';
+  function feedItems(){
+    var s = getS(), items = FEED.slice();
+    if (s.result && s.result.posted){
+      items.unshift({ id:s.result.id, title:s.result.title, em:s.result.em, img:s.result.img||null,
+        cat:(s.missionLabel||'미션') + ' · ' + s.result.type, nick:s.nickname||'me', votes:s.result.votes||0, hidden:false, mine:true,
+        desc:s.result.desc,
+        techs:(s.result.techs||[]).map(function(id){ return 'No.' + TECH_BY_ID[id].no + ' ' + REVEAL_DB[id].role + ' — ' + REVEAL_DB[id].co; }) });
+    }
+    items = items.map(function(it){
+      var shown = it.votes + (s.votedId === it.id ? 1 : 0);
+      var o = {}; for (var k in it) o[k] = it[k]; o.shown = shown; return o;
+    });
+    if (feedFilter === 'hot') items.sort(function(a,b){ return b.shown - a.shown; });
+    if (feedFilter === 'hidden') items = items.filter(function(i){ return i.hidden || i.mine; });
+    return items;
+  }
+  function feedTile(it){
+    return it.img
+      ? '<img src="' + it.img + '" alt="" onerror="this.outerHTML=\'' + it.em + '\'">'
+      : it.em;
+  }
+  function renderFeed(){
+    var s = getS(), items = feedItems();
+    lastFeedItems = items;
+    var top = items.slice().sort(function(a,b){ return b.shown - a.shown; }).slice(0,3);
+    $('#top3').innerHTML = top.map(function(it,i){
+      return '<div class="t3"><span class="rank">' + (i+1) + '</span><div class="em">' + it.em + '</div><b>' + it.title + '</b><span>♥ ' + it.shown.toLocaleString() + '</span></div>';
+    }).join('');
+    $('#feedList').innerHTML = items.map(function(it, idx){
+      var voted = s.votedId === it.id;
+      var bb = it.mine ? (s.billboardRequested
+        ? '<span class="bb-chip">전광판 노출 예정</span>'
+        : '<button class="bb-chip" data-bb="1" style="cursor:pointer">전광판 게시 신청</button>') : '';
+      return '<div class="f-card' + (it.mine ? ' mine' : '') + '" data-idx="' + idx + '" role="button" tabindex="0" aria-label="' + it.title + ' 상세 보기">'
+        + '<div class="em">' + feedTile(it) + '</div>'
+        + '<div class="f-body"><b>' + it.title + (it.mine ? '<i>내 아이디어</i>' : '') + '</b>'
+        + '<span>' + it.cat + ' · @' + it.nick + ' · ' + it.id + '</span>'
+        + '<span style="color:#8A8DA0">👆 탭해서 아이디어 자세히 보기</span>'
+        + (bb ? '<span style="margin-top:4px;display:inline-block">' + bb + '</span>' : '')
+        + '</div>'
+        + '<button class="vote-btn" data-vote="' + it.id + '" aria-pressed="' + voted + '" ' + (s.votedId && !voted ? 'disabled' : '') + '>'
+        + '<span class="hrt">' + (voted ? '♥' : '♡') + '</span>' + it.shown.toLocaleString() + '</button>'
+        + '</div>';
+    }).join('');
+  }
+  /* 아이디어 상세 바텀시트 (인터랙티브 더미) */
+  var curIdea = null;
+  function openIdeaSheet(it){
+    curIdea = it;
+    var s = getS();
+    $('#isImg').innerHTML = it.img
+      ? '<img src="' + it.img + '" alt="" onerror="this.parentElement.textContent=\'' + it.em + '\'">'
+      : it.em;
+    $('#isTitle').textContent = it.title;
+    $('#isBadges').innerHTML = '<i>' + it.cat + '</i><i>@' + it.nick + '</i><i>ID ' + it.id + '</i>' + (it.mine ? '<i style="background:var(--purple);color:#fff">내 아이디어</i>' : '');
+    $('#isDesc').textContent = it.desc || '';
+    $('#isTechs').innerHTML = (it.techs||[]).map(function(t){
+      var parts = t.split(' — ');
+      return '<div class="role-row"><span class="no">' + parts[0].split(' ')[0] + '</span><b style="font-size:11.5px">' + (parts[1]||'') + '</b><span>— ' + parts[0].split(' ').slice(1).join(' ') + '</span></div>';
+    }).join('');
+    var voted = s.votedId === it.id;
+    var btn = $('#isVote');
+    if (it.mine){ btn.textContent = '내 아이디어예요'; btn.disabled = true; }
+    else if (voted){ btn.textContent = '♥ 투표 완료'; btn.disabled = true; }
+    else if (s.votedId){ btn.textContent = '투표는 1인 1표'; btn.disabled = true; }
+    else { btn.textContent = '♥ 이 아이디어에 투표하기'; btn.disabled = false; }
+    $('#ideaMask').classList.add('on'); $('#ideaSheet').classList.add('on');
+  }
+  function closeIdeaSheet(){ $('#ideaMask').classList.remove('on'); $('#ideaSheet').classList.remove('on'); curIdea = null; }
+  $('#ideaMask').addEventListener('click', closeIdeaSheet);
+  $('#isClose').addEventListener('click', closeIdeaSheet);
+  $('#isVote').addEventListener('click', function(){
+    if (!curIdea || $('#isVote').disabled) return;
+    var s = getS();
+    if (s.votedId) return;
+    s.votedId = curIdea.id; saveSession(s);
+    pushEvent({ t:'vote_submitted', id:curIdea.id });
+    renderFeed(); openIdeaSheet(lastFeedItems.filter(function(x){ return x.id === curIdea.id; })[0] || curIdea);
+    toast('투표 완료! 소중한 한 표 감사해요');
+  });
+  $$('.cat[data-ff]').forEach(function(c){
+    c.addEventListener('click', function(){
+      $$('.cat[data-ff]').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      c.setAttribute('aria-pressed','true'); feedFilter = c.getAttribute('data-ff'); renderFeed();
+    });
+  });
+  $('#feedList').addEventListener('click', function(e){
+    var bb = e.target.closest('[data-bb]');
+    if (bb){ var s = getS(); s.billboardRequested = true; saveSession(s); renderFeed(); toast('전광판 게시를 신청했어요! 운영자 승인 후 노출돼요'); return; }
+    var v = e.target.closest('[data-vote]');
+    if (v){
+      var s2 = getS(), vid = v.getAttribute('data-vote');
+      if (s2.votedId){ toast(s2.votedId === vid ? '이미 이 아이디어에 투표했어요' : '투표는 1인 1표예요'); return; }
+      s2.votedId = vid; saveSession(s2);
+      pushEvent({ t:'vote_submitted', id:vid });
+      renderFeed(); toast('투표 완료! 소중한 한 표 감사해요');
+      return;
+    }
+    var card = e.target.closest('.f-card[data-idx]');
+    if (card){
+      var it = lastFeedItems[parseInt(card.getAttribute('data-idx'), 10)];
+      if (it) openIdeaSheet(it);
+    }
+  });
+  $('#fdBack').addEventListener('click', function(){
+    if (getS().result){ renderResult(); show('#view-result'); } else show('#view-start');
+  });
+
+  /* ---------- P10 마이페이지 ---------- */
+  var TL_LABEL = {blind_card_viewed:'기술카드 상세 확인',blind_tech_selected:'블라인드 기술 선택',brand_revealed:'기업 공개 확인',qr_verify_started:'부스 인증 시작',qr_verify_success:'부스 방문 인증',token_acquired:'기술 토큰 획득',booth_feedback_submitted:'부스 만족도 남김',remix_started:'AI 리믹스 시작',remix_completed:'아이디어 생성 완료',result_edited:'아이디어 수정',result_posted:'아이디어 게시',vote_submitted:'투표 참여',share_clicked:'공유하기',lead_consent_completed:'기업 연락 동의'};
+  function renderMy(){
+    var s = getS(), v = s.verified || [];
+    $('#myNick').value = s.nickname || ('mixi_' + s.sessionId.slice(-4));
+    $('#mySid').textContent = s.sessionId;
+    var stats = [['발견 기술',(s.selectedTechs||[]).length],['방문 부스',v.length],['아이디어',s.result?1:0],['받은 투표',(s.result&&s.result.votes)||0]];
+    $('#myStats').innerHTML = stats.map(function(x){ return '<div class="stat"><b>' + x[1] + '</b><span>' + x[0] + '</span></div>'; }).join('');
+    var badges = [['🧭','Explorer',v.length>=1],['◈','Collector',v.length>=2],['✨','Creator',!!s.result],['📣','Sharer',(s.events||[]).some(function(e){ return e.t==='share_clicked'||e.t==='result_posted'; })]];
+    $('#myBadges').innerHTML = badges.map(function(b){ return '<div class="badge' + (b[2]?' got':'') + '"><div class="b-ico">' + b[0] + '</div><span>' + b[1] + '</span></div>'; }).join('');
+    $('#myIdeas').innerHTML = s.result
+      ? '<div class="f-card mine"><div class="em">' + s.result.em + '</div><div class="f-body"><b>' + s.result.title + '</b><span>' + s.result.id + ' · ' + (s.result.posted ? '게시됨' : '미게시') + '</span></div><button class="vote-btn" data-dl="1"><span class="hrt">⬇</span>저장</button></div>'
+      : '<p style="font-size:12px;color:var(--ink-2);padding:0 0 4px">아직 만든 아이디어가 없어요.</p>';
+    var evs = (s.events||[]).slice(-8).reverse();
+    $('#myTl').innerHTML = evs.length ? evs.map(function(e){
+      var d = new Date(e.at || Date.now());
+      var tm = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+      return '<div class="tl-row"><span class="tm">' + tm + '</span><span>' + (TL_LABEL[e.t]||e.t) + '</span></div>';
+    }).join('') : '<p style="font-size:12px;color:var(--ink-2)">아직 활동 기록이 없어요.</p>';
+    $('#optIn').checked = !!s.optIn;
+    $$('#satStars button').forEach(function(b){ b.classList.toggle('on', parseInt(b.getAttribute('data-star'),10) <= (s.satisfaction||0)); });
+  }
+  $('#myNick').addEventListener('change', function(){ var s = getS(); s.nickname = this.value.trim(); saveSession(s); toast('닉네임을 저장했어요'); });
+  $('#optIn').addEventListener('change', function(){
+    var s = getS(); s.optIn = this.checked; saveSession(s);
+    if (this.checked){ pushEvent({ t:'lead_consent_completed' }); toast('동의 완료! 관심 기업이 연락드릴 수 있어요 (언제든 해제 가능)'); }
+    else toast('동의를 해제했어요');
+  });
+  $$('#satStars button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var s = getS(); s.satisfaction = parseInt(b.getAttribute('data-star'),10); saveSession(s);
+      renderMy(); toast('만족도를 남겨주셔서 감사해요!');
+    });
+  });
+  $('#myIdeas').addEventListener('click', function(e){
+    if (e.target.closest('[data-dl]')) toast('데모에서는 이미지 저장을 생략해요 (실서비스: 9:16 카드 다운로드)');
+  });
+  $('#btnDelete').addEventListener('click', function(){
+    if (window.confirm('세션 데이터를 모두 삭제할까요? 되돌릴 수 없어요.')){
+      try{ localStorage.removeItem(SKEY); }catch(err){}
+      location.reload();
+    }
+  });
+  $('#btnSummary').addEventListener('click', function(){
+    var s = getS(), v = s.verified || [];
+    $('#doneSum').innerHTML = '<b>세션</b> ' + s.sessionId
+      + (s.exhibitionId ? '<br><b>전시</b> ' + s.exhibitionId : '')
+      + '<br><b>미션</b> ' + (s.missionLabel || '-')
+      + '<br><b>선택 기술</b> ' + (s.selectedTechs||[]).length + '개 · <b>방문 부스</b> ' + v.length + '곳'
+      + '<br><b>아이디어</b> ' + (s.result ? s.result.title + ' (' + (s.result.posted ? '게시됨' : '미게시') + ')' : '-')
+      + '<br><b>투표</b> ' + (s.votedId ? '참여' : '미참여') + ' · <b>연락 동의</b> ' + (s.optIn ? 'ON' : 'OFF');
+    show('#view-done');
+  });
+
+  /* ---------- 파일럿 테스트 결과 복사 (실측 집계용) ---------- */
+  function buildTestReport(){
+    var s = loadSession();
+    if (!s) return 'NLR-TEST | 세션 없음';
+    var evs = s.events || [];
+    var mins = '-';
+    if (evs.length >= 2 && evs[0].at && evs[evs.length-1].at){
+      mins = Math.max(1, Math.round((evs[evs.length-1].at - evs[0].at) / 60000)) + '분';
+    }
+    var stage = (s.result && s.result.posted) ? '게시완료'
+      : s.result ? '결과생성'
+      : (s.verified||[]).length ? ('토큰' + s.verified.length + '개')
+      : (s.selectedTechs||[]).length ? '블라인드선택'
+      : s.missionId ? '미션선택' : '온보딩';
+    var shared = evs.some(function(e){ return e.t === 'share_clicked'; }) ? 'O' : 'X';
+    return 'NLR-TEST | ' + s.sessionId + ' | 도달:' + stage + ' | 소요:' + mins
+      + ' | 토큰:' + (s.verified||[]).length + ' | 투표:' + (s.votedId ? 'O' : 'X')
+      + ' | 공유:' + shared + ' | 동의:' + (s.optIn ? 'O' : 'X')
+      + ' | 만족:' + (s.satisfaction || '-');
+  }
+  function copyTestReport(){
+    var line = buildTestReport();
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(line).then(function(){ toast('복사 완료! 단톡방에 붙여넣어 주세요 🙌'); })
+        .catch(function(){ window.prompt('아래 한 줄을 복사해 단톡방에 붙여넣어 주세요', line); });
+    } else { window.prompt('아래 한 줄을 복사해 단톡방에 붙여넣어 주세요', line); }
+  }
+  var tcb1 = $('#btnTestCopy'); if (tcb1) tcb1.addEventListener('click', copyTestReport);
+  var tcb2 = $('#btnTestCopy2'); if (tcb2) tcb2.addEventListener('click', copyTestReport);
+
+  /* ---------- 완료 뷰 ---------- */
+  $('#btnRestart').addEventListener('click', function(){
+    show('#view-start'); refreshContinue();
+  });
+  $('#btnResetSession').addEventListener('click', function(){
+    try { localStorage.removeItem(SKEY); } catch(e){}
+    location.reload();
+  });
+})();
+</script>
+</body>
+</html>

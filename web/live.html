@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NO LOGO REMIX LIVE — 현장 전광판 (S01)</title>
+<!-- S01 현장 라이브 전광판 · 기준 1920×1080 자동 스케일 · 밝은 테마 v2
+     [M] 최신 아이디어 6개(이미지+소개+사용 기술) · 실시간 TOP 3 · 참여 카운터 · QR · 10~15초 자동 순환 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--blue:#2E6BFF;--ink:#17181C;--ink2:#62646C;
+  --line:#E2E4F2;--lav:#F1F0FD;--pink:#FF5C8A}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#E8EAF6;
+  font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink)}
+.stage{position:absolute;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center;
+  background:
+    radial-gradient(42% 38% at 12% 6%, rgba(91,63,242,.10), transparent 70%),
+    radial-gradient(36% 40% at 92% 12%, rgba(46,107,255,.10), transparent 70%),
+    radial-gradient(40% 40% at 80% 96%, rgba(121,184,255,.12), transparent 70%),
+    linear-gradient(160deg,#FAFBFF 0%,#F0F2FC 100%);
+  display:flex;flex-direction:column;padding:44px 56px 0}
+.row{flex:1;display:flex;gap:40px;min-height:0}
+/* ── 좌: 로고 + MIXI + QR ── */
+.left{flex:0 0 320px;display:flex;flex-direction:column}
+.logo{font-size:50px;font-weight:800;line-height:1.06;letter-spacing:.5px;color:var(--ink)}
+.logo .r{color:var(--blue)}
+.logo .live{display:inline-block;margin-top:14px;font-size:24px;letter-spacing:9px;color:#fff;
+  background:linear-gradient(90deg,var(--blue),var(--purple));padding:8px 20px 8px 28px;border-radius:14px;
+  animation:livePulse 2.4s ease-in-out infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 rgba(91,63,242,0)}50%{box-shadow:0 0 40px rgba(91,63,242,.4)}}
+.sub{margin-top:16px;font-size:18px;color:var(--ink2);line-height:1.6}
+.mixi-tile{width:100%;border-radius:22px;margin-top:20px;border:1.5px solid var(--line);box-shadow:0 18px 36px -22px rgba(42,30,122,.35)}
+.qr-card{margin-top:auto;margin-bottom:40px;background:#fff;border:1.5px solid var(--line);
+  border-radius:24px;padding:22px;text-align:center;box-shadow:0 18px 36px -22px rgba(42,30,122,.3)}
+.qr-box{width:168px;height:168px;margin:0 auto;background:#fff;border-radius:16px;padding:8px;border:1.5px solid var(--line)}
+.qr-box svg{width:100%;height:100%}
+.qr-card b{display:block;font-size:20px;margin-top:14px;color:var(--ink)}
+.qr-card span{display:block;font-size:15px;color:var(--blue);font-weight:800;margin-top:5px;letter-spacing:.5px}
+/* ── 중앙: 아이디어 그리드 ── */
+.mid{flex:1;display:flex;flex-direction:column;min-width:0}
+.mid-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mid-head h2{font-size:28px;font-weight:800;color:var(--ink)}
+.mid-head span{font-size:15px;color:var(--ink2)}
+.grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:18px;margin-bottom:40px}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:22px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 16px 34px -24px rgba(42,30,122,.35);
+  transition:opacity .6s ease, transform .6s ease}
+.card.fade{opacity:0;transform:scale(.96)}
+.card .img{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;font-size:64px;
+  background:linear-gradient(150deg,#EAF0FF,#E2E6FB);overflow:hidden;position:relative}
+.card .img img{width:100%;height:100%;object-fit:cover}
+.card .img .votes{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);color:var(--pink);
+  font-size:15px;font-weight:800;padding:5px 12px;border-radius:99px;box-shadow:0 4px 12px rgba(42,30,122,.15)}
+.card .meta{padding:13px 17px 15px}
+.card .meta .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card .meta b{font-size:21px;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .meta .nick{font-size:12px;color:var(--ink2);white-space:nowrap}
+.card .meta p{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:5px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+.card .chips{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.card .chips i{font-style:normal;font-size:10.5px;font-weight:800;background:var(--lav);color:var(--purple-ink);
+  padding:4px 9px;border-radius:99px;white-space:nowrap}
+/* ── 우: TOP3 + 카운터 ── */
+.right{flex:0 0 350px;display:flex;flex-direction:column;gap:18px;padding-bottom:40px}
+.panel{background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:22px 24px;box-shadow:0 16px 34px -24px rgba(42,30,122,.3)}
+.panel h3{font-size:19px;font-weight:800;color:var(--purple-ink);display:flex;justify-content:space-between;align-items:center}
+.panel h3 small{font-size:12px;color:var(--ink2);font-weight:600}
+.t3-row{display:flex;align-items:center;gap:12px;margin-top:15px}
+.t3-row .rk{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:800;background:var(--lav);color:var(--purple-ink);flex:0 0 34px}
+.t3-row:nth-child(2) .rk{background:linear-gradient(140deg,#FFD34D,#F5A301);color:#3A2A00}
+.t3-row:nth-child(3) .rk{background:linear-gradient(140deg,#EDEFF8,#C6CCDE);color:#2A3050}
+.t3-row:nth-child(4) .rk{background:linear-gradient(140deg,#F5BE8C,#D08544);color:#3A2000}
+.t3-row .em{width:44px;height:44px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  font-size:24px;background:var(--lav);flex:0 0 44px}
+.t3-row .em img{width:100%;height:100%;object-fit:cover}
+.t3-row b{font-size:18px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t3-row span{font-size:16px;color:var(--pink);font-weight:800;font-variant-numeric:tabular-nums}
+.cnt-panel{flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;text-align:center}
+.cnt-panel .num{font-size:54px;font-weight:800;color:var(--purple);font-variant-numeric:tabular-nums;line-height:1}
+.cnt-panel .num.small{font-size:44px;color:var(--blue)}
+.cnt-panel .lbl{font-size:15px;color:var(--ink2);margin-top:6px}
+.approve{font-size:12px;color:var(--ink2);text-align:center}
+/* ── 하단 티커 ── */
+.ticker{height:72px;margin:0 -56px;background:linear-gradient(90deg,var(--blue),var(--purple));
+  display:flex;align-items:center;overflow:hidden;color:#fff}
+.next-live{flex:0 0 auto;height:100%;display:flex;align-items:center;gap:12px;padding:0 32px;
+  background:rgba(0,0,0,.18);font-size:21px;font-weight:800}
+.next-live b{font-size:28px;font-variant-numeric:tabular-nums}
+.marquee{flex:1;overflow:hidden;white-space:nowrap}
+.marquee div{display:inline-block;padding-left:100%;animation:mq 26s linear infinite;font-size:20px;font-weight:700;letter-spacing:1px;color:#EAF0FF}
+@keyframes mq{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="row">
+    <div class="left">
+      <div class="logo">NO LOGO<br><span class="r">REMIX</span><br><span class="live">LIVE</span></div>
+      <p class="sub">브랜드를 가린 기술로<br>지금 태어나는 아이디어들</p>
+      <img class="mixi-tile" src="assets/mixi-face.jpg" alt="마스코트 MIXI">
+      <div class="qr-card">
+        <div class="qr-box" aria-hidden="true">
+          <svg viewBox="0 0 29 29" shape-rendering="crispEdges">
+            <rect width="29" height="29" fill="#fff"/>
+            <path fill="#10142F" d="M0 0h7v7H0zM1 1v5h5V1zM2 2h3v3H2zM22 0h7v7h-7zM23 1v5h5V1zM24 2h3v3h-3zM0 22h7v7H0zM1 23v5h5v-5zM2 24h3v3H2zM9 0h2v2H9zM13 0h1v3h-1zM16 1h2v1h-2zM9 3h1v2H9zM11 3h2v1h-2zM15 3h1v2h-1zM17 3h3v1h-3zM10 6h1v1h-1zM12 5h2v2h-2zM16 6h2v1h-2zM19 5h1v2h-1zM0 9h2v1H0zM3 9h1v2H3zM5 9h2v1H5zM8 8h2v2H8zM12 8h1v2h-1zM14 9h3v1h-3zM18 8h2v1h-2zM21 9h1v1h-1zM24 8h2v2h-2zM27 9h2v1h-2zM1 12h2v1H1zM4 12h2v2H4zM8 11h1v3H8zM10 12h3v2h-3zM14 12h1v1h-1zM16 11h2v2h-2zM20 12h2v1h-2zM23 12h1v2h-1zM25 11h2v2h-2zM28 12h1v2h-1zM0 15h1v2H0zM2 15h2v1H2zM5 15h2v2H5zM9 15h2v1H9zM12 15h2v2h-2zM15 14h2v2h-2zM18 15h2v1h-2zM21 15h2v2h-2zM24 15h1v1h-1zM26 15h2v1h-2zM1 18h2v2H1zM4 18h1v1H4zM6 18h2v2H6zM9 18h1v2H9zM11 18h2v1h-2zM14 18h2v2h-2zM17 18h1v2h-1zM19 18h2v1h-2zM22 18h2v2h-2zM25 18h2v1h-2zM28 18h1v2h-1zM9 21h2v2H9zM12 21h1v2h-1zM14 22h2v1h-2zM17 21h2v2h-2zM20 21h1v3h-1zM22 22h2v1h-2zM25 21h1v2h-1zM27 22h2v2h-2zM9 24h1v2H9zM11 24h2v2h-2zM14 24h1v3h-1zM16 25h2v1h-2zM19 25h1v2h-1zM21 25h3v1h-3zM25 24h2v2h-2zM9 27h3v2H9zM13 28h2v1h-2zM16 27h2v2h-2zM19 28h2v1h-2zM22 27h2v2h-2zM26 27h2v2h-2z"/>
+          </svg>
+        </div>
+        <b>지금 참여하고 만들어보세요</b>
+        <span>remix.io/enter</span>
+      </div>
+    </div>
+
+    <div class="mid">
+      <div class="mid-head">
+        <h2>오늘 태어난 아이디어</h2>
+        <span id="rotNote">12초마다 자동 순환 · 운영자 승인 게시</span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="right">
+      <div class="panel">
+        <h3>실시간 TOP 3 <small id="clock"></small></h3>
+        <div id="top3"></div>
+      </div>
+      <div class="panel cnt-panel">
+        <div><div class="num" id="cGen">2,341</div><div class="lbl">오늘 생성된 아이디어</div></div>
+        <div><div class="num small" id="cVote">8,765</div><div class="lbl">총 현장 투표 수</div></div>
+        <div><div class="num small" id="cJoin">5,842</div><div class="lbl">총 참여자 수</div></div>
+      </div>
+      <p class="approve">※ 게시물은 운영자 승인 후 노출 · 기업 다양성 균형 배치 · 모든 결과 이미지는 동일한 NLR 스튜디오 스타일로 생성</p>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="next-live">다음 REMIX LIVE <b id="nextLive">14:30</b></div>
+    <div class="marquee"><div>#NOLOGOREMIX &nbsp;·&nbsp; #노로고리믹스 &nbsp;·&nbsp; 브랜드는 숨기고, 기술을 발견하세요 &nbsp;·&nbsp; 기술 토큰 2~3개를 모아 나만의 아이디어를 만들어보세요 &nbsp;·&nbsp; 매시 정각, 가장 많이 선택된 블라인드 카드를 단체 공개합니다 &nbsp;·&nbsp; #NOLOGOREMIX &nbsp;·&nbsp; #노로고리믹스</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var stage = document.getElementById('stage');
+  function fit(){
+    var s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+
+  /* 아이디어 풀 — 이미지·소개·사용 기술 포함 (스타일 락 세트) */
+  var POOL = [
+    {t:'COOL LOOP',e:'❄️',img:'assets/results/cool-loop.jpg',n:'mixi_0716',v:1243,
+     d:'실시간 에너지 제어와 단열 소재로 자취방 냉방비를 줄이는 스마트 루틴',c:['에너지 제어','단열 소재']},
+    {t:'AQUA +',e:'💧',img:'assets/results/aqua-plus.jpg',n:'eco_maker',v:987,
+     d:'생분해 리필 용기와 피부 센서를 결합한 제로웨이스트 뷰티 디스펜서',c:['생분해 용기','피부 센서']},
+    {t:'FOOD GUARD',e:'🥗',img:'assets/results/food-guard.jpg',n:'fresh_2030',v:856,
+     d:'신선도 라벨과 AI 분석으로 버려지는 음식을 줄이는 신선 보관 서비스',c:['신선도 라벨','AI 분석']},
+    {t:'GREEN DRIVE',e:'🚗',img:'assets/results/green-drive.jpg',n:'move_on',v:642,
+     d:'경로 예측 AI와 에너지 모듈을 결합한 공유 전기 마이크로 모빌리티',c:['경로 예측','에너지 모듈']},
+    {t:'LIGHT CARE',e:'💗',img:'assets/results/light-care.jpg',n:'healthy_y',v:521,
+     d:'비접촉 센서로 혼자 사는 가족의 이상 신호를 감지하는 케어 라이트',c:['생활 센서','저전력']},
+    {t:'CITY SAFE',e:'🌃',img:'assets/results/city-safe.jpg',n:'urban_lab',v:438,
+     d:'정전에도 멈추지 않는 분산형 에너지 도시 블록 콘셉트',c:['에너지 저장','스마트시티']},
+    {t:'GREEN CUBE',e:'🌿',img:'assets/results/green-cube.jpg',n:'plant_it',v:402,
+     d:'책상 위에서 채소를 키우는 초소형 스마트 가든 큐브',c:['환경 센서','그로우 라이트']},
+    {t:'FLEXI SHELF',e:'📦',img:null,n:'space_up',v:377,
+     d:'공간에 맞춰 스스로 변형되는 모듈형 스마트 선반',c:['모듈 소재','근접 센서']},
+    {t:'SUN BATTERY',e:'🔆',img:null,n:'volt_king',v:351,
+     d:'창문에 붙이는 필름형 태양광 보조 배터리',c:['에너지 저장','필름 소재']},
+    {t:'AIR RING',e:'💨',img:null,n:'breeze_o',v:312,
+     d:'목에 거는 휴대용 공기질 측정 라이트 링',c:['공기 센서','저전력']},
+    {t:'GRID NEST',e:'🏙',img:'assets/results/city-safe.jpg',n:'dyn_energy',v:243,
+     d:'전력 제어와 비상 전력을 결합한 폭염 대비 스마트 그리드',c:['전력 제어','에너지 저장']},
+    {t:'DREAM GRID',e:'🌃',img:'assets/results/city-safe.jpg',n:'haneul_d',v:231,
+     d:'정전에도 작동하는 미래도시 공간 콘셉트',c:['비상 전력','환경 센서']}
+  ];
+  var offset = 0;
+  var grid = document.getElementById('grid');
+  function tile(c, big){
+    return c.img
+      ? '<img src="' + c.img + '" alt="" onerror="this.outerHTML=\'' + c.e + '\'">'
+      : c.e;
+  }
+  function renderGrid(){
+    var six = [];
+    for (var i = 0; i < 6; i++) six.push(POOL[(offset + i) % POOL.length]);
+    grid.innerHTML = six.map(function(c){
+      return '<div class="card">'
+        + '<div class="img">' + tile(c, true) + '<span class="votes">♥ ' + c.v.toLocaleString() + '</span></div>'
+        + '<div class="meta">'
+        + '<div class="t"><b>' + c.t + '</b><span class="nick">@' + c.n + '</span></div>'
+        + '<p>' + c.d + '</p>'
+        + '<div class="chips">' + c.c.map(function(x){ return '<i>' + x + '</i>'; }).join('') + '<i style="background:#EAF0FF;color:#2E6BFF">기술 ' + c.c.length + '개 조합</i></div>'
+        + '</div></div>';
+    }).join('');
+  }
+  function rotate(){
+    var cards = grid.querySelectorAll('.card');
+    cards.forEach(function(c){ c.classList.add('fade'); });
+    setTimeout(function(){ offset = (offset + 3) % POOL.length; renderGrid(); }, 620);
+  }
+  renderGrid();
+  setInterval(rotate, 12000);
+
+  function renderTop3(){
+    var top = POOL.slice().sort(function(a,b){ return b.v - a.v; }).slice(0,3);
+    document.getElementById('top3').innerHTML = top.map(function(c,i){
+      return '<div class="t3-row"><span class="rk">' + (i+1) + '</span><span class="em">' + tile(c) + '</span><b>' + c.t + '</b><span>♥ ' + c.v.toLocaleString() + '</span></div>';
+    }).join('');
+  }
+  renderTop3();
+
+  var gen = 2341, vote = 8765, join = 5842;
+  function num(id, v){ document.getElementById(id).textContent = v.toLocaleString(); }
+  setInterval(function(){ vote += 1 + Math.floor(Math.random()*4); num('cVote', vote);
+    POOL[Math.floor(Math.random()*POOL.length)].v += 1; renderTop3(); }, 3800);
+  setInterval(function(){ gen += 1; num('cGen', gen); }, 8600);
+  setInterval(function(){ join += 1; num('cJoin', join); }, 12400);
+
+  function tick(){
+    var d = new Date();
+    document.getElementById('clock').textContent = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2) + ' 업데이트';
+    var nx = new Date(d); nx.setSeconds(0);
+    nx.setMinutes(d.getMinutes() < 30 ? 30 : 0);
+    if (d.getMinutes() >= 30) nx.setHours(d.getHours() + 1);
+    document.getElementById('nextLive').textContent = ('0'+nx.getHours()).slice(-2) + ':' + ('0'+nx.getMinutes()).slice(-2);
+  }
+  tick(); setInterval(tick, 15000);
+})();
+</script>
+</body>
+</html>
