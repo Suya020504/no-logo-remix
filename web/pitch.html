@@ -15,6 +15,7 @@
   --r-sm:12px;--r-md:16px;--r-lg:20px;--r-xl:24px;--r-pill:999px;
   --sh-1:0 1px 2px rgba(16,20,47,.05),0 10px 26px -18px rgba(16,20,47,.22)}
 *{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;vertical-align:-.14em;flex:none;display:inline-block}
 html{scroll-behavior:smooth}
 body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);background:#fff}
 img{max-width:100%;display:block}
@@ -160,6 +161,21 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2" width="11" height="20" rx="2.5"/><path d="M10.5 18.2h3"/></symbol>
+<symbol id="ic-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M13 16V8.5M18 16v-6.5"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H19v18H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H19"/></symbol>
+<symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5l9 4.5 9-4.5z"/><path d="m3 12 9 4.5L21 12"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+<symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.5" width="16" height="9" rx="2"/><path d="M21.5 11v2M6 11v2"/></symbol>
+<symbol id="ic-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 8V4M9 3.5h6M9 13.5v1.5M15 13.5v1.5M2.5 13H4M20 13h1.5"/></symbol>
+<symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5V13h6v8.5"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5V20"/><circle cx="12" cy="7.5" r="3.8"/></symbol>
+<symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21.5h3"/><path d="M15 14c.2-1 .7-1.7 1.4-2.4A5.5 5.5 0 1 0 7.6 11.6c.7.7 1.2 1.4 1.4 2.4"/></symbol>
+<symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+</defs></svg>
 
 <nav>
   <div class="bar">
@@ -168,7 +184,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
       <a href="#problem">문제</a><a href="#strategy">전략</a><a href="#journey">현장 여정</a>
       <a href="#ai">REMIX AI</a><a href="#demo">데모</a><a href="#effect">기대효과</a><a href="#mixi">MIXI</a><a href="scenario.html" style="color:var(--blue)">운영 시나리오 ↗</a><a href="mock.html" style="color:var(--purple)">실전 모의 운영 ↗</a>
     </div>
-    <a class="cta" href="index.html" target="_blank" rel="noopener">📱 지금 체험하기</a>
+    <a class="cta" href="index.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-phone"/></svg> 지금 체험하기</a>
   </div>
 </nav>
 
@@ -180,8 +196,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
       <p>기업명을 가린 기술카드에서 시작해, 실제 부스 방문과 AI 창작으로 이어지는 참여형 팝업 — 그리고 전시장 밖 2030을 안으로 데려오는 <b>3단 유입 마케팅 전략</b>입니다.</p>
       <div class="btns">
         <a class="bt p" href="index.html" target="_blank" rel="noopener">체험 데모 시작</a>
-        <a class="bt d" href="live.html" target="_blank" rel="noopener"><span class="dot"></span>🖥 현장 전광판</a>
-        <a class="bt g" href="dashboard.html" target="_blank" rel="noopener">📊 기업 대시보드</a>
+        <a class="bt d" href="live.html" target="_blank" rel="noopener"><span class="dot"></span><svg class="ic" aria-hidden="true"><use href="#ic-monitor"/></svg> 현장 전광판</a>
+        <a class="bt g" href="dashboard.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-chart"/></svg> 기업 대시보드</a>
       </div>
     </div>
   </div>
@@ -318,7 +334,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
         브라우저가 동영상을 지원하지 않습니다. <a href="assets/demo.mp4" style="color:#8FB3FF">영상 파일 열기</a>
       </video>
       <div class="vtx">
-        <b class="h">🎬 37초 시연 영상 — 기술구현을 눈으로 확인하세요</b>
+        <b class="h"><svg class="ic" aria-hidden="true"><use href="#ic-play"/></svg> 37초 시연 영상 — 기술구현을 눈으로 확인하세요</b>
         <p class="s">실제 배포 중인 앱을 그대로 녹화한 화면입니다 (2.6MB — 바로 재생). 영상을 본 뒤 아래 순서대로 직접 체험하시면 약 1분이면 전 여정을 완주할 수 있습니다.</p>
         <div class="vstep"><div class="n">1</div><div><b>미션 선택</b><p>시작하기 → 건너뛰기 → 오늘 풀고 싶은 생활 문제를 고릅니다. 직접 입력한 미션도 카드 추천 순위에 반영됩니다.</p></div></div>
         <div class="vstep"><div class="n">2</div><div><b>블라인드 기술카드 선택</b><p>기업명 없이 기술만 보고 2개를 고릅니다 — '스펙 더보기'로 선택 근거를 확인하고, 고르는 순간 기업과 부스 위치가 공개됩니다.</p></div></div>
@@ -328,17 +344,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
     </div>
     <div class="demo-grid">
       <a class="dcard" href="index.html" target="_blank" rel="noopener">
-        <span class="ic">📱</span><b>관람객 모바일 여정</b>
+        <span class="ic"><svg class="ic" aria-hidden="true"><use href="#ic-phone"/></svg></span><b>관람객 모바일 여정</b>
         <p>온보딩부터 블라인드 선택, QR 인증, AI 리믹스, 투표, 마이페이지까지 10단계 전체</p>
         <span class="go">체험하기 →</span>
       </a>
       <a class="dcard" href="live.html" target="_blank" rel="noopener">
-        <span class="ic">🖥</span><b>현장 라이브 전광판</b>
+        <span class="ic"><svg class="ic" aria-hidden="true"><use href="#ic-monitor"/></svg></span><b>현장 라이브 전광판</b>
         <p>최신 아이디어 자동 순환, 실시간 TOP 3, 라이브 카운터 (1920×1080)</p>
         <span class="go">열기 →</span>
       </a>
       <a class="dcard" href="dashboard.html" target="_blank" rel="noopener">
-        <span class="ic">📊</span><b>기업 관심 데이터 대시보드</b>
+        <span class="ic"><svg class="ic" aria-hidden="true"><use href="#ic-chart"/></svg></span><b>기업 관심 데이터 대시보드</b>
         <p>참여 퍼널·인기 조합·KPI 산식 — 참가기업이 받게 될 리포트 (가상 예시)</p>
         <span class="go">열기 →</span>
       </a>
@@ -399,8 +415,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
       <img src="assets/mixi-book/p14.jpg" alt="전시장 플로어맵을 안내하는 MIXI">
     </div>
     <div class="mixi-btns">
-      <a class="bt p" href="mascot.pdf" target="_blank" rel="noopener">📕 캐릭터 디자인북 (PDF)</a>
-      <a class="bt g" href="mixi.html" target="_blank" rel="noopener">🤖 캐릭터 페이지 보기</a>
+      <a class="bt p" href="mascot.pdf" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-book"/></svg> 캐릭터 디자인북 (PDF)</a>
+      <a class="bt g" href="mixi.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-bot"/></svg> 캐릭터 페이지 보기</a>
     </div>
     <p class="credit">캐릭터 디자인·영상: 팀 REMIX LAB 자체 제작 — 원본 디자인을 변형 없이 사용했습니다</p>
   </div>

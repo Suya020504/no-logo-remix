@@ -112,9 +112,25 @@ footer{background:#10142F;color:#A8B0DE;padding:44px 24px;font-size:12px;line-he
 footer b{color:#fff}
 footer a{color:#B9C6FF;transition:color .16s ease}
 footer a:hover{color:#fff}
+.ic{width:1em;height:1em;vertical-align:-.14em;flex:none;display:inline-block}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2" width="11" height="20" rx="2.5"/><path d="M10.5 18.2h3"/></symbol>
+<symbol id="ic-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M13 16V8.5M18 16v-6.5"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H19v18H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H19"/></symbol>
+<symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5l9 4.5 9-4.5z"/><path d="m3 12 9 4.5L21 12"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+<symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.5" width="16" height="9" rx="2"/><path d="M21.5 11v2M6 11v2"/></symbol>
+<symbol id="ic-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 8V4M9 3.5h6M9 13.5v1.5M15 13.5v1.5M2.5 13H4M20 13h1.5"/></symbol>
+<symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5V13h6v8.5"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5V20"/><circle cx="12" cy="7.5" r="3.8"/></symbol>
+<symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21.5h3"/><path d="M15 14c.2-1 .7-1.7 1.4-2.4A5.5 5.5 0 1 0 7.6 11.6c.7.7 1.2 1.4 1.4 2.4"/></symbol>
+<symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+</defs></svg>
 
 <nav>
   <div class="bar">
@@ -139,7 +155,7 @@ footer a:hover{color:#fff}
       <span>👥 참관객 77,250명 (공식 개최결과)</span>
       <span>📋 디렉토리 620개사 전수 분석</span>
     </div>
-    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener">🔋 인터배터리 2026 모드로 앱 체험하기</a>
+    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-battery"/></svg> 인터배터리 2026 모드로 앱 체험하기</a>
     <a class="bt g" href="scenario.html">그린에너텍 운영 시나리오 보기</a>
   </div>
 </header>
@@ -376,7 +392,7 @@ footer a:hover{color:#fff}
       <div class="card"><b class="t">참가기업이 받는 답</b><p>"우리 부스에 온 사람은 어떤 문제를 풀러 왔고(미션), 왜 우리를 골랐고(선택 이유), 무엇과 조합했나(리믹스)" — GMI가 지적한 <b>ROI 서사의 재료</b>가 세션마다 쌓입니다.</p></div>
       <div class="card"><b class="t">평균 만족도 4.3 / 5</b><p>6인 실주행 별점 (★4·5·5·3·4·5). 최저점(B2B 소상공인)의 원인 분석과 개선 백로그는 위 '발견' 절에 기록 — <b>낮은 점수도 데이터로 남기는 것</b>이 이 페이지의 원칙입니다.</p></div>
     </div>
-    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener">🔋 지금 인터배터리 2026 모드 체험하기</a>
+    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-battery"/></svg> 지금 인터배터리 2026 모드 체험하기</a>
     <a class="bt g" href="pitch.html">발표 소개 페이지</a>
     <a class="bt g" href="scenario.html">← STEP 1: 그린에너텍 운영 시나리오(설계)</a>
   </div>

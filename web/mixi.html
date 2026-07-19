@@ -68,12 +68,28 @@ body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;col
   padding:11px 8px;font-size:12px;font-weight:800;color:var(--mnavy);text-decoration:none;
   transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
 .cross a:hover{transform:translateY(-2px);box-shadow:var(--sh-1);border-color:var(--mblue)}
+.ic{width:1em;height:1em;vertical-align:-.14em;flex:none;display:inline-block}
 a:focus-visible,button:focus-visible{outline:2px solid var(--mblue);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 footer{text-align:center;font-size:11px;color:var(--ink2);margin-top:22px;line-height:1.7;word-break:keep-all}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2" width="11" height="20" rx="2.5"/><path d="M10.5 18.2h3"/></symbol>
+<symbol id="ic-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M13 16V8.5M18 16v-6.5"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H19v18H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H19"/></symbol>
+<symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5l9 4.5 9-4.5z"/><path d="m3 12 9 4.5L21 12"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+<symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.5" width="16" height="9" rx="2"/><path d="M21.5 11v2M6 11v2"/></symbol>
+<symbol id="ic-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 8V4M9 3.5h6M9 13.5v1.5M15 13.5v1.5M2.5 13H4M20 13h1.5"/></symbol>
+<symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5V13h6v8.5"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5V20"/><circle cx="12" cy="7.5" r="3.8"/></symbol>
+<symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21.5h3"/><path d="M15 14c.2-1 .7-1.7 1.4-2.4A5.5 5.5 0 1 0 7.6 11.6c.7.7 1.2 1.4 1.4 2.4"/></symbol>
+<symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+</defs></svg>
 <div class="shell">
   <div class="notice">📄 본 페이지는 「2026 전시산업 대학생 경진대회」 기획서의 이해를 돕기 위한 <b>보조자료</b>입니다. 지면 표기 "믹시(가칭)"의 캐릭터 디자인 원본을 소개합니다.</div>
 
@@ -143,15 +159,15 @@ footer{text-align:center;font-size:11px;color:var(--ink2);margin-top:22px;line-h
       <img src="assets/mixi-book/p16.jpg" alt="전시 콘셉트 테이블 위의 MIXI" loading="lazy">
       <img src="assets/mixi-book/p18.jpg" alt="TECH POP-UP 어워드 트로피를 든 MIXI" loading="lazy">
     </div>
-    <a class="btn p" href="mascot.pdf">📕 디자인북 전체 보기 (PDF · 2.3MB)</a>
+    <a class="btn p" href="mascot.pdf"><svg class="ic" aria-hidden="true"><use href="#ic-book"/></svg> 디자인북 전체 보기 (PDF · 2.3MB)</a>
     <div class="credit">Character Design &amp; Film — <b>Team REMIX LAB</b><br>원본 디자인·영상을 변형 없이 수록했습니다</div>
   </div>
 
   <div class="cross">
     <span>기획서의 다른 보조자료</span>
     <div class="row">
-      <a href="pitch.html">📖 서비스 소개 (시연 영상)</a>
-      <a href="docs.html">📚 설명부록</a>
+      <a href="pitch.html"><svg class="ic" aria-hidden="true"><use href="#ic-book"/></svg> 서비스 소개 (시연 영상)</a>
+      <a href="docs.html"><svg class="ic" aria-hidden="true"><use href="#ic-layers"/></svg> 설명부록</a>
     </div>
   </div>
 

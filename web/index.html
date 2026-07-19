@@ -568,9 +568,25 @@ body.tabs-on .view.active{padding-bottom:74px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
 }
+.ic{width:1em;height:1em;vertical-align:-.14em;flex:none;display:inline-block}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2" width="11" height="20" rx="2.5"/><path d="M10.5 18.2h3"/></symbol>
+<symbol id="ic-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M13 16V8.5M18 16v-6.5"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H19v18H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H19"/></symbol>
+<symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5l9 4.5 9-4.5z"/><path d="m3 12 9 4.5L21 12"/><path d="m3 16.5 9 4.5 9-4.5"/></symbol>
+<symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.5" width="16" height="9" rx="2"/><path d="M21.5 11v2M6 11v2"/></symbol>
+<symbol id="ic-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 8V4M9 3.5h6M9 13.5v1.5M15 13.5v1.5M2.5 13H4M20 13h1.5"/></symbol>
+<symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 3 20z"/><path d="M9 21.5V13h6v8.5"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5V20"/><circle cx="12" cy="7.5" r="3.8"/></symbol>
+<symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21.5h3"/><path d="M15 14c.2-1 .7-1.7 1.4-2.4A5.5 5.5 0 1 0 7.6 11.6c.7.7 1.2 1.4 1.4 2.4"/></symbol>
+<symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+</defs></svg>
 <div class="bg" aria-hidden="true">
   <span class="cube" style="top:12%;left:7%">◇</span>
   <span class="cube" style="top:22%;right:9%;animation-delay:1.2s">?</span>
@@ -993,9 +1009,9 @@ body.tabs-on .view.active{padding-bottom:74px}
     </div>
     <div class="r-ctas">
       <button class="btn btn-primary wide" id="btnPost" disabled>아이디어 피드에 게시</button>
-      <button class="btn btn-ghost" id="btnStory">📱 스토리로 저장</button>
+      <button class="btn btn-ghost" id="btnStory"><svg class="ic" aria-hidden="true"><use href="#ic-phone"/></svg> 스토리로 저장</button>
       <button class="btn btn-ghost" id="btnShare">SNS 공유</button>
-      <button class="btn btn-ghost" id="btnBillboard">🖥 전광판 미리보기</button>
+      <button class="btn btn-ghost" id="btnBillboard"><svg class="ic" aria-hidden="true"><use href="#ic-monitor"/></svg> 전광판 미리보기</button>
       <button class="btn btn-ghost" id="btnRegen">다시 만들기 (1회)</button>
     </div>
     <div class="biz-zone">
@@ -1077,11 +1093,11 @@ body.tabs-on .view.active{padding-bottom:74px}
       <p>P01 온보딩부터 P10 마이페이지까지<br>NO LOGO REMIX의 핵심 여정을 모두 체험했어요.</p>
       <div class="done-sum" id="doneSum"></div>
       <div class="cta-zone" style="padding-left:0;padding-right:0">
-        <a class="btn btn-ghost" href="pitch.html" target="_blank" rel="noopener">📖 발표 소개 페이지 열기</a>
-        <a class="btn btn-ghost" href="mock.html" target="_blank" rel="noopener">🔋 실전 모의 운영 리포트 (인터배터리 2026)</a>
+        <a class="btn btn-ghost" href="pitch.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-book"/></svg> 발표 소개 페이지 열기</a>
+        <a class="btn btn-ghost" href="mock.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-battery"/></svg> 실전 모의 운영 리포트 (인터배터리 2026)</a>
         <button class="btn btn-ghost" id="btnTestCopy">🧪 테스트 결과 복사 (파일럿용)</button>
-        <a class="btn btn-ghost" href="live.html" target="_blank" rel="noopener">🖥 S01 현장 전광판 열기 (1920×1080)</a>
-        <a class="btn btn-ghost" href="dashboard.html" target="_blank" rel="noopener">📊 S02 기업 대시보드 열기 (1440×1024)</a>
+        <a class="btn btn-ghost" href="live.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-monitor"/></svg> S01 현장 전광판 열기 (1920×1080)</a>
+        <a class="btn btn-ghost" href="dashboard.html" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#ic-chart"/></svg> S02 기업 대시보드 열기 (1440×1024)</a>
         <button class="btn btn-primary" id="btnRestart">처음부터 다시 보기</button>
         <button class="btn btn-ghost" id="btnResetSession">세션 초기화 (이어서 하기 테스트)</button>
       </div>
@@ -1091,11 +1107,11 @@ body.tabs-on .view.active{padding-bottom:74px}
 </main>
 
 <nav class="tabbar" id="tabbar" aria-label="하단 내비게이션">
-  <button data-tab="home"><span class="t-em" aria-hidden="true">🏠</span>홈</button>
-  <button data-tab="wallet"><span class="t-em" aria-hidden="true">◈</span>토큰함</button>
-  <button data-tab="remix"><span class="t-em" aria-hidden="true">✦</span>리믹스</button>
-  <button data-tab="feed"><span class="t-em" aria-hidden="true">💡</span>아이디어</button>
-  <button data-tab="my"><span class="t-em" aria-hidden="true">👤</span>마이</button>
+  <button data-tab="home"><span class="t-em" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#ic-home"/></svg></span>홈</button>
+  <button data-tab="wallet"><span class="t-em" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#ic-layers"/></svg></span>토큰함</button>
+  <button data-tab="remix"><span class="t-em" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#ic-sparkle"/></svg></span>리믹스</button>
+  <button data-tab="feed"><span class="t-em" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#ic-bulb"/></svg></span>아이디어</button>
+  <button data-tab="my"><span class="t-em" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#ic-user"/></svg></span>마이</button>
 </nav>
 
 <!-- P03 카드 상세 바텀시트 -->
