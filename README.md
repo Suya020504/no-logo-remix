@@ -10,11 +10,10 @@
 | 분류 | URL | 설명 |
 |---|---|---|
 | 📱 **어플 페이지** | [/index.html](https://onboarding-web-one-rose.vercel.app/index.html) | 관람객 모바일 여정 P01~P10 전체 (온보딩→미션→블라인드→QR 인증→토큰→AI 리믹스→피드·투표→마이) · 부스 인증 데모 코드 `2026` |
-| 📖 **설명 페이지** | [/pitch.html](https://onboarding-web-one-rose.vercel.app/pitch.html) | 발표 소개 — 문제·전략·여정·데모·기대효과 원페이지 |
 | 🏗 **전시 기준 예상 시나리오** | [/scenario.html](https://onboarding-web-one-rose.vercel.app/scenario.html) | 실존 전시(2026 그린에너텍, 송도컨벤시아) 적용 시뮬레이션 — 관리자 미션 설계 · 가상 20부스 · 페르소나 4인 실주행 검증 |
 | 🔋 **실전 모의 운영 리포트** | [/mock.html](https://onboarding-web-one-rose.vercel.app/mock.html) | 종료된 실존 전시(인터배터리 2026) 공식 디렉토리 620개사 분석 + 실기업 22개사 데이터 페르소나 6인 실주행 — 앱 실전 모드: `?exhibition=IB2026` |
 | 🤖 기획서 QR① 캐릭터 | [/mixi.html](https://onboarding-web-one-rose.vercel.app/mixi.html) | MIXI 캐릭터 영상(24초)·네이밍·디자인 컨셉·디자인북 갤러리 |
-| 📖 기획서 QR② 서비스 소개 | [/pitch.html](https://onboarding-web-one-rose.vercel.app/pitch.html) | 기획서 기반 서사 + **37초 시연 영상·1분 체험 코스 내장**(#demo) |
+| 📖 기획서 QR② 서비스 소개 | [/pitch.html](https://onboarding-web-one-rose.vercel.app/pitch.html) | 기획서 기반 서사(문제·전략·여정·기대효과) + **37초 시연 영상·1분 체험 코스 내장**(#demo) |
 | 📚 기획서 QR③ 설명부록 | [/docs.html](https://onboarding-web-one-rose.vercel.app/docs.html) | 검증 문서 선택 허브 — 실전 모의 운영 리포트 / 그린에너텍 운영 시나리오 버튼 2종 + 비교표 |
 | 🖥 현장 전광판 (S01) | [/live.html](https://onboarding-web-one-rose.vercel.app/live.html) | 1920×1080 자동 스케일 · 12초 순환 · 라이브 카운터 |
 | 📊 기업 대시보드 (S02) | [/dashboard.html](https://onboarding-web-one-rose.vercel.app/dashboard.html) | 참여 퍼널·KPI 산식 (가상 예시 데이터) |
