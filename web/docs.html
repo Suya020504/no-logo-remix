@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>설명부록 — NO LOGO REMIX 기획서 보조자료</title>
-<meta name="description" content="NO LOGO REMIX 기획서 설명부록 — 서비스 소개, 운영 시나리오, 실전 모의 운영 리포트, 조사·출처">
-<!-- 기획서 QR ② 설명부록 랜딩 — 부록 목차 허브, 보조자료 고지 포함 -->
+<title>설명부록 — NO LOGO REMIX 30초 요약과 근거</title>
+<meta name="description" content="NO LOGO REMIX 기획서 설명부록 — 30초 요약, 문제·해결·증거, 세 주체의 가치, 검증된 수치, 상세 부록">
+<!-- 기획서 QR ② 설명부록 랜딩 v2 — 심사위원 속독 최적화: 30초 요약 → 여정 → 가치 → 근거 수치 → 상세 부록 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--purple:#5B3FF2;--purple-deep:#4527D8;--purple-ink:#2A1E7A;--navy:#10142F;--lavender:#F2EFFF;
-  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#4D7CFE;--green:#18A874}
+  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#4D7CFE;--green:#18A874;--red:#E5484D}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);
   background:linear-gradient(165deg,#F1EEFC 0%,#E9E5FA 100%);min-height:100dvh;padding:20px 16px 40px}
@@ -17,26 +17,58 @@ body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;col
 .notice{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;
   font-size:11px;color:var(--ink2);line-height:1.6;word-break:keep-all}
 .notice b{color:var(--purple-ink)}
-.hero{background:#fff;border-radius:24px;padding:26px 22px;margin-top:12px;text-align:center;
+.hero{background:#fff;border-radius:24px;padding:24px 22px;margin-top:12px;text-align:center;
   box-shadow:0 20px 44px -22px rgba(42,30,122,.35);border:1px solid #fff}
 .chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--purple);
   background:var(--lavender);padding:6px 13px;border-radius:99px}
-.hero h1{font-size:24px;font-weight:800;line-height:1.35;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
-.hero h1 b{color:var(--purple)}
-.hero p{font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;word-break:keep-all}
 .brand{font-weight:800;font-size:14px;margin-top:4px}
 .brand .no{color:var(--ink)} .brand .rx{color:var(--purple)}
-.toc{margin-top:18px}
-.doc{display:flex;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:18px;
-  padding:16px;margin-top:10px;text-decoration:none;align-items:flex-start;transition:transform .15s}
-.doc:active{transform:translateY(1px)}
-.doc .ico{width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:var(--lavender);
-  display:flex;align-items:center;justify-content:center;font-size:20px}
-.doc .tag{display:inline-block;font-size:9.5px;font-weight:800;color:var(--purple);background:var(--lavender);
-  padding:2px 8px;border-radius:99px;margin-bottom:4px}
-.doc b{font-size:14.5px;color:var(--ink);display:block;line-height:1.4;word-break:keep-all}
-.doc span{font-size:11.5px;color:var(--ink2);display:block;margin-top:4px;line-height:1.6;word-break:keep-all}
-.doc .go{margin-left:auto;color:var(--purple);font-weight:800;font-size:16px;align-self:center}
+.hero h1{font-size:23px;font-weight:800;line-height:1.4;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
+.hero h1 b{color:var(--purple)}
+.hero .one{margin-top:10px;font-size:13px;color:var(--ink2);line-height:1.7;word-break:keep-all}
+.sec{margin-top:22px}
+.sec>b{display:block;font-size:13px;font-weight:800;color:var(--purple-ink);margin-bottom:10px}
+/* 30초 요약 — 문제/해결/증거 */
+.sum{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:4px 16px}
+.sum .row{display:flex;gap:12px;padding:14px 0;align-items:flex-start}
+.sum .row+.row{border-top:1.5px dashed var(--line)}
+.sum .k{flex:0 0 52px;text-align:center}
+.sum .k i{font-style:normal;font-size:19px;display:block}
+.sum .k b{display:block;font-size:10px;font-weight:800;margin-top:3px}
+.sum .row:nth-child(1) .k b{color:var(--red)}
+.sum .row:nth-child(2) .k b{color:var(--purple)}
+.sum .row:nth-child(3) .k b{color:var(--green)}
+.sum p{font-size:12.5px;line-height:1.65;word-break:keep-all;color:var(--ink)}
+.sum p b{color:var(--purple-ink)}
+.sum p small{display:block;color:var(--ink2);font-size:10.5px;margin-top:3px}
+/* 여정 스트립 */
+.flow{display:flex;gap:5px}
+.flow .f{flex:1;background:#fff;border:1.5px solid var(--line);border-radius:13px;padding:11px 4px;text-align:center;position:relative}
+.flow .f i{font-style:normal;font-size:16px;display:block}
+.flow .f b{font-size:10.5px;display:block;margin-top:4px;color:var(--purple-ink)}
+.flow .f span{font-size:8.5px;color:var(--ink2);display:block;margin-top:1px}
+/* 3주체 가치 */
+.val{display:grid;gap:8px}
+.val .v{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px 15px;display:flex;gap:12px;align-items:flex-start}
+.val .v .ico{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:var(--lavender);display:flex;align-items:center;justify-content:center;font-size:17px}
+.val .v b{font-size:13px;display:block}
+.val .v b i{font-style:normal;font-size:10px;font-weight:800;color:var(--purple);margin-left:5px}
+.val .v span{font-size:11.5px;color:var(--ink2);line-height:1.6;display:block;margin-top:3px;word-break:keep-all}
+/* 근거 수치 */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 12px;text-align:center}
+.stat b{display:block;font-size:21px;color:var(--purple);letter-spacing:-.02em}
+.stat span{display:block;font-size:10.5px;color:var(--ink2);margin-top:4px;line-height:1.5;word-break:keep-all}
+.src-note{font-size:9.5px;color:var(--ink2);margin-top:8px;text-align:center;line-height:1.6;word-break:keep-all}
+/* 부록 링크 */
+.doc{display:flex;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:16px;
+  padding:13px 14px;margin-top:8px;text-decoration:none;align-items:center}
+.doc .ico{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:var(--lavender);
+  display:flex;align-items:center;justify-content:center;font-size:17px}
+.doc b{font-size:13px;color:var(--ink);display:block;line-height:1.4;word-break:keep-all}
+.doc b i{font-style:normal;font-size:9.5px;font-weight:800;color:var(--purple);background:var(--lavender);padding:2px 7px;border-radius:99px;margin-right:5px;vertical-align:1px}
+.doc span{font-size:10.5px;color:var(--ink2);display:block;margin-top:2px;line-height:1.5;word-break:keep-all}
+.doc .go{margin-left:auto;color:var(--purple);font-weight:800;font-size:15px}
 .cross{margin-top:26px;border-top:1.5px dashed var(--line);padding-top:16px}
 .cross>span{display:block;text-align:center;font-size:11px;color:var(--ink2);margin-bottom:8px}
 .cross .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -47,51 +79,75 @@ footer{text-align:center;font-size:10.5px;color:var(--ink2);margin-top:22px;line
 </head>
 <body>
 <div class="shell">
-  <div class="notice">📄 본 페이지는 「2026 전시산업 대학생 경진대회」 기획서의 이해를 돕기 위한 <b>보조자료(부록)</b>입니다. 심사는 기획서 기재 내용을 기준으로 하며, 아래 자료는 지면의 주장을 <b>더 깊은 근거와 실물로 뒷받침</b>합니다.</div>
+  <div class="notice">📄 「2026 전시산업 대학생 경진대회」 기획서의 <b>보조자료(부록)</b>입니다. 심사는 기획서 기재 내용 기준이며, 이 페이지는 지면의 주장을 빠르게 확인하실 수 있도록 요약했습니다.</div>
 
   <div class="hero">
     <span class="chip">QR ② 설명부록</span>
     <div class="brand"><span class="no">NO LOGO</span> <span class="rx">REMIX</span></div>
-    <h1>기획서 뒤에 있는<br><b>설명과 근거</b>를 모았습니다</h1>
-    <p>지면 3쪽에 다 싣지 못한 서비스 상세 설명, 실존 전시 기준 운영 설계, 그리고 실제 데이터로 돌린 모의 운영 기록입니다.</p>
+    <h1>브랜드를 가리면,<br><b>기술이 주인공</b>이 됩니다</h1>
+    <p class="one">기업명을 가린 기술카드로 부스를 고르고, 방문을 인증해 기술을 모으고, AI로 섞어 나만의 아이디어를 만들어 전광판·SNS로 확산하는 <b>관람객 참여 플랫폼</b>입니다.</p>
   </div>
 
-  <div class="toc">
-    <a class="doc" href="pitch.html">
-      <div class="ico">📖</div>
-      <div><span class="tag">부록 A · 아이디어 설명</span><b>서비스 소개 페이지</b>
-      <span>블라인드→리빌→리믹스 핵심 구조, 화면별 기능, 마스코트 MIXI, 기대효과를 시각 자료로 설명합니다.</span></div>
-      <div class="go">→</div>
-    </a>
-    <a class="doc" href="scenario.html">
-      <div class="ico">🗺</div>
-      <div><span class="tag">부록 B · 실행 방안</span><b>실사용 운영 시나리오 — 2026 그린에너텍</b>
-      <span>실존 전시(송도컨벤시아, 본선 개최지)에 적용하는 관리자 미션 설계·부스 구성·운영 계획과 페르소나 4인 실주행 검증.</span></div>
-      <div class="go">→</div>
-    </a>
-    <a class="doc" href="mock.html">
-      <div class="ico">🔋</div>
-      <div><span class="tag">부록 C · 실증 리포트</span><b>실전 모의 운영 — 인터배터리 2026</b>
-      <span>종료된 실존 전시의 공식 참가기업 620개사 분석 + 실기업 22개사 데이터로 페르소나 6인이 전 여정을 실주행한 기록.</span></div>
-      <div class="go">→</div>
-    </a>
-    <a class="doc" href="mock.html#research">
-      <div class="ico">📊</div>
-      <div><span class="tag">부록 D · 조사·출처</span><b>시장·배경조사와 검증 원칙</b>
-      <span>국가승인통계·업계 조사·학술 출처를 원문 재검증해 사용했습니다. 검증 못 한 자료는 표시 후 지면 인용에서 제외.</span></div>
-      <div class="go">→</div>
-    </a>
+  <div class="sec">
+    <b>⏱ 30초 요약</b>
+    <div class="sum">
+      <div class="row"><div class="k"><i>⚠️</i><b>문제</b></div>
+        <p>관람객은 하루 평균 <b>26개 부스</b>만 방문하고 <b>76%는 입장 전에 갈 곳을 정합니다</b>. 브랜드를 모르는 중소기업 부스는 기술이 좋아도 선택받을 기회조차 없습니다.<small>주최자는 관람객-기업 상호작용 데이터가 없어 참가기업 ROI를 증명해주지 못합니다</small></p></div>
+      <div class="row"><div class="k"><i>💡</i><b>해결</b></div>
+        <p><b>블라인드</b>(기업명을 가린 기술카드 선택) → <b>리빌</b>(기업 공개) → <b>부스 방문 인증</b> → <b>AI 리믹스</b>(기술 조합 아이디어 생성) → <b>전광판·SNS 확산</b>.<small>모든 단계가 이벤트 데이터로 남아 참가기업 리포트·주최자 대시보드가 됩니다</small></p></div>
+      <div class="row"><div class="k"><i>✅</i><b>증거</b></div>
+        <p>지금 구동되는 프로토타입 + <b>실존 전시 2곳 시뮬레이션</b>(그린에너텍·인터배터리) + 페르소나 <b>10인 전 여정 실주행</b>으로 검증했습니다.<small>발견된 결함 6건은 수정 후 재검증 — 기록 전체가 부록 B·C에 공개되어 있습니다</small></p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <b>🧭 관람객 여정 5단계</b>
+    <div class="flow">
+      <div class="f"><i>🔍</i><b>발견</b><span>블라인드 선택</span></div>
+      <div class="f"><i>🎉</i><b>공개</b><span>기업 리빌</span></div>
+      <div class="f"><i>📍</i><b>방문</b><span>QR 인증·토큰</span></div>
+      <div class="f"><i>✨</i><b>리믹스</b><span>AI 아이디어</span></div>
+      <div class="f"><i>📣</i><b>공유</b><span>전광판·SNS</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <b>🤝 세 주체가 각자 얻는 것</b>
+    <div class="val">
+      <div class="v"><div class="ico">🙋</div><div><b>관람객<i>— 놀이와 발견</i></b><span>수동 관람이 게임이 됩니다. 내가 고른 기술로 만든 아이디어가 전광판에 걸리고, 9:16 스토리로 저장해 공유합니다.</span></div></div>
+      <div class="v"><div class="ico">🏢</div><div><b>참가기업<i>— 이유 있는 리드</i></b><span>"왜 우리 부스에 왔는지"(미션·선택 이유·조합)가 담긴 방문 데이터와, 채용·도입 상담이 분리된 양질의 리드를 받습니다.</span></div></div>
+      <div class="v"><div class="ico">🏛</div><div><b>주최자<i>— 상호작용 데이터</i></b><span>참가기업에게 팔 수 있는 새로운 상품: 부스 편중 완화 + 체류시간 연장 + 세션 단위 상호작용 리포트.</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <b>📊 숫자로 보는 근거 (원문 검증 출처만)</b>
+    <div class="stats">
+      <div class="stat"><b>26개</b><span>관람객 1일 평균 방문 부스 — 620개사 전시라면 4%</span></div>
+      <div class="stat"><b>76%</b><span>입장 전에 방문 부스를 미리 결정</span></div>
+      <div class="stat"><b>+35~50%</b><span>인터랙티브 요소가 있는 부스의 체류시간 증가</span></div>
+      <div class="stat"><b>799.7만</b><span>2023년 국내 전시회 참관객 (국가승인통계)</span></div>
+    </div>
+    <p class="src-note">출처: Freeman·Bizzabo·Exhibit Surveys 집계(PureXhibits) · 한국전시산업진흥회 국가승인통계 제430001호 — 전 항목 원문 재검증, 링크는 부록 D</p>
+  </div>
+
+  <div class="sec">
+    <b>📚 더 깊이 — 상세 부록</b>
+    <a class="doc" href="pitch.html"><div class="ico">📖</div><div><b><i>A</i>서비스 소개</b><span>화면별 기능 · MIXI · 기대효과</span></div><div class="go">→</div></a>
+    <a class="doc" href="scenario.html"><div class="ico">🗺</div><div><b><i>B</i>운영 시나리오 — 그린에너텍</b><span>본선 개최지(송도) 실존 전시 적용 설계 + 페르소나 4인 실주행</span></div><div class="go">→</div></a>
+    <a class="doc" href="mock.html"><div class="ico">🔋</div><div><b><i>C</i>실전 모의 운영 — 인터배터리</b><span>공식 참가기업 620개사 분석 + 실기업 데이터 페르소나 6인 실주행</span></div><div class="go">→</div></a>
+    <a class="doc" href="mock.html#research"><div class="ico">📊</div><div><b><i>D</i>조사·출처 전체</b><span>검증 원칙과 원문 링크 일람</span></div><div class="go">→</div></a>
   </div>
 
   <div class="cross">
     <span>기획서의 다른 보조자료</span>
     <div class="row">
-      <a href="tech.html">⚙️ 기술구현 (구동 데모)</a>
+      <a href="tech.html">⚙️ 기술구현 (데모·시연 영상)</a>
       <a href="mixi.html">🤖 캐릭터 MIXI</a>
     </div>
   </div>
 
-  <footer>NO LOGO REMIX · 팀 연수와 아이들<br>모든 인용 수치는 원문 확인된 출처만 사용했으며, 각 페이지에 출처 링크를 표기했습니다</footer>
+  <footer>NO LOGO REMIX · 팀 연수와 아이들<br>모든 인용 수치는 원문 확인된 출처만 사용했으며, 검증하지 못한 자료는 지면과 요약에서 제외했습니다</footer>
 </div>
 </body>
 </html>
