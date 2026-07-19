@@ -3,301 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>설명부록 — NO LOGO REMIX 기획서를 한 페이지로</title>
-<meta name="description" content="NO LOGO REMIX 기획서 설명부록 — 요약·문제·아이디어·추진방안·기대효과·검증을 기획서 순서 그대로 시각화한 원페이지">
-<!-- 기획서 QR ② 설명부록 v3 — pitch 스타일 원페이지 · 기획서 v2.4 필드 순서(요약→기획내용→추진방안→기대효과→키워드)를 그대로 시각화
-     수치·각주는 기획서 지면과 동일 (원문 검증 출처만) -->
+<title>설명부록 — 가상 시나리오 · 실전 모의 운영</title>
+<meta name="description" content="NO LOGO REMIX 기획서 설명부록 — 가상 시나리오(그린에너텍)와 실전 모의 운영(인터배터리)을 선택해 보는 검증 문서 허브">
+<!-- 기획서 QR 설명부록 v4 — 선택형 허브: 가상 시나리오(scenario) / 실전 모의 운영(mock) 두 검증 문서로 안내 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-:root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--blue:#2E6BFF;--sky:#79B8FF;--navy:#10142F;
-  --ink:#17181C;--ink2:#5C5F6B;--line:#E4E6F2;--lav:#F1F3FE;--surface:#F8F9FE;--green:#0E9F6E;--warn-bg:#FFF4E0;--warn:#A96A00}
+:root{--purple:#5B3FF2;--purple-deep:#4527D8;--purple-ink:#2A1E7A;--navy:#10142F;--lavender:#F2EFFF;
+  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#4D7CFE;--green:#0E9F6E}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);background:#fff}
-img{max-width:100%;display:block}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-section{padding:76px 0}
-h2.sec{font-size:clamp(24px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
-p.lead{font-size:clamp(14.5px,1.6vw,17.5px);color:var(--ink2);line-height:1.78;margin-top:14px;word-break:keep-all}
-.eyebrow{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:2.5px;color:var(--blue);margin-bottom:13px}
-/* nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .bar{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:22px}
-nav .logo{font-weight:800;font-size:15.5px;white-space:nowrap}
-nav .logo b{color:var(--blue)}
-nav a{color:var(--ink2);text-decoration:none;font-size:13px;font-weight:700}
-nav a:hover{color:var(--blue)}
-nav .links{display:flex;gap:17px;flex:1;justify-content:center;flex-wrap:wrap}
-nav .cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff !important;padding:9px 16px;border-radius:11px;white-space:nowrap}
-@media(max-width:840px){nav .links{display:none}}
-/* notice */
-.notice-bar{background:var(--navy);color:#C9D6FF;text-align:center;padding:11px 20px;font-size:12px;line-height:1.6;word-break:keep-all}
-.notice-bar b{color:#fff}
-/* hero */
-.hero2{background:linear-gradient(165deg,#F4F7FF 0%,#EDF0FD 100%);border-bottom:1px solid var(--line);padding:72px 0 66px}
-.hero2 .badge{display:inline-block;font-size:12.5px;font-weight:800;color:var(--purple-ink);background:#fff;
-  border:1px solid var(--line);padding:7px 15px;border-radius:99px}
-.hero2 h1{font-size:clamp(30px,4.6vw,52px);font-weight:800;line-height:1.25;letter-spacing:-.02em;margin-top:18px}
-.hero2 h1 b{color:var(--blue)}
-.hero2 .abstract{margin-top:22px;background:#fff;border:1.5px solid var(--line);border-left:5px solid var(--purple);
-  border-radius:18px;padding:20px 24px;max-width:860px}
-.hero2 .abstract b{font-size:12px;letter-spacing:2px;color:var(--purple);display:block;margin-bottom:8px}
-.hero2 .abstract p{font-size:clamp(14.5px,1.7vw,17px);line-height:1.8;word-break:keep-all}
-.kw{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.kw span{font-size:13.5px;font-weight:800;background:var(--navy);color:#fff;padding:10px 18px;border-radius:99px}
-.kw span i{font-style:normal;color:var(--sky);margin-right:6px}
-.btns{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
-.bt{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:13px;font-weight:800;font-size:14px;text-decoration:none;transition:transform .15s}
-.bt:hover{transform:translateY(-2px)}
-.bt.p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 14px 28px -12px rgba(46,107,255,.6)}
-.bt.g{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line)}
-/* 문제 stats */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
-@media(max-width:860px){.stats{grid-template-columns:1fr}}
-.stat{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:26px 25px}
-.stat .num{font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--blue);letter-spacing:-.02em;line-height:1.2}
-.stat .num small{font-size:.5em;color:var(--purple-ink);font-weight:800}
-.stat b{display:block;margin-top:10px;font-size:15px;word-break:keep-all}
-.stat p{margin-top:8px;font-size:12.5px;color:var(--ink2);line-height:1.65;word-break:keep-all}
-.stat .src{margin-top:11px;font-size:10.5px;color:#9A9DB0}
-.punch{margin-top:36px;text-align:center;font-size:clamp(18px,2.6vw,26px);font-weight:800;line-height:1.5;word-break:keep-all}
-.punch b{color:var(--blue)}
-/* 아이디어 여정 */
-.journey-grid{display:flex;gap:40px;align-items:center;margin-top:38px}
-@media(max-width:960px){.journey-grid{flex-direction:column}}
-.journey-grid .shot{flex:1;min-width:0}
-.journey-grid .shot img{border-radius:24px;border:1.5px solid var(--line);box-shadow:0 22px 48px -26px rgba(42,30,122,.4)}
-.journey-grid .shot figcaption{font-size:11.5px;color:var(--ink2);text-align:center;margin-top:10px}
-.steps{flex:1.15}
-.step{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
-.step:last-child{border-bottom:0}
-.step .n{width:34px;height:34px;border-radius:50%;background:var(--lav);color:var(--purple-ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex:0 0 34px}
-.step b{font-size:15.5px}
-.step p{font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.65;word-break:keep-all}
-.diff{margin-top:42px;border:1.5px solid var(--line);border-radius:20px;overflow:hidden}
-.diff .hd{background:var(--navy);color:#fff;padding:13px 22px;font-size:13.5px;font-weight:800}
-.diff .row{display:grid;grid-template-columns:1fr 1fr}
-.diff .row div{padding:16px 22px;font-size:13.5px;line-height:1.65;word-break:keep-all}
-.diff .row div:first-child{background:var(--surface);color:var(--ink2);border-right:1.5px solid var(--line)}
-.diff .row+.row{border-top:1.5px solid var(--line)}
-.diff b{color:var(--blue)}
-@media(max-width:700px){.diff .row{grid-template-columns:1fr}.diff .row div:first-child{border-right:0;border-bottom:1px dashed var(--line)}}
-/* 추진방안 */
-.funnel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
-@media(max-width:860px){.funnel{grid-template-columns:1fr}}
-.ph{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:24px 25px;box-shadow:0 16px 36px -26px rgba(42,30,122,.35)}
-.ph .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:#fff;background:var(--blue);padding:5px 12px;border-radius:99px}
-.ph:nth-child(2) .tag{background:var(--purple)}
-.ph:nth-child(3) .tag{background:var(--green)}
-.ph b.t{display:block;font-size:17.5px;margin-top:12px}
-.ph ul{margin:12px 0 0 2px;list-style:none}
-.ph li{font-size:12.5px;color:var(--ink2);line-height:1.6;padding:5px 0 5px 18px;position:relative;word-break:keep-all}
-.ph li::before{content:"▸";position:absolute;left:2px;color:var(--purple)}
-.ph li b{color:var(--purple-ink)}
-.ai-box{margin-top:22px;background:var(--lav);border:1.5px solid #DCD6F7;border-radius:18px;padding:18px 22px;font-size:13px;line-height:1.7;color:var(--purple-ink);word-break:keep-all}
-.ai-box b{display:block;font-size:13.5px;margin-bottom:5px}
-/* 기대효과 */
-.val3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
-@media(max-width:860px){.val3{grid-template-columns:1fr}}
-.vc{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:24px 25px}
-.vc .em{font-size:26px}
-.vc b.t{display:block;font-size:16.5px;margin-top:10px}
-.vc b.t i{font-style:normal;font-size:11px;color:var(--purple);margin-left:6px}
-.vc p{margin-top:9px;font-size:12.5px;color:var(--ink2);line-height:1.7;word-break:keep-all}
-.kpi{margin-top:30px;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px 24px}
-.kpi>b{font-size:13.5px;color:var(--purple-ink)}
-.kpi .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.kpi .chips span{font-size:12px;font-weight:800;background:var(--lav);color:var(--purple-ink);padding:8px 14px;border-radius:99px}
-.kpi .goal{margin-top:13px;font-size:13px;color:var(--ink2);word-break:keep-all}
-.kpi .goal b{color:var(--blue)}
-/* 검증 */
-.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
-@media(max-width:900px){.proof{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.proof{grid-template-columns:1fr}}
-.pc{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;text-decoration:none;display:block;transition:transform .15s}
-a.pc:hover{transform:translateY(-3px)}
-.pc .em{font-size:23px}
-.pc b{display:block;font-size:14px;margin-top:8px;color:var(--ink);word-break:keep-all}
-.pc p{margin-top:6px;font-size:11.5px;color:var(--ink2);line-height:1.6;word-break:keep-all}
-.pc .go{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:800;color:var(--purple)}
-/* 부록·각주 */
-.apdx{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
-@media(max-width:700px){.apdx{grid-template-columns:1fr}}
-.ap{display:flex;gap:13px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 17px;text-decoration:none;align-items:center}
-.ap .ico{width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:var(--lav);display:flex;align-items:center;justify-content:center;font-size:18px}
-.ap b{font-size:13.5px;color:var(--ink);display:block}
-.ap span{font-size:11px;color:var(--ink2);display:block;margin-top:2px;line-height:1.5;word-break:keep-all}
-.ap .go{margin-left:auto;color:var(--purple);font-weight:800}
-.refs{margin-top:34px;background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:20px 24px;font-size:11.5px;color:var(--ink2);line-height:1.9;word-break:keep-all}
-.refs b{color:var(--purple-ink);display:block;font-size:12.5px;margin-bottom:6px}
-footer{background:var(--navy);color:#8E97C9;padding:40px 24px;font-size:12px;line-height:1.9;text-align:center}
-footer b{color:#fff}
-footer a{color:#B9C6FF}
+body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);
+  background:linear-gradient(165deg,#F1EEFC 0%,#E9E5FA 100%);min-height:100dvh;padding:20px 16px 40px}
+.shell{max-width:520px;margin:0 auto}
+.notice{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;
+  font-size:11px;color:var(--ink2);line-height:1.6;word-break:keep-all}
+.notice b{color:var(--purple-ink)}
+.hero{background:#fff;border-radius:24px;padding:26px 24px;margin-top:12px;text-align:center;
+  box-shadow:0 20px 44px -22px rgba(42,30,122,.35);border:1px solid #fff}
+.chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--purple);
+  background:var(--lavender);padding:6px 13px;border-radius:99px}
+.brand{font-weight:800;font-size:14px;margin-top:4px}
+.brand .no{color:var(--ink)} .brand .rx{color:var(--purple)}
+.hero h1{font-size:23px;font-weight:800;line-height:1.4;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
+.hero h1 b{color:var(--purple)}
+.hero p{font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;word-break:keep-all}
+/* 선택 카드 2종 */
+.pick{display:block;border-radius:24px;overflow:hidden;margin-top:16px;text-decoration:none;
+  border:1.5px solid var(--line);background:#fff;box-shadow:0 18px 40px -24px rgba(42,30,122,.4);transition:transform .15s}
+.pick:active{transform:translateY(1px)}
+.pick .hd{padding:18px 22px 16px;color:#fff}
+.pick.a .hd{background:linear-gradient(135deg,#2E6BFF 0%,#5B3FF2 100%)}
+.pick.b .hd{background:linear-gradient(135deg,#0E9F6E 0%,#0B2A73 130%)}
+.pick .hd .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.5px;background:rgba(255,255,255,.2);padding:4px 10px;border-radius:99px}
+.pick .hd b{display:block;font-size:19px;margin-top:8px;line-height:1.35;word-break:keep-all}
+.pick .hd span{display:block;font-size:11.5px;opacity:.85;margin-top:4px}
+.pick .bd{padding:15px 22px 18px}
+.pick .bd ul{list-style:none}
+.pick .bd li{font-size:12px;color:var(--ink2);line-height:1.6;padding:4px 0 4px 18px;position:relative;word-break:keep-all}
+.pick .bd li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+.pick .bd li b{color:var(--purple-ink)}
+.pick .go{display:block;margin:10px 22px 18px;text-align:center;background:var(--surface);border:1.5px solid var(--line);
+  border-radius:13px;padding:12px;font-size:13.5px;font-weight:800;color:var(--purple-ink)}
+.pick.a .go{color:#2E4FD8}
+.pick.b .go{color:#0B7A55}
+/* 비교 표 */
+.cmp{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden}
+.cmp .hd{background:var(--navy);color:#fff;padding:12px 18px;font-size:12.5px;font-weight:800}
+.cmp table{width:100%;border-collapse:collapse;font-size:11.5px}
+.cmp th,.cmp td{padding:9px 12px;border-top:1px solid var(--line);text-align:center;line-height:1.5;word-break:keep-all}
+.cmp th{background:var(--surface);color:var(--purple-ink);font-size:11px;width:26%}
+.cmp td b{color:var(--purple-ink)}
+/* 보조 링크 */
+.aux{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.aux a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:13px;
+  padding:12px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none}
+.refs{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 18px;
+  font-size:10.5px;color:var(--ink2);line-height:1.8;word-break:keep-all}
+.refs b{color:var(--purple-ink);display:block;font-size:11.5px;margin-bottom:4px}
+.cross{margin-top:24px;border-top:1.5px dashed var(--line);padding-top:16px}
+.cross>span{display:block;text-align:center;font-size:11px;color:var(--ink2);margin-bottom:8px}
+.cross .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cross a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  padding:11px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none}
+footer{text-align:center;font-size:10.5px;color:var(--ink2);margin-top:22px;line-height:1.7;word-break:keep-all}
 </style>
 </head>
 <body>
+<div class="shell">
+  <div class="notice">📄 본 페이지는 「2026 전시산업 대학생 경진대회」 기획서의 이해를 돕기 위한 <b>보조자료(설명부록)</b>입니다. 심사는 기획서 기재 내용 기준이며, 아래 두 문서는 지면의 실행 방안을 <b>실존 전시 위에서 검증한 기록</b>입니다.</div>
 
-<div class="notice-bar">📄 본 페이지는 「2026 전시산업 대학생 경진대회」 기획서의 이해를 돕기 위한 <b>보조자료(설명부록)</b>입니다 — 심사는 기획서 기재 내용 기준이며, 아래 내용과 수치는 기획서 지면과 동일합니다.</div>
-
-<nav>
-  <div class="bar">
-    <span class="logo">NO LOGO <b>REMIX</b> · 설명부록</span>
-    <div class="links">
-      <a href="#problem">문제</a><a href="#idea">아이디어</a><a href="#plan">추진방안</a>
-      <a href="#effect">기대효과</a><a href="#proof">검증</a><a href="#apdx">상세 부록</a>
-    </div>
-    <a class="cta" href="index.html?exhibition=EXPO2026" target="_blank" rel="noopener">📱 지금 체험하기</a>
+  <div class="hero">
+    <span class="chip">설명부록</span>
+    <div class="brand"><span class="no">NO LOGO</span> <span class="rx">REMIX</span></div>
+    <h1>이 기획이 실제 전시에서<br><b>어떻게 돌아가는지</b> 보여드립니다</h1>
+    <p>하나는 <b>앞으로 열릴 전시에 적용하는 설계</b>, 하나는 <b>이미 끝난 전시의 실제 데이터로 돌려본 기록</b> — 관심 있는 쪽을 선택해 보세요. (둘 다 실존 전시 기준이며, 관람객 페르소나가 배포된 프로토타입에서 전 여정을 실제로 완주했습니다)</p>
   </div>
-</nav>
 
-<header class="hero2">
-  <div class="wrap">
-    <span class="badge">주제 — 전시회, 2030 세대의 핫플이 되다 · 팀 REMIX LAB</span>
-    <h1>NO LOGO REMIX<br><b>브랜드는 숨기고, 기술을 발견하다</b></h1>
-    <div class="abstract">
-      <b>요약 (기획서 원문)</b>
-      <p>브랜드를 가린 기술을 고르고 부스를 찾아가 AI로 아이디어를 만들어 공유하는 <u>참여형 팝업</u>을 중심으로, 전시 전 SNS 티저와 전시 후 관람객 공유 콘텐츠 확산으로 2030 유입을 만들고, 참여 데이터를 기업용 <u>관심 데이터 리포트</u>로 돌려주는 마케팅 전략입니다.</p>
-    </div>
-    <div class="kw">
-      <span><i>#1</i>블라인드 발견</span>
-      <span><i>#2</i>AI 리믹스</span>
-      <span><i>#3</i>관심 데이터</span>
-    </div>
-    <div class="btns">
-      <a class="bt p" href="index.html?exhibition=EXPO2026" target="_blank" rel="noopener">▶ 구동 프로토타입 체험</a>
-      <a class="bt g" href="tech.html">⚙️ 37초 시연 영상</a>
-    </div>
+  <a class="pick a" href="scenario.html">
+    <div class="hd"><span class="tag">SCENARIO · 적용 설계</span>
+      <b>🗺 가상 시나리오 — 2026 그린에너텍</b>
+      <span>개최 예정 전시 · 송도컨벤시아 (본선 개최지와 동일)</span></div>
+    <div class="bd"><ul>
+      <li>주최사 관점의 <b>관리자 미션 설계 6종</b> — 전시 분야를 생활 문제로 번역</li>
+      <li>실재 기술 카테고리 기반 <b>가상 20부스</b> 구성 (가상임을 명시)</li>
+      <li><b>페르소나 4인</b> 실주행 — 발견 결함 5건 즉시 수정 기록</li>
+      <li>D-14 사전 티저부터 사후 확산까지 운영 계획·측정 설계</li>
+    </ul></div>
+    <span class="go">가상 시나리오 보기 →</span>
+  </a>
+
+  <a class="pick b" href="mock.html">
+    <div class="hd"><span class="tag">MOCK OPERATION · 실데이터 검증</span>
+      <b>🔋 실전 모의 운영 — 인터배터리 2026</b>
+      <span>종료된 실존 전시 · 코엑스 · 공식 개최결과 확정 데이터</span></div>
+    <div class="bd"><ul>
+      <li>공식 참가기업 디렉토리 <b>620개사 전수 분석</b> (부스 분포·출품 분류)</li>
+      <li><b>실기업 22개사</b>의 공식 출품 정보로 블라인드 카드 구성 — 실부스번호 리빌</li>
+      <li><b>페르소나 6인</b>(바이어·취준생·크리에이터·소상공인·디자인·가족) 실주행</li>
+      <li>시장조사 원문 재검증 + 발견 결함 수정·재검증 기록</li>
+    </ul></div>
+    <span class="go">실전 모의 운영 리포트 보기 →</span>
+  </a>
+
+  <div class="cmp">
+    <div class="hd">두 문서, 무엇이 다른가</div>
+    <table>
+      <tr><th></th><td><b>🗺 가상 시나리오</b></td><td><b>🔋 실전 모의 운영</b></td></tr>
+      <tr><th>대상 전시</th><td>그린에너텍 2026<br>(개최 예정)</td><td>인터배터리 2026<br>(종료 — 결과 확정)</td></tr>
+      <tr><th>부스 데이터</th><td>가상 20부스<br>(실재 기술 카테고리 기반)</td><td>실기업 22개사<br>(공식 디렉토리·실부스번호)</td></tr>
+      <tr><th>페르소나</th><td>4인 실주행</td><td>6인 실주행</td></tr>
+      <tr><th>답하는 질문</th><td>"다가올 전시에<br>어떻게 적용하는가"</td><td>"실제 데이터 위에서<br>정말 돌아가는가"</td></tr>
+    </table>
   </div>
-</header>
 
-<section id="problem">
-  <div class="wrap">
-    <span class="eyebrow">① PROBLEM — 왜 지금인가</span>
-    <h2 class="sec">전시장에는 2030이 참여할 '역할'이 없다</h2>
-    <p class="lead">부스마다 기업 이름과 로고가 먼저 눈에 들어오고, 익숙하지 않은 브랜드는 지나치게 됩니다. 규모가 작은 기업의 기술은 좋아도 눈에 띄지 않고 — 2030의 관심은 데이터로 잡히지도 않습니다.</p>
-    <div class="stats">
-      <div class="stat"><div class="num">736건 <small>· 953만 명</small></div><b>국내 전시회 연간 규모</b><p>이만한 시장인데도 참관객 통계는 국적·바이어 여부 중심 — <b>2030 세대의 관심은 집계되지 않습니다.</b></p><div class="src">한국전시산업진흥회 「2024 전시산업통계조사」 (국가승인통계) [기획서 주1]</div></div>
-      <div class="stat"><div class="num">81.4% <small>· 73.0%</small></div><b>팝업스토어는 이미 핫플</b><p>성인 방문 경험률 81.4%, 흐름을 주도하는 것은 2030(20대 인지도 71.2%). 73.0%가 '오래 머물고 싶은 체험형 공간' 확대를 원합니다.</p><div class="src">엠브레인 트렌드모니터 2024 (1,000명) [기획서 주2]</div></div>
-      <div class="stat"><div class="num">25만 명 <small>· 73%가 2030</small></div><b>전시회도 핫플이 될 수 있다</b><p>2026 서울국제불교박람회 — 체험형 콘텐츠로 나흘간 25만 명, 사전등록 3년 만에 약 4배. <b>유입을 만든 건 장르가 아니라 '참여 역할'이었습니다.</b></p><div class="src">서울국제불교박람회 사무국 발표 보도 [기획서 주3]</div></div>
-    </div>
-    <p class="punch">문제는 전시회 자체가 아니라,<br>2030이 참여할 <b>'역할'</b>이 없다는 데 있다.</p>
+  <div class="aux">
+    <a href="mock.html#research">📊 시장조사·출처 검증</a>
+    <a href="index.html?exhibition=IB2026" target="_blank" rel="noopener">🔋 실전 모드 직접 체험</a>
   </div>
-</section>
 
-<section id="idea" style="background:var(--surface)">
-  <div class="wrap">
-    <span class="eyebrow">② IDEA — 관람객이 공동기획자가 되는 여정</span>
-    <h2 class="sec">이름 대신 기술을 보고 고르면,<br>방문이 '나의 결과물'로 남는다</h2>
-    <div class="journey-grid">
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><b>블라인드 기술카드 선택</b><p>전시장 중앙 공용 팝업 — 기업명·로고 없이 "이 기술이 어떤 문제를 해결하는가"만 보고 고릅니다.</p></div></div>
-        <div class="step"><div class="n">2</div><div><b>기업·부스 공개 (리빌)</b><p>"내가 브랜드도 모르고 이 기술을 골랐다"는 발견 — 자연스럽게 그 부스로 향하게 됩니다.</p></div></div>
-        <div class="step"><div class="n">3</div><div><b>부스 방문 인증 → 기술 토큰</b><p>직원 설명·체험 후 QR 인증. 방문 확인에서 끝나지 않고 토큰이 <b>AI 창작의 재료</b>가 됩니다.</p></div></div>
-        <div class="step"><div class="n">4</div><div><b>REMIX AI 조합</b><p>서로 다른 기업의 토큰 2~3개를 "폭염 속 자취방 전기료를 줄여라" 같은 생활 미션에 조합 — 아이디어명·한 줄 설명·콘셉트 이미지가 1분 내외로 완성됩니다.</p></div></div>
-        <div class="step"><div class="n">5</div><div><b>전광판·SNS 공유와 투표</b><p>결과물이 중앙 전광판에 노출되고, 현장 투표·전문가 평가로 우수 아이디어와 참여기업을 선정합니다.</p></div></div>
-      </div>
-      <figure class="shot">
-        <img src="assets/demo-poster.jpg" alt="구동 프로토타입 — AI 리믹스 결과 화면" loading="lazy">
-        <figcaption>실제 구동 중인 프로토타입 화면 — <a href="tech.html" style="color:var(--purple);font-weight:700">37초 시연 영상 보기</a></figcaption>
-      </figure>
-    </div>
-    <div class="diff">
-      <div class="hd">기존 스탬프 투어와 무엇이 다른가</div>
-      <div class="row"><div>스탬프 투어 — 방문을 <b>확인</b>하고 끝난다</div><div><b>기술 토큰</b> — 방문이 AI 창작의 <b>재료</b>가 되어 '나의 결과물'로 남는다</div></div>
-      <div class="row"><div>관람객은 설명을 듣는 <b>방문객</b></div><div>여러 기업의 기술을 자기 방식대로 엮는 <b>공동기획자</b></div></div>
-      <div class="row"><div>참여 기록이 주최자에게 남지 않는다</div><div>선택 이유·조합·전환이 <b>관심 데이터 리포트</b>로 축적된다</div></div>
+  <div class="refs">
+    <b>기획서 각주 출처 (지면과 동일)</b>
+    [주1] 한국전시산업진흥회 「2024년 전시산업통계조사 결과」(국가승인통계) — 736건·953만 명 ·
+    [주2] 엠브레인 트렌드모니터 「2024 팝업스토어 조사」 — 81.4%·73.0% ·
+    [주3] 서울국제불교박람회 사무국 발표 보도 — 25만 명·2030 73% ·
+    [주4] 서울교통공사 스탬프투어 보도 — 2만여 명·만족 87%
+  </div>
+
+  <div class="cross">
+    <span>기획서의 다른 보조자료</span>
+    <div class="row">
+      <a href="pitch.html">📖 서비스 소개 (시연 영상)</a>
+      <a href="mixi.html">🤖 캐릭터 MIXI</a>
     </div>
   </div>
-</section>
 
-<section id="plan">
-  <div class="wrap">
-    <span class="eyebrow">③ PLAN — 전시 전·중·후 3단 유입 퍼널</span>
-    <h2 class="sec">추진방안: 장외의 호기심이 방문이 되고,<br>공유가 다음 관람객을 데려온다</h2>
-    <div class="funnel">
-      <div class="ph"><span class="tag">사전 — 개막 2주 전</span><b class="t">브랜드를 가린 기술 퀴즈</b>
-        <ul>
-          <li>참여 희망기업 <b>15~20개사</b> 모집 — 공개 가능 기술정보·AI 활용 허용범위 제출</li>
-          <li>대기업엔 <b>순수 기술 선호 데이터</b>·공개 순간의 화제성, 중소기업엔 <b>기술만으로 평가받는 무대</b>로 설득</li>
-          <li>주최사·참가기업 계정 + 크리에이터 협업으로 퀴즈 선공개 → "정답은 현장에서"</li>
-          <li>퀴즈 참여자에게 <b>기술 토큰 1개 선지급</b> + 무료 사전등록 연결 — 현장에서만 받는 보상으로 <b>노쇼 상쇄</b></li>
-        </ul></div>
-      <div class="ph"><span class="tag">현장 — 참여 허브</span><b class="t">5단계 여정 + REMIX LIVE</b>
-        <ul>
-          <li>블라인드 선택 → 공개 → 부스 인증 → AI 조합 → 전광판·SNS 공유</li>
-          <li>매시간 15~20분 <b>REMIX LIVE</b> — 최다 선택 카드 단체 공개·인기 아이디어 소개·기업 관계자 설명으로 <b>촬영하고 싶은 장면을 시간표화</b></li>
-          <li>주최사 부대행사 공간 + 운영 인력 <b>4~6명</b> — 대규모 예산 없이 기존 틀 안에서 실행</li>
-        </ul></div>
-      <div class="ph"><span class="tag">사후 — 확산과 데이터</span><b class="t">공유가 유입으로 돌아온다</b>
-        <ul>
-          <li>인기 결과물을 숏폼·카드뉴스로 재가공해 확산</li>
-          <li>공유 카드를 받은 비관람객 → <b>원격 투표·사전등록</b> 페이지로 연결</li>
-          <li>참가기업에 <b>2030 관심 데이터 리포트</b>: 블라인드 선택 수 · 부스 방문 전환율 · 자주 조합된 타사 기술 · 관심 키워드 · 동의 기반 잠재고객</li>
-        </ul></div>
-    </div>
-    <div class="ai-box"><b>🤖 REMIX AI 운영 방식 — 프롬프트 없이, 안전하게</b>
-      관람객은 생활문제·기술 토큰·스타일만 선택하면 사전 설계된 템플릿이 작동해 1분 내외로 결과물을 생성합니다. AI 경험이 없어도 균일한 품질을 보장하고, 결과물에는 참가기업이 <b>사전 승인한 정보만</b> 반영하며 "검증된 성능이 아닌 콘셉트 제안"임을 하단에 항상 표시합니다. 마스코트 MIXI가 사전 홍보부터 결과물 카드까지 일관되게 등장합니다.</div>
-  </div>
-</section>
-
-<section id="effect" style="background:var(--surface)">
-  <div class="wrap">
-    <span class="eyebrow">④ EFFECT — 세 주체가 각자 얻는 것</span>
-    <h2 class="sec">기대효과</h2>
-    <div class="val3">
-      <div class="vc"><span class="em">🙋</span><b class="t">2030 관람객 <i>— 경험과 진로</i></b><p>수동적으로 듣는 대신 기술을 직접 선택·조합해 <b>자신만의 아이디어</b>를 만듭니다. 전광판 노출·SNS 공유가 "알리고 싶은 동기"가 되고, 우수 아이디어 참가자는 별도 동의를 거쳐 <b>채용 상담·인턴십</b>으로 연결됩니다.</p></div>
-      <div class="vc"><span class="em">🏢</span><b class="t">참가기업 <i>— 공정한 노출과 데이터</i></b><p>부스 규모·인지도와 무관하게 <b>기술력만으로 2030의 첫 평가</b>를 받습니다. 특히 중소기업에게는 발견의 무대 — 축적된 관심 데이터는 잠재 고객·인재 발굴과 신제품 기획의 참고 자료가 됩니다.</p></div>
-      <div class="vc"><span class="em">🏛</span><b class="t">전시 주최사 <i>— 공간·데이터 자산</i></b><p>활용도 낮던 부대행사 공간이 <b>전시 전체의 참여 허브</b>로. 체험 격차 완화, 순환·체류 증가, 그리고 기술카드·템플릿·마스코트 자산의 재사용. 송도 개최 전시라면 지역 관광 마케팅 연계까지.</p></div>
-    </div>
-    <div class="kpi">
-      <b>📏 측정 지표(KPI) — 프로토타입에 측정 체계로 내장되어 파일럿 첫날부터 실측 가능</b>
-      <div class="chips">
-        <span>블라인드 기술 선택 수</span><span>기업 공개 후 부스 방문 전환율</span><span>AI 결과물 완성률</span>
-        <span>SNS 공유율</span><span>중소기업 선택 비중</span><span>동의 기반 후속 연결 수</span>
-      </div>
-      <p class="goal">파일럿 1차 목표: <b>기술 선택자의 절반 이상이 실제 부스 방문으로 이어지는 것.</b> 방문 인증형 장치의 효과는 공공 사례로 확인된 바 있습니다(서울교통공사 모바일 스탬프투어 — 이용객 2만여 명 증대, 응답자 87% 만족 [기획서 주4]). 본 기획은 인증에서 멈추지 않고 창작·공유를 더해 그 효과를 증폭합니다.</p>
-    </div>
-  </div>
-</section>
-
-<section id="proof">
-  <div class="wrap">
-    <span class="eyebrow">⑤ PROOF — 말이 아니라 실물로</span>
-    <h2 class="sec">기획서의 모든 주장은 구동되는 실물로 검증했습니다</h2>
-    <div class="proof">
-      <a class="pc" href="index.html?exhibition=EXPO2026" target="_blank" rel="noopener"><span class="em">📱</span><b>구동 프로토타입</b><p>P01~P10 전 여정 + 전광판·대시보드, KPI 측정 체계 내장 — 설치 없이 브라우저에서.</p><span class="go">체험하기 →</span></a>
-      <a class="pc" href="scenario.html"><span class="em">🗺</span><b>실존 전시 적용 설계</b><p>2026 그린에너텍(송도컨벤시아 — 본선 개최지) 기준 미션·부스·운영 설계 + 페르소나 4인 실주행.</p><span class="go">시나리오 →</span></a>
-      <a class="pc" href="mock.html"><span class="em">🔋</span><b>실전 모의 운영</b><p>종료된 인터배터리 2026의 공식 참가기업 620개사 분석, 실기업 22개사 데이터로 페르소나 6인 실주행.</p><span class="go">리포트 →</span></a>
-      <a class="pc" href="mock.html#research"><span class="em">📊</span><b>출처 원문 검증</b><p>인용 수치 전건 원문 재확인 — 검증 못 한 자료는 표기 후 지면 인용에서 제외.</p><span class="go">조사·출처 →</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="apdx" style="background:var(--surface);padding-top:60px">
-  <div class="wrap">
-    <span class="eyebrow">APPENDIX</span>
-    <h2 class="sec" style="font-size:clamp(20px,2.6vw,28px)">더 깊이 보기 — 상세 부록과 다른 보조자료</h2>
-    <div class="apdx">
-      <a class="ap" href="pitch.html"><div class="ico">📖</div><div><b>부록 A · 발표 소개 페이지</b><span>문제·전략·여정·데모·기대효과 상세 서사</span></div><div class="go">→</div></a>
-      <a class="ap" href="tech.html"><div class="ico">⚙️</div><div><b>QR① 기술구현</b><span>1분 체험 코스 · 37초 시연 영상</span></div><div class="go">→</div></a>
-      <a class="ap" href="mixi.html"><div class="ico">🤖</div><div><b>QR③ 캐릭터 MIXI</b><span>캐릭터 영상 · 네이밍 · 디자인북</span></div><div class="go">→</div></a>
-      <a class="ap" href="live.html" target="_blank" rel="noopener"><div class="ico">🖥</div><div><b>현장 전광판 (S01)</b><span>1920×1080 REMIX LIVE 화면</span></div><div class="go">→</div></a>
-    </div>
-    <div class="refs">
-      <b>기획서 각주 출처 (지면과 동일)</b>
-      [주1] 한국전시산업진흥회, 「2024년 전시산업통계조사 결과」(국가승인통계) — 2024년 개최 736건, 참관객 9,530,953명 ·
-      [주2] 엠브레인 트렌드모니터, 「2024 팝업스토어 방문 경험 및 인식 조사」(전국 만 19~59세 1,000명) ·
-      [주3] 서울국제불교박람회 사무국 발표 보도(뉴시스 2026.3, 불교일보 2026.4) — 사전등록 11,187명(2023) → 44,365명(2026) ·
-      [주4] 서울교통공사 발표 보도(뉴스핌 2022.7) — 2019 모바일 스탬프투어 성과
-    </div>
-  </div>
-</section>
-
-<footer>
-  <b>NO LOGO REMIX — 설명부록</b> · 2026 전시산업 대학생 경진대회 · 팀 REMIX LAB<br>
-  본 페이지의 내용·수치·각주는 제출 기획서 지면과 동일하며, 기획서의 이해를 돕기 위한 보조자료로만 활용됩니다.<br>
-  ※ 생성형 AI 활용 범위: 회의내용 구조화·문장 교정, 프로토타입 및 마스코트 시안 제작에 활용 — 아이디어 도출과 최종 기획·검토는 팀이 직접 수행했습니다.
-</footer>
-
+  <footer>NO LOGO REMIX · 팀 REMIX LAB<br>두 문서의 참가기업·수치 표기 원칙: 가상은 '가상' 명시, 실기업 정보는 공식 공개 자료만 사용</footer>
+</div>
 </body>
 </html>

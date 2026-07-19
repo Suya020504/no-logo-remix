@@ -284,6 +284,33 @@ footer .refs{font-size:11px;line-height:1.9}
     <span class="eyebrow">LIVE DEMO</span>
     <h2 class="sec">구상이 아니라, 지금 작동합니다</h2>
     <p class="lead">관람객 여정 전체가 실제로 구동되는 프로토타입을 제작·배포했습니다. 모든 KPI는 측정 체계로 함께 설계되어 파일럿 첫날부터 실측할 수 있습니다.</p>
+    <style>
+    .demo-video{display:flex;gap:44px;align-items:center;margin-top:40px}
+    @media(max-width:960px){.demo-video{flex-direction:column}}
+    .demo-video video{flex:0 0 330px;width:330px;max-width:100%;border-radius:22px;border:1.5px solid rgba(255,255,255,.18);background:#000;box-shadow:0 26px 54px -22px rgba(0,0,0,.65)}
+    .demo-video .vtx{flex:1;min-width:0}
+    .demo-video .vtx b.h{font-size:19px;color:#fff;display:block}
+    .demo-video .vtx p.s{color:#AAB4E0;font-size:13px;margin-top:8px;line-height:1.7;word-break:keep-all}
+    .vstep{display:flex;gap:13px;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.14);align-items:flex-start}
+    .vstep:last-child{border-bottom:0}
+    .vstep .n{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);color:#8FB3FF;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex:0 0 30px}
+    .vstep b{font-size:14.5px;color:#fff}
+    .vstep p{font-size:12.5px;color:#AAB4E0;margin-top:3px;line-height:1.65;word-break:keep-all}
+    </style>
+    <div class="demo-video">
+      <video controls playsinline preload="metadata" poster="assets/demo-poster.jpg" aria-label="NO LOGO REMIX 전체 여정 시연 영상 37초">
+        <source src="assets/demo.mp4" type="video/mp4">
+        브라우저가 동영상을 지원하지 않습니다. <a href="assets/demo.mp4" style="color:#8FB3FF">영상 파일 열기</a>
+      </video>
+      <div class="vtx">
+        <b class="h">🎬 37초 시연 영상 — 기술구현을 눈으로 확인하세요</b>
+        <p class="s">실제 배포 중인 앱을 그대로 녹화한 화면입니다 (2.6MB — 바로 재생). 영상을 본 뒤 아래 순서대로 직접 체험하시면 약 1분이면 전 여정을 완주할 수 있습니다.</p>
+        <div class="vstep"><div class="n">1</div><div><b>미션 선택</b><p>시작하기 → 건너뛰기 → 오늘 풀고 싶은 생활 문제를 고릅니다. 직접 입력한 미션도 카드 추천 순위에 반영됩니다.</p></div></div>
+        <div class="vstep"><div class="n">2</div><div><b>블라인드 기술카드 선택</b><p>기업명 없이 기술만 보고 2개를 고릅니다 — '스펙 더보기'로 선택 근거를 확인하고, 고르는 순간 기업과 부스 위치가 공개됩니다.</p></div></div>
+        <div class="vstep"><div class="n">3</div><div><b>부스 방문 인증 → 기술 토큰</b><p>'부스 인증하기' 버튼 또는 숫자 코드 <b style="color:#fff">2026</b> 입력(데모). 방문이 확인에서 끝나지 않고 AI 창작의 재료로 쌓입니다.</p></div></div>
+        <div class="vstep"><div class="n">4</div><div><b>AI 리믹스 → 결과·공유</b><p>아이디어명·한 줄 설명·콘셉트 이미지가 생성되고, 9:16 스토리 저장 · 전광판 미리보기 · 채용과 분리된 B2B 도입 상담까지 전부 실동작합니다.</p></div></div>
+      </div>
+    </div>
     <div class="demo-grid">
       <a class="dcard" href="index.html" target="_blank" rel="noopener">
         <span class="ic">📱</span><b>관람객 모바일 여정</b>
