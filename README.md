@@ -13,9 +13,9 @@
 | 📖 **설명 페이지** | [/pitch.html](https://onboarding-web-one-rose.vercel.app/pitch.html) | 발표 소개 — 문제·전략·여정·데모·기대효과 원페이지 |
 | 🏗 **전시 기준 예상 시나리오** | [/scenario.html](https://onboarding-web-one-rose.vercel.app/scenario.html) | 실존 전시(2026 그린에너텍, 송도컨벤시아) 적용 시뮬레이션 — 관리자 미션 설계 · 가상 20부스 · 페르소나 4인 실주행 검증 |
 | 🔋 **실전 모의 운영 리포트** | [/mock.html](https://onboarding-web-one-rose.vercel.app/mock.html) | 종료된 실존 전시(인터배터리 2026) 공식 디렉토리 620개사 분석 + 실기업 22개사 데이터 페르소나 6인 실주행 — 앱 실전 모드: `?exhibition=IB2026` |
-| ⚙️ 기획서 QR① 기술구현 | [/tech.html](https://onboarding-web-one-rose.vercel.app/tech.html) | 심사위원용 1분 체험 코스 + 37초 시연 영상 |
-| 📚 기획서 QR② 설명부록 | [/docs.html](https://onboarding-web-one-rose.vercel.app/docs.html) | 30초 요약(문제·해결·증거) + 상세 부록 목차 |
-| 🤖 기획서 QR③ 캐릭터 | [/mixi.html](https://onboarding-web-one-rose.vercel.app/mixi.html) | MIXI 캐릭터 영상·네이밍·디자인 컨셉·디자인북 갤러리 |
+| 🤖 기획서 QR① 캐릭터 | [/mixi.html](https://onboarding-web-one-rose.vercel.app/mixi.html) | MIXI 캐릭터 영상(24초)·네이밍·디자인 컨셉·디자인북 갤러리 |
+| 📖 기획서 QR② 서비스 소개 | [/pitch.html](https://onboarding-web-one-rose.vercel.app/pitch.html) | 기획서 기반 서사 + **37초 시연 영상·1분 체험 코스 내장**(#demo) |
+| 📚 기획서 QR③ 설명부록 | [/docs.html](https://onboarding-web-one-rose.vercel.app/docs.html) | 검증 문서 선택 허브 — 실전 모의 운영 리포트 / 그린에너텍 운영 시나리오 버튼 2종 + 비교표 |
 | 🖥 현장 전광판 (S01) | [/live.html](https://onboarding-web-one-rose.vercel.app/live.html) | 1920×1080 자동 스케일 · 12초 순환 · 라이브 카운터 |
 | 📊 기업 대시보드 (S02) | [/dashboard.html](https://onboarding-web-one-rose.vercel.app/dashboard.html) | 참여 퍼널·KPI 산식 (가상 예시 데이터) |
 | 📕 마스코트 디자인북 | [/mascot.pdf](https://onboarding-web-one-rose.vercel.app/mascot.pdf) | 캐릭터 MIXI 최종 디자인북 경량판 (2.3MB) — 디자인: 차서빈 |
@@ -31,7 +31,8 @@ no-logo-remix/
 │  ├─ live.html          #   🖥 현장 전광판 (S01)
 │  ├─ dashboard.html     #   📊 기업 대시보드 (S02)
 │  ├─ mock.html          #   🔋 실전 모의 운영 리포트 (인터배터리 2026)
-│  ├─ tech.html · docs.html · mixi.html  # 기획서 QR ①②③ 랜딩
+│  ├─ mixi.html · docs.html              # 기획서 QR ①(캐릭터)·③(설명부록) 랜딩 — QR ②는 pitch.html
+│  ├─ tech.html          #   (구 기술구현 QR 호환용 → pitch.html#demo 리다이렉트)
 │  ├─ mixi.png           #   P01 히어로 마스코트
 │  ├─ mascot.pdf         #   최종 디자인북 (경량판 2.3MB)
 │  └─ assets/            #   마스코트 컷 · 디자인북 갤러리 · 캐릭터/시연 영상 · 스타일 락 결과 · 실주행 캡처
