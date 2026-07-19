@@ -6,7 +6,7 @@
 <title>NO LOGO REMIX — 브랜드는 숨기고, 기술을 발견하다 | 발표 소개</title>
 <meta name="description" content="2026 전시산업 대학생 경진대회 출품작 · 전시 전 티저→현장 체험→전시 후 확산으로 이어지는 2030 유입 마케팅 전략">
 <!-- 발표 이해 보조용 소개 페이지 · 기획서 v2.4 서사 기반
-     마스코트 MIXI: 차서빈 디자인 원본을 무변형 사용 (웹용 리사이즈만 적용) -->
+     마스코트 MIXI: 팀 자체 디자인 원본을 무변형 사용 (웹용 리사이즈만 적용) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--blue:#2E6BFF;--sky:#79B8FF;--navy:#10142F;
@@ -45,6 +45,13 @@ nav .cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff
 .bt:hover{transform:translateY(-2px)}
 .bt.p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 14px 28px -12px rgba(46,107,255,.6)}
 .bt.g{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line)}
+/* 전광판 버튼 — 프로스티드 글래스 (뒤 히어로 렌더가 은은히 비쳐, 플랫한 색 덩어리 대신 유리 질감) */
+.bt.d{background:rgba(16,20,47,.42);color:#fff;border:1px solid rgba(255,255,255,.55);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 12px 26px -12px rgba(16,20,47,.5);text-shadow:0 1px 2px rgba(16,20,47,.35)}
+.bt.d:hover{background:rgba(16,20,47,.54)}
+.bt.d .dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.28);animation:blip 1.4s ease-in-out infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.35}}
 @media(max-width:860px){
   .hero{background-position:22% center;align-items:flex-end}
   .hero .inner{justify-content:center}
@@ -165,7 +172,7 @@ footer .refs{font-size:11px;line-height:1.9}
       <p>기업명을 가린 기술카드에서 시작해, 실제 부스 방문과 AI 창작으로 이어지는 참여형 팝업 — 그리고 전시장 밖 2030을 안으로 데려오는 <b>3단 유입 마케팅 전략</b>입니다.</p>
       <div class="btns">
         <a class="bt p" href="index.html" target="_blank" rel="noopener">체험 데모 시작</a>
-        <a class="bt g" href="live.html" target="_blank" rel="noopener">🖥 현장 전광판</a>
+        <a class="bt d" href="live.html" target="_blank" rel="noopener"><span class="dot"></span>🖥 현장 전광판</a>
         <a class="bt g" href="dashboard.html" target="_blank" rel="noopener">📊 기업 대시보드</a>
       </div>
     </div>
@@ -387,7 +394,7 @@ footer .refs{font-size:11px;line-height:1.9}
       <a class="bt p" href="mascot.pdf" target="_blank" rel="noopener">📕 캐릭터 디자인북 (PDF)</a>
       <a class="bt g" href="mixi.html" target="_blank" rel="noopener">🤖 캐릭터 페이지 보기</a>
     </div>
-    <p class="credit">캐릭터 디자인·영상: 차서빈 (팀 REMIX LAB) — 원본 디자인을 변형 없이 사용했습니다</p>
+    <p class="credit">캐릭터 디자인·영상: 팀 REMIX LAB 자체 제작 — 원본 디자인을 변형 없이 사용했습니다</p>
   </div>
 </section>
 
@@ -395,7 +402,7 @@ footer .refs{font-size:11px;line-height:1.9}
   <div class="wrap">
     <div>
       <b>NO LOGO REMIX</b> — 브랜드는 숨기고, 기술을 발견하다<br>
-      2026 전시산업 대학생 경진대회 출품작 · 팀 <b>REMIX LAB</b> (이연수 · 김주희 · 최현규 · 차서빈)<br><br>
+      2026 전시산업 대학생 경진대회 출품작 · 팀 <b>REMIX LAB</b><br><br>
       ※ 생성형 AI 활용 범위: 기획 과정의 회의내용 구조화·문장 교정, 프로토타입 및 마스코트 시안 제작에 활용했으며, 아이디어 도출과 최종 기획·검토는 팀이 직접 수행했습니다.<br>
       ※ 본 페이지는 기획서 이해를 돕는 보조자료이며, 대시보드 수치는 가상 예시입니다.
     </div>
