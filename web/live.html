@@ -50,17 +50,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#E8EAF6;
 .card .img{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;font-size:64px;
   background:linear-gradient(150deg,#EAF0FF,#E2E6FB);overflow:hidden;position:relative}
 .card .img img{width:100%;height:100%;object-fit:cover}
-.card .img .votes{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);color:var(--pink);
-  font-size:15px;font-weight:800;padding:5px 12px;border-radius:99px;box-shadow:0 4px 12px rgba(42,30,122,.15)}
+.card .img .votes{position:absolute;top:10px;right:10px;background:#10142F;color:#fff;
+  font-size:15px;font-weight:800;padding:6px 12px;border-radius:999px;box-shadow:0 4px 12px rgba(42,30,122,.15)}
 .card .meta{padding:13px 17px 15px}
 .card .meta .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .card .meta b{font-size:21px;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .meta .nick{font-size:12px;color:var(--ink2);white-space:nowrap}
-.card .meta p{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:5px;
+.card .meta .nick{font-size:14px;color:var(--ink2);white-space:nowrap}
+.card .meta p{font-size:16px;color:var(--ink2);line-height:1.5;margin-top:6px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
 .card .chips{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
-.card .chips i{font-style:normal;font-size:10.5px;font-weight:800;background:var(--lav);color:var(--purple-ink);
-  padding:4px 9px;border-radius:99px;white-space:nowrap}
+.card .chips i{font-style:normal;font-size:13px;font-weight:800;background:var(--lav);color:var(--purple-ink);
+  padding:4px 10px;border-radius:999px;white-space:nowrap}
 /* ── 우: TOP3 + 카운터 ── */
 .right{flex:0 0 350px;display:flex;flex-direction:column;gap:18px;padding-bottom:40px}
 .panel{background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:22px 24px;box-shadow:0 16px 34px -24px rgba(42,30,122,.3)}
@@ -69,9 +69,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#E8EAF6;
 .t3-row{display:flex;align-items:center;gap:12px;margin-top:15px}
 .t3-row .rk{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:16px;font-weight:800;background:var(--lav);color:var(--purple-ink);flex:0 0 34px}
-.t3-row:nth-child(2) .rk{background:linear-gradient(140deg,#FFD34D,#F5A301);color:#3A2A00}
-.t3-row:nth-child(3) .rk{background:linear-gradient(140deg,#EDEFF8,#C6CCDE);color:#2A3050}
-.t3-row:nth-child(4) .rk{background:linear-gradient(140deg,#F5BE8C,#D08544);color:#3A2000}
+.t3-row:nth-child(1) .rk{background:linear-gradient(140deg,#FFD34D,#F5A301);color:#3A2A00}
+.t3-row:nth-child(2) .rk{background:linear-gradient(140deg,#EDEFF8,#C6CCDE);color:#2A3050}
+.t3-row:nth-child(3) .rk{background:linear-gradient(140deg,#F5BE8C,#D08544);color:#3A2000}
 .t3-row .em{width:44px;height:44px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;
   font-size:24px;background:var(--lav);flex:0 0 44px}
 .t3-row .em img{width:100%;height:100%;object-fit:cover}
@@ -81,7 +81,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#E8EAF6;
 .cnt-panel .num{font-size:54px;font-weight:800;color:var(--purple);font-variant-numeric:tabular-nums;line-height:1}
 .cnt-panel .num.small{font-size:44px;color:var(--blue)}
 .cnt-panel .lbl{font-size:15px;color:var(--ink2);margin-top:6px}
-.approve{font-size:12px;color:var(--ink2);text-align:center}
+.approve{font-size:14px;color:var(--ink2);text-align:center}
 /* ── 하단 티커 ── */
 .ticker{height:72px;margin:0 -56px;background:linear-gradient(90deg,var(--blue),var(--purple));
   display:flex;align-items:center;overflow:hidden;color:#fff}
@@ -194,7 +194,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#E8EAF6;
         + '<div class="meta">'
         + '<div class="t"><b>' + c.t + '</b><span class="nick">@' + c.n + '</span></div>'
         + '<p>' + c.d + '</p>'
-        + '<div class="chips">' + c.c.map(function(x){ return '<i>' + x + '</i>'; }).join('') + '<i style="background:#EAF0FF;color:#2E6BFF">기술 ' + c.c.length + '개 조합</i></div>'
+        + '<div class="chips">' + c.c.map(function(x){ return '<i>' + x + '</i>'; }).join('') + '<i style="background:#2E6BFF;color:#fff">기술 ' + c.c.length + '개 조합</i></div>'
         + '</div></div>';
     }).join('');
   }

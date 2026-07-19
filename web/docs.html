@@ -9,55 +9,62 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--purple:#5B3FF2;--purple-deep:#4527D8;--purple-ink:#2A1E7A;--navy:#10142F;--lavender:#F2EFFF;
-  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#4D7CFE;--green:#0E9F6E}
+  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#2E6BFF;--green:#0E9F6E;
+  --r-sm:12px;--r-md:16px;--r-lg:20px;--r-pill:999px;
+  --sh-1:0 1px 2px rgba(16,20,47,.05),0 10px 26px -18px rgba(16,20,47,.22)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);
   background:linear-gradient(165deg,#F1EEFC 0%,#E9E5FA 100%);min-height:100dvh;padding:20px 16px 40px}
 .shell{max-width:520px;margin:0 auto}
-.notice{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;
+.notice{background:#fff;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 14px;
   font-size:11px;color:var(--ink2);line-height:1.6;word-break:keep-all}
 .notice b{color:var(--purple-ink)}
-.hero{background:#fff;border-radius:24px;padding:26px 24px;margin-top:12px;text-align:center;
-  box-shadow:0 20px 44px -22px rgba(42,30,122,.35);border:1px solid #fff}
+.hero{background:#fff;border-radius:var(--r-lg);padding:26px 24px;margin-top:12px;text-align:center;
+  box-shadow:0 20px 44px -22px rgba(42,30,122,.35)}
 .chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--purple);
-  background:var(--lavender);padding:6px 13px;border-radius:99px}
+  background:var(--lavender);padding:6px 13px;border-radius:var(--r-pill)}
 .brand{font-weight:800;font-size:14px;margin-top:4px}
 .brand .no{color:var(--ink)} .brand .rx{color:var(--purple)}
-.hero h1{font-size:23px;font-weight:800;line-height:1.4;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
+.hero h1{font-size:clamp(21px,5.5vw,24px);font-weight:800;line-height:1.4;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
 .hero h1 b{color:var(--purple)}
 .hero p{font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;word-break:keep-all}
 /* 검증 문서 버튼 2종 */
 .two-btn{display:grid;gap:10px;margin-top:18px}
-.big-btn{display:flex;align-items:center;gap:14px;text-align:left;text-decoration:none;border-radius:18px;
-  padding:16px 18px;color:#fff;box-shadow:0 14px 30px -16px rgba(42,30,122,.5);transition:transform .15s}
+.big-btn{display:flex;align-items:center;gap:14px;text-align:left;text-decoration:none;border-radius:var(--r-md);
+  padding:16px 18px;color:#fff;box-shadow:0 14px 30px -16px rgba(42,30,122,.5);transition:.16s ease}
+.big-btn:hover{transform:translateY(-2px);box-shadow:0 22px 40px -16px rgba(42,30,122,.58)}
 .big-btn:active{transform:translateY(1px)}
-.big-btn.b{background:linear-gradient(135deg,#0E9F6E 0%,#0B2A73 130%)}
-.big-btn.a{background:linear-gradient(135deg,#2E6BFF 0%,#5B3FF2 100%)}
+.big-btn.b{background:linear-gradient(135deg,var(--green) 0%,#0B2A73 130%)}
+.big-btn.a{background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%)}
 .big-btn i{font-style:normal;font-size:24px}
-.big-btn b{display:block;font-size:15.5px}
+.big-btn b{display:block;font-size:16px}
 .big-btn span{display:block;font-size:11px;opacity:.85;margin-top:2px;word-break:keep-all}
-.big-btn .step{display:block;font-size:10.5px;font-weight:800;letter-spacing:1px;opacity:.82;margin-bottom:3px}
-.flow-arrow{text-align:center;font-size:11.5px;font-weight:800;color:var(--purple);opacity:.85;padding:2px 0}
+.big-btn .step{display:block;font-size:11px;font-weight:800;letter-spacing:1px;opacity:.82;margin-bottom:3px}
+.flow-arrow{text-align:center;font-size:12px;font-weight:800;color:var(--purple);opacity:.85;padding:2px 0}
 /* 비교 표 */
-.cmp{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden}
-.cmp .hd{background:var(--navy);color:#fff;padding:12px 18px;font-size:12.5px;font-weight:800}
-.cmp table{width:100%;border-collapse:collapse;font-size:11.5px}
+.cmp{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.cmp .hd{background:var(--navy);color:#fff;padding:12px 18px;font-size:13px;font-weight:800}
+.cmp table{width:100%;border-collapse:collapse;font-size:12px}
 .cmp th,.cmp td{padding:9px 12px;border-top:1px solid var(--line);text-align:center;line-height:1.5;word-break:keep-all}
 .cmp th{background:var(--surface);color:var(--purple-ink);font-size:11px;width:26%}
 .cmp td b{color:var(--purple-ink)}
 /* 보조 링크 */
 .aux{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
-.aux a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:13px;
-  padding:12px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none}
-.refs{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 18px;
-  font-size:10.5px;color:var(--ink2);line-height:1.8;word-break:keep-all}
-.refs b{color:var(--purple-ink);display:block;font-size:11.5px;margin-bottom:4px}
+.aux a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-sm);
+  padding:12px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none;transition:.16s ease}
+.aux a:hover{transform:translateY(-2px);box-shadow:var(--sh-1)}
+.refs{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-md);padding:15px 18px;
+  font-size:11px;color:var(--ink2);line-height:1.8;word-break:keep-all}
+.refs b{color:var(--purple-ink);display:block;font-size:12px;margin-bottom:4px}
 .cross{margin-top:24px;border-top:1.5px dashed var(--line);padding-top:16px}
 .cross>span{display:block;text-align:center;font-size:11px;color:var(--ink2);margin-bottom:8px}
 .cross .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.cross a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:12px;
-  padding:11px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none}
-footer{text-align:center;font-size:10.5px;color:var(--ink2);margin-top:22px;line-height:1.7;word-break:keep-all}
+.cross a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-sm);
+  padding:11px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none;transition:.16s ease}
+.cross a:hover{transform:translateY(-2px);box-shadow:var(--sh-1)}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+footer{text-align:center;font-size:11px;color:var(--ink2);margin-top:22px;line-height:1.7;word-break:keep-all}
 </style>
 </head>
 <body>
@@ -79,7 +86,7 @@ footer{text-align:center;font-size:10.5px;color:var(--ink2);margin-top:22px;line
   <div class="cmp">
     <div class="hd">두 문서, 무엇이 다른가</div>
     <table>
-      <tr><th></th><td><b>🗺 가상 시나리오</b></td><td><b>🔋 실전 모의 운영</b></td></tr>
+      <tr><th>구분</th><td><b>🗺 가상 시나리오</b></td><td><b>🔋 실전 모의 운영</b></td></tr>
       <tr><th>대상 전시</th><td>그린에너텍 2026<br>(개최 예정)</td><td>인터배터리 2026<br>(종료 — 결과 확정)</td></tr>
       <tr><th>부스 데이터</th><td>가상 20부스<br>(실재 기술 카테고리 기반)</td><td>실기업 22개사<br>(공식 디렉토리·실부스번호)</td></tr>
       <tr><th>페르소나</th><td>4인 실주행</td><td>6인 실주행</td></tr>
