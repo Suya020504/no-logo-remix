@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기술구현 — NO LOGO REMIX 구동 프로토타입</title>
+<meta name="description" content="NO LOGO REMIX 구동 프로토타입 — 1분 체험 코스와 전광판·대시보드·실전 모의 운영 모드">
+<!-- 기획서 QR ① 기술구현 랜딩 — 심사위원 모바일 스캔 최적화, 보조자료 고지 포함 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--purple:#5B3FF2;--purple-deep:#4527D8;--purple-ink:#2A1E7A;--navy:#10142F;--lavender:#F2EFFF;
+  --surface:#F7F6FD;--ink:#17181C;--ink2:#62646C;--line:#E4E2F2;--blue:#4D7CFE;--green:#18A874}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);
+  background:linear-gradient(165deg,#F1EEFC 0%,#E9E5FA 100%);min-height:100dvh;padding:20px 16px 40px}
+.shell{max-width:460px;margin:0 auto}
+.notice{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;
+  font-size:11px;color:var(--ink2);line-height:1.6;word-break:keep-all}
+.notice b{color:var(--purple-ink)}
+.hero{background:#fff;border-radius:24px;padding:26px 22px;margin-top:12px;text-align:center;
+  box-shadow:0 20px 44px -22px rgba(42,30,122,.35);border:1px solid #fff}
+.chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--purple);
+  background:var(--lavender);padding:6px 13px;border-radius:99px}
+.hero h1{font-size:24px;font-weight:800;line-height:1.35;margin-top:12px;letter-spacing:-.02em;word-break:keep-all}
+.hero h1 b{color:var(--purple)}
+.hero p{font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;word-break:keep-all}
+.brand{font-weight:800;font-size:14px;margin-top:4px}
+.brand .no{color:var(--ink)} .brand .rx{color:var(--purple)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border-radius:16px;
+  font-size:15.5px;font-weight:800;text-decoration:none;margin-top:12px;transition:transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn.p{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-deep) 100%);color:#fff;
+  box-shadow:0 12px 24px -10px rgba(91,63,242,.55)}
+.btn.g{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line);min-height:48px;font-size:13.5px}
+.sec{margin-top:22px}
+.sec>b{display:block;font-size:13px;font-weight:800;color:var(--purple-ink);margin-bottom:10px}
+.step{display:flex;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:16px;
+  padding:13px 15px;margin-top:8px;align-items:flex-start}
+.step .n{width:26px;height:26px;flex:0 0 26px;border-radius:50%;background:var(--purple);color:#fff;
+  font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.step b{font-size:13.5px;display:block}
+.step span{font-size:11.5px;color:var(--ink2);line-height:1.55;display:block;margin-top:3px;word-break:keep-all}
+.step .code{font-weight:800;color:var(--purple);background:var(--lavender);padding:1px 7px;border-radius:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.mini{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;text-decoration:none;display:block}
+.mini b{font-size:12.5px;color:var(--ink);display:block}
+.mini span{font-size:10.5px;color:var(--ink2);display:block;margin-top:3px;line-height:1.5;word-break:keep-all}
+.cross{margin-top:26px;border-top:1.5px dashed var(--line);padding-top:16px}
+.cross>span{display:block;text-align:center;font-size:11px;color:var(--ink2);margin-bottom:8px}
+.cross .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cross a{display:block;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  padding:11px 8px;font-size:12px;font-weight:800;color:var(--purple-ink);text-decoration:none}
+footer{text-align:center;font-size:10.5px;color:var(--ink2);margin-top:22px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="notice">📄 본 페이지는 「2026 전시산업 대학생 경진대회」 기획서의 이해를 돕기 위한 <b>보조자료</b>입니다. 핵심 기획 내용은 기획서 지면에 담겨 있으며, 여기서는 <b>기재된 내용이 실제로 구동됨</b>을 확인하실 수 있습니다.</div>
+
+  <div class="hero">
+    <span class="chip">QR ① 기술구현</span>
+    <div class="brand"><span class="no">NO LOGO</span> <span class="rx">REMIX</span></div>
+    <h1>기획서의 여정이<br><b>지금 구동되는 프로토타입</b>입니다</h1>
+    <p>블라인드 기술카드 → 기업 공개 → 부스 QR 인증 → AI 리믹스 → 전광판·공유까지, 기획서 P01~P10 전 과정을 휴대폰에서 그대로 체험하실 수 있습니다.</p>
+    <a class="btn p" href="index.html?exhibition=EXPO2026">▶ 지금 바로 체험 시작</a>
+  </div>
+
+  <div class="sec">
+    <b>⏱ 1분 체험 코스 (심사위원용 최단 경로)</b>
+    <div class="step"><div class="n">1</div><div><b>미션 선택</b><span>시작하기 → 건너뛰기 → 관심 문제 하나를 고르세요 (직접 입력도 가능)</span></div></div>
+    <div class="step"><div class="n">2</div><div><b>블라인드 기술카드 선택</b><span>기업명 없이 기술만 보고 2개를 고르면, 그제야 기업이 공개됩니다</span></div></div>
+    <div class="step"><div class="n">3</div><div><b>부스 방문 인증</b><span>'부스 인증하기' 버튼 또는 숫자 코드 <span class="code">2026</span> 입력 (데모)</span></div></div>
+    <div class="step"><div class="n">4</div><div><b>AI 리믹스 → 결과</b><span>기술을 섞어 나만의 아이디어 생성 — 스토리 저장·전광판 미리보기·B2B 상담 버튼까지 모두 실동작</span></div></div>
+  </div>
+
+  <div class="sec">
+    <b>🔍 더 깊이 보기</b>
+    <div class="grid">
+      <a class="mini" href="index.html?exhibition=IB2026"><b>🔋 실전 모드</b><span>실제 종료 전시(인터배터리 2026) 참가기업 22개사 데이터로 구동</span></a>
+      <a class="mini" href="mock.html"><b>📊 실전 모의 운영 리포트</b><span>620개사 분석 · 페르소나 6인 실주행 기록</span></a>
+      <a class="mini" href="live.html"><b>🖥 현장 전광판 (S01)</b><span>1920×1080 REMIX LIVE 화면</span></a>
+      <a class="mini" href="dashboard.html"><b>📈 기업 대시보드 (S02)</b><span>참가기업용 성과 화면</span></a>
+    </div>
+  </div>
+
+  <div class="cross">
+    <span>기획서의 다른 보조자료</span>
+    <div class="row">
+      <a href="docs.html">📚 설명부록</a>
+      <a href="mixi.html">🤖 캐릭터 MIXI</a>
+    </div>
+  </div>
+
+  <footer>NO LOGO REMIX · 팀 연수와 아이들<br>측정 체계가 설계된 구동 프로토타입 — 별도 설치 없이 브라우저에서 동작합니다</footer>
+</div>
+</body>
+</html>
