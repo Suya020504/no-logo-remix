@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실전 모의 운영 리포트 — 인터배터리 2026 × NO LOGO REMIX</title>
+<meta name="description" content="종료된 실존 전시(인터배터리 2026)의 공식 참가기업 디렉토리 620개사를 분석하고, 실기업 22개사 기반 블라인드 카드로 페르소나 6인이 전체 여정을 실주행한 모의 운영 리포트">
+<!-- 실전 모의 운영 리포트 · 전시 사실·참가기업 정보는 공식 디렉토리·공식 개최결과 원문 검증,
+     미션·카드 문안·투표 수·도보 시간은 모의 운영용 재구성.
+     본 페이지는 학생 공모전 출품용 시뮬레이션으로 해당 전시회·기업과 무관합니다. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--purple:#5B3FF2;--purple-ink:#2A1E7A;--blue:#2E6BFF;--green:#0E9F6E;--ink:#17181C;--ink2:#5C5F6B;
+  --line:#E4E6F2;--lav:#F1F3FE;--surface:#F8F9FE;--warn-bg:#FFF4E0;--warn:#A96A00}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);background:#fff}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+h2.sec{font-size:clamp(24px,3.2vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
+p.lead{font-size:clamp(14.5px,1.5vw,17px);color:var(--ink2);line-height:1.75;margin-top:12px;word-break:keep-all}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:2.5px;color:var(--blue);margin-bottom:12px}
+.tag-sim{display:inline-block;font-size:10.5px;font-weight:800;color:var(--warn);background:var(--warn-bg);border:1px solid #F5DCA8;padding:3px 9px;border-radius:99px;vertical-align:middle}
+.tag-ok{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:var(--green);padding:2px 8px;border-radius:99px;vertical-align:middle}
+.tag-warn{display:inline-block;font-size:10px;font-weight:800;color:var(--warn);background:var(--warn-bg);border:1px solid #F5DCA8;padding:2px 8px;border-radius:99px;vertical-align:middle}
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .bar{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:22px}
+nav .logo{font-weight:800;font-size:15.5px;white-space:nowrap}
+nav .logo b{color:var(--blue)}
+nav a{color:var(--ink2);text-decoration:none;font-size:13px;font-weight:700}
+nav a:hover{color:var(--blue)}
+nav .links{display:flex;gap:16px;flex:1;justify-content:center;flex-wrap:wrap}
+nav .cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff !important;padding:9px 16px;border-radius:11px;white-space:nowrap}
+@media(max-width:860px){nav .links{display:none}}
+.hero2{background:linear-gradient(165deg,#F4F7FF 0%,#EDF0FD 100%);border-bottom:1px solid var(--line);padding:72px 0}
+.hero2 h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.28;letter-spacing:-.02em;margin-top:14px}
+.hero2 h1 b{color:var(--blue)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+@media(max-width:900px){.grid3,.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px 24px}
+.card.soft{background:var(--surface)}
+.card b.t{display:block;font-size:15.5px;word-break:keep-all}
+.card p{font-size:13px;color:var(--ink2);line-height:1.65;margin-top:8px;word-break:keep-all}
+.card .src{display:block;margin-top:9px;font-size:10.5px;color:var(--blue);word-break:break-all}
+.card .src a{color:var(--blue);text-decoration:none}
+.card .src a:hover{text-decoration:underline}
+.kv{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.kv span{font-size:12.5px;font-weight:800;background:#fff;border:1.5px solid var(--line);padding:8px 14px;border-radius:99px;color:var(--purple-ink)}
+table{width:100%;border-collapse:collapse;margin-top:28px;font-size:12.5px}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;line-height:1.55}
+th{background:var(--lav);color:var(--purple-ink);font-size:12px;white-space:nowrap}
+td small{color:var(--ink2)}
+.tbl-scroll{overflow-x:auto}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}
+@media(max-width:800px){.stat-row{grid-template-columns:1fr 1fr}}
+.stat{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:18px 20px;text-align:center}
+.stat b{display:block;font-size:clamp(20px,2.6vw,30px);color:var(--purple);letter-spacing:-.02em}
+.stat span{display:block;font-size:11.5px;color:var(--ink2);margin-top:5px;word-break:keep-all}
+.bars{margin-top:26px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-top:9px}
+.bar-row b{flex:0 0 130px;font-size:12px;text-align:right;color:var(--purple-ink)}
+.bar-row .track{flex:1;height:22px;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.bar-row .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:7px}
+.bar-row span{flex:0 0 84px;font-size:11.5px;color:var(--ink2)}
+.pcard{border:1.5px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.pcard .top{display:flex;gap:12px;align-items:center;padding:18px 20px;background:var(--surface);border-bottom:1.5px solid var(--line)}
+.pcard .ava{width:46px;height:46px;border-radius:50%;background:linear-gradient(140deg,#79B8FF,#5B3FF2);display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 46px}
+.pcard .top b{font-size:15px;display:block}
+.pcard .top span{font-size:11.5px;color:var(--ink2)}
+.pcard .body{padding:16px 20px 20px}
+.pcard .jr{font-size:12px;color:var(--ink2);line-height:1.7;word-break:keep-all}
+.pcard .res{margin-top:12px;background:var(--lav);border-radius:14px;padding:12px 14px}
+.pcard .res b{font-size:14px;color:var(--purple-ink)}
+.pcard .res p{font-size:11.5px;color:var(--ink2);margin-top:5px;line-height:1.6;word-break:keep-all}
+.pcard .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.pcard .chips i{font-style:normal;font-size:9.5px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--purple-ink);padding:3px 8px;border-radius:99px}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:700px){.shots{grid-template-columns:1fr}}
+.shots figure{border:1.5px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.shots img{width:100%}
+.shots figcaption{font-size:11.5px;color:var(--ink2);padding:10px 14px;text-align:center;word-break:keep-all}
+.log{margin-top:30px;border-left:3px solid var(--green);padding:4px 0 4px 20px}
+.log .item{padding:10px 0}
+.log b{font-size:14px}
+.log b .fix{font-size:10px;color:#fff;background:var(--green);padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.log b .obs{font-size:10px;color:var(--warn);background:var(--warn-bg);border:1px solid #F5DCA8;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.log p{font-size:12.5px;color:var(--ink2);margin-top:4px;line-height:1.6;word-break:keep-all}
+.bt{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:13px;font-weight:800;font-size:14px;text-decoration:none;margin-top:22px}
+.bt.p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.bt.g{background:#fff;color:var(--purple-ink);border:1.5px solid var(--line)}
+.note-box{margin-top:26px;background:var(--warn-bg);border:1.5px solid #F5DCA8;border-radius:16px;padding:16px 18px;font-size:12.5px;color:var(--warn);line-height:1.7;word-break:keep-all}
+footer{background:#10142F;color:#8E97C9;padding:44px 24px;font-size:12px;line-height:1.9}
+footer b{color:#fff}
+footer a{color:#B9C6FF}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <span class="logo">NO LOGO <b>REMIX</b> · 실전 모의 운영</span>
+    <div class="links">
+      <a href="#research">시장조사</a><a href="#target">대상 전시</a><a href="#analysis">기업 분석</a>
+      <a href="#themes">관리자 테마</a><a href="#cards">기술카드</a><a href="#personas">페르소나 실주행</a><a href="#log">발견·개선</a><a href="#metrics">운영 데이터</a>
+    </div>
+    <a class="cta" href="index.html?exhibition=IB2026" target="_blank" rel="noopener">모의 전시 체험 →</a>
+  </div>
+</nav>
+
+<header class="hero2">
+  <div class="wrap">
+    <span class="eyebrow">REAL EXHIBITION MOCK OPERATION</span>
+    <h1>실제로 운영해봤습니다 —<br><b>인터배터리 2026</b> × NO LOGO REMIX</h1>
+    <p class="lead">이번에는 가상 부스가 아닙니다. <b>이미 종료된 실존 전시회</b>의 공식 참가기업 디렉토리 <b>620개사를 분석</b>하고, 그중 22개사의 공식 출품 정보로 블라인드 기술카드를 구성해, 서로 다른 관람객 페르소나 <b>6인이 배포된 앱에서 전체 여정을 실제로 완주</b>한 모의 운영 리포트입니다. <span class="tag-sim">공개 정보 기반 시뮬레이션 · 해당 전시회·기업과 무관</span></p>
+    <div class="kv">
+      <span>📍 코엑스 A·B·C·D홀 (서울)</span>
+      <span>🗓 2026. 3. 11 ~ 3. 13 (종료 회차)</span>
+      <span>🏢 참가 667개사 · 2,382부스</span>
+      <span>👥 참관객 77,250명 (공식 개최결과)</span>
+      <span>📋 디렉토리 620개사 전수 분석</span>
+    </div>
+    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener">🔋 인터배터리 2026 모드로 앱 체험하기</a>
+    <a class="bt g" href="scenario.html">그린에너텍 운영 시나리오 보기</a>
+  </div>
+</header>
+
+<section id="research">
+  <div class="wrap">
+    <span class="eyebrow">① MARKET RESEARCH — 원문 재검증 완료</span>
+    <h2 class="sec">시장·배경조사: 숫자는 전부 원문에서 가져왔습니다</h2>
+    <p class="lead">조사 37건 중 <b>25건은 출처 원문에 재접속해 문장 단위로 검증</b>했고(표현이 부정확한 5건은 원문 기준으로 교정), 재검증하지 못한 항목은 아래에 별도 표시했습니다. 지어낸 수치와 확인 안 된 출처는 싣지 않았습니다.</p>
+
+    <div class="stat-row">
+      <div class="stat"><b>692건</b><span>2023년 국내 개최 전시회 (국가승인통계 430001)</span></div>
+      <div class="stat"><b>799.7만 명</b><span>2023년 전시회 총 참관객 (7,997,475명)</span></div>
+      <div class="stat"><b>2조 5,978억</b><span>2023년 전시사업자 전시 관련 매출액</span></div>
+      <div class="stat"><b>2,481개사</b><span>국내 전시산업 사업체 수 · 종사자 11,751명</span></div>
+    </div>
+    <p class="lead" style="font-size:12px;margin-top:14px">출처: 한국전시산업진흥회 「2023년 전시산업통계조사 결과」(통계청 국가승인통계 제430001호) 원본 PDF 직접 확인 — <a href="https://akei.or.kr/data/business/2023_allnew1.pdf" target="_blank" rel="noopener" style="color:var(--blue)">akei.or.kr/data/business/2023_allnew1.pdf</a></p>
+
+    <div class="grid3">
+      <div class="card soft"><b class="t">🧑‍💼 주최자의 페인 <span class="tag-ok">원문 검증</span></b>
+        <p>참가기업은 "전시장 활동 계획 부재 → 측정할 성과 부재 → <b>ROI 측정 곤란 → 참가에 대한 부정적 인식</b>"의 악순환을 겪는다. 참가기업 대부분은 여건이 부족한 중소기업. 업계 조사기관(Explori·레이든)은 "주최자가 참가기업 성과를 측정해주는 서비스"와 "관람객-참가기업 <b>상호작용의 데이터화</b>"를 제언 — 지금 주최자에게 그 데이터 기반이 없다는 뜻입니다.</p>
+        <span class="src"><a href="https://miceinsight.co.kr/%EC%A0%84%EC%8B%9C%ED%9A%8C-%EC%B0%B8%EA%B0%80%EA%B8%B0%EC%97%85-%EC%9D%B4%EB%9F%B0-%EA%B2%83%EB%93%A4%EC%9D%B4-%EC%96%B4%EB%A0%A4%EC%9B%8C%EC%9A%94/" target="_blank" rel="noopener">GMI 글로벌마이스인사이트 Vol.58 (2025.10)</a></span></div>
+      <div class="card soft"><b class="t">🚶 관람객의 행동 <span class="tag-ok">원문 검증</span></b>
+        <p>참관객이 하루에 방문하는 부스는 평균 <b>26개</b>(Freeman Research 집계), <b>76%는 방문할 부스를 미리 정하고 입장</b>(Bizzabo 집계), 부스 앞에서 멈출지는 <b>약 3초</b> 만에 결정(Exhibit Surveys 집계). 인터랙티브 요소가 있는 부스는 정적 부스보다 체류시간이 <b>35~50% 길다</b>. 국내 실무 가이드도 "참관객 70%가 개장 전에 방문 부스를 결정한다"(quicktapsurvey 인용)며 사전 마케팅을 강조합니다.</p>
+        <span class="src"><a href="https://www.purexhibits.com/trade-show-statistics-2026/" target="_blank" rel="noopener">PureXhibits Trade Show Statistics 2026 (집계 페이지)</a> · <a href="https://www.tradeshowroi.co.kr/resources/blog_detail.php?idx=121" target="_blank" rel="noopener">EMI 전시컨벤션경영연구소</a></span></div>
+      <div class="card soft"><b class="t">📣 MZ·게이미피케이션 <span class="tag-ok">원문 검증</span></b>
+        <p>미술 전시가 'MZ 핫플'이 된 요인으로 <b>인스타그래머블(SNS에 올릴 만한)·가성비·개성</b>이 지목되고(문화일보, 2030 여성 선호 분석), KCI 등재 연구는 미션·보상·피드백 등 <b>게이미피케이션 요소가 자발적 참여·몰입·이해도를 높였다</b>고 보고합니다(프로그램 유익성·재참여 의향 각 4.86/5). 또 전시회 인증제의 공인 지표가 '참가업체 수·참관객 수'라는 사실은 <b>참여 데이터가 곧 주최자의 성과 언어</b>임을 보여줍니다.</p>
+        <span class="src"><a href="https://www.munhwa.com/news/view.html?no=2023080701032212273002" target="_blank" rel="noopener">문화일보 2023.8</a> · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003247521" target="_blank" rel="noopener">KCI 게이미피케이션 효과성(2025)</a> · <a href="https://www.newswire.co.kr/newsRead.php?no=1017416" target="_blank" rel="noopener">AKEI 전시회 인증제</a></span></div>
+    </div>
+
+    <div class="grid3">
+      <div class="card"><b class="t">🤝 리드·매칭 = 주최자의 상품 <span class="tag-ok">원문 검증</span></b>
+        <p>국내 주최사는 참가기업 유치를 위해 "해외 바이어 4천 명 초청, 진성 바이어 선별 매칭, 불참 시 사후 데이터 제공"을 약속하고(서울메쎄 대표 인터뷰), 정부(산업통상부·KOTRA)도 주최사 대상 <b>바이어 유치 지원사업</b>을 운영합니다. 리드의 질과 데이터가 주최자 경쟁력의 핵심이라는 근거.</p>
+        <span class="src"><a href="https://www.cosmorning.com/news/article.html?no=47296" target="_blank" rel="noopener">코스모닝 (2024.1)</a> · <a href="https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?pblancId=PBLN_000000000116240" target="_blank" rel="noopener">기업마당 — 2026 바이어 유치 지원</a></span></div>
+      <div class="card"><b class="t">💸 참가비용 민감도 <span class="tag-ok">원문 검증</span></b>
+        <p>Explori 2023 조사(참가기업 161개사)에서 <b>65%가 "참가비용이 참가 의사결정에 지대한 영향"</b>이라 답했고, 가장 민감한 비용은 부스참가비(84%)·물류배송(73%). 비용 대비 성과를 증명해주는 도구가 곧 재참가율을 지키는 도구입니다.</p>
+        <span class="src"><a href="https://miceinsight.co.kr/%EC%A0%84%EC%8B%9C%ED%9A%8C-%EC%B0%B8%EA%B0%80%EA%B8%B0%EC%97%85-%EC%9D%B4%EB%9F%B0-%EA%B2%83%EB%93%A4%EC%9D%B4-%EC%96%B4%EB%A0%A4%EC%9B%8C%EC%9A%94/" target="_blank" rel="noopener">GMI Vol.58 — Explori 조사 재인용</a></span></div>
+      <div class="card"><b class="t">🔎 유사 서비스와의 간극 <span class="tag-warn">1차 조사 (재검증 예정)</span></b>
+        <p>글로벌 이벤트 플랫폼(Swapcard 등)은 AI 매칭·리드 수집을, 국내 행사 플랫폼(이벤터스 등)은 QR 스탬프투어를 제공합니다. 그러나 <b>'브랜드를 가리는' 공정 노출 장치와 'AI 리믹스 창작'을 결합해 관람객 놀이→기업 데이터로 잇는 서비스는 확인되지 않았습니다</b>. 펩시 챌린지(블라인드)·코카콜라 Create Real Magic(AI 참여 창작) 같은 마케팅 사례가 각 요소의 힘을 보여줄 뿐입니다.</p>
+        <span class="src"><a href="https://www.swapcard.com/platform/artificial-intelligence" target="_blank" rel="noopener">Swapcard</a> · <a href="https://event-us.kr/hostcenter/service/stamptour" target="_blank" rel="noopener">이벤터스 스탬프투어</a> · <a href="https://zdnet.co.kr/view/?no=20250210091727" target="_blank" rel="noopener">ZDNet — 펩시 챌린지 50주년</a></span></div>
+    </div>
+
+    <div class="note-box">⚠️ 정직성 원칙 — 위 항목 중 <b>「원문 검증」 배지는 조사 후 출처 원문에 재접속해 해당 문장을 확인한 것</b>입니다. 「1차 조사」 배지는 출처는 기재했으나 재검증 세션이 완료되지 않은 항목으로, 기획서 지면에는 인용하지 않습니다. 2024년 국가승인통계는 2025년 12월 공표 예정으로 아직 존재하지 않아 2023년 통계를 사용했습니다.</div>
+  </div>
+</section>
+
+<section id="target" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">② TARGET — 왜 인터배터리인가</span>
+    <h2 class="sec">이미 끝난 전시를 골랐습니다 — 결과가 확정된 데이터로</h2>
+    <p class="lead">인터배터리 2026(2026.3.11~13, 코엑스)은 산업통상부가 주최하고 한국배터리산업협회·코엑스·KOTRA가 주관한 국내 최대 배터리 산업 전시회입니다. <b>참가 667개사·2,382부스·참관객 77,250명(국내 75,883·해외 1,367)</b> — 전부 공식 '개최결과' 페이지에서 확인한 확정 수치이고, 공식 참가기업 디렉토리에 620개사가 등재되어 있어 <b>참가기업 리스트 분석이 가능한 전시</b>입니다.</p>
+    <div class="grid4">
+      <div class="card"><b class="t">✅ 결과 확정 데이터</b><p>개최 예정 전시(그린에너텍 2026)는 참가기업 리스트가 아직 없습니다. 종료 회차를 골라 <b>실존 디렉토리·부스 배치·개최 결과</b> 위에서 모의 운영을 설계했습니다.</p></div>
+      <div class="card"><b class="t">🏢 대기업 3사 + 중소 617개사</b><p>셀 3사(삼성SDI·LG에너지솔루션·SK온)가 C홀 대형 부스를 차지하고, 나머지 617개사가 소재·장비·부품존에 분포 — <b>관람객 편중이 구조적으로 발생하는 전형</b>입니다.</p></div>
+      <div class="card"><b class="t">🚶 하루 26부스의 벽</b><p>관람객이 하루 평균 26개 부스를 방문한다면(Freeman 집계) 620개사 중 <b>약 4%</b>만 만나게 됩니다. 나머지 96%를 발견하게 만드는 것이 블라인드 카드의 일입니다.</p></div>
+      <div class="card"><b class="t">🔗 검증 가능한 공개 정보</b><p>기업명·부스번호·출품 품목·회사 소개가 공식 디렉토리에 공개되어 있어, <b>카드 문안을 전부 공식 정보로만</b> 만들 수 있습니다.</p></div>
+    </div>
+    <p class="lead" style="font-size:12px">출처: <a href="https://interbattery.or.kr/sub-1-5?hl=ko" target="_blank" rel="noopener" style="color:var(--blue)">인터배터리 공식 — 지난 전시회(개최결과)</a> · <a href="https://interbattery.or.kr/company-directories?year=2026&hl=ko" target="_blank" rel="noopener" style="color:var(--blue)">공식 참가기업 디렉토리</a></p>
+  </div>
+</section>
+
+<section id="analysis">
+  <div class="wrap">
+    <span class="eyebrow">③ EXHIBITOR ANALYSIS — 디렉토리 620개사 전수</span>
+    <h2 class="sec">참가기업 리스트 분석</h2>
+    <p class="lead">공식 디렉토리 API 데이터(620개사 — 기업명·부스번호·출품 키워드·공식 소개)를 전수 수집해 분석했습니다. 모의 운영에 쓴 22개사는 <b>전원 이 공식 데이터와 기업명·부스번호가 일치</b>함을 확인했습니다.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <b class="t">부스 구역별 분포 (620개사)</b>
+        <div class="bars">
+          <div class="bar-row"><b>A홀 (장비·부품)</b><div class="track"><div class="fill" style="width:100%"></div></div><span>152개사</span></div>
+          <div class="bar-row"><b>B홀</b><div class="track"><div class="fill" style="width:81%"></div></div><span>123개사</span></div>
+          <div class="bar-row"><b>The Platz</b><div class="track"><div class="fill" style="width:53%"></div></div><span>81개사</span></div>
+          <div class="bar-row"><b>D홀</b><div class="track"><div class="fill" style="width:51%"></div></div><span>78개사</span></div>
+          <div class="bar-row"><b>Grand Ballroom</b><div class="track"><div class="fill" style="width:45%"></div></div><span>69개사</span></div>
+          <div class="bar-row"><b>C홀 (셀·소재 대형)</b><div class="track"><div class="fill" style="width:28%"></div></div><span>42개사</span></div>
+          <div class="bar-row"><b>로비·기타</b><div class="track"><div class="fill" style="width:49%"></div></div><span>75개사</span></div>
+        </div>
+        <p>관람객의 시선이 쏠리는 C홀(대기업 셀 3사 포함)에는 42개사뿐 — <b>절대다수는 A·B홀과 별관에 있습니다</b>. 블라인드 추천이 이 긴 꼬리를 조명합니다.</p>
+      </div>
+      <div class="card">
+        <b class="t">출품 키워드 기반 분류 (근사)</b>
+        <div class="bars">
+          <div class="bar-row"><b>소재</b><div class="track"><div class="fill" style="width:100%"></div></div><span>97개사</span></div>
+          <div class="bar-row"><b>제조장비</b><div class="track"><div class="fill" style="width:85%"></div></div><span>82개사</span></div>
+          <div class="bar-row"><b>검사·시험·인증</b><div class="track"><div class="fill" style="width:39%"></div></div><span>38개사</span></div>
+          <div class="bar-row"><b>ESS·전력</b><div class="track"><div class="fill" style="width:32%"></div></div><span>31개사</span></div>
+          <div class="bar-row"><b>셀·팩·모듈</b><div class="track"><div class="fill" style="width:26%"></div></div><span>25개사</span></div>
+          <div class="bar-row"><b>SW·BMS·부품 등</b><div class="track"><div class="fill" style="width:37%"></div></div><span>36개사</span></div>
+        </div>
+        <p>출품 키워드가 기재된 기업 기준의 근사 분류입니다(키워드 미기재·기타 311개사). 소재→장비→검사로 이어지는 <b>밸류체인 전체가 한 전시장에</b> 모여 있어, '기술 조합 리믹스'의 재료가 풍부합니다.</p>
+      </div>
+    </div>
+
+    <div class="tbl-scroll">
+    <table aria-label="모의 운영에 사용한 22개사">
+      <thead><tr><th>No</th><th>기업 (리빌 시 공개)</th><th>부스</th><th>출품 (공식 디렉토리 기준)</th><th>블라인드 카드 카테고리</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>삼성SDI</td><td>C730</td><td>전기차·ESS·IT기기 배터리 솔루션</td><td>🚗 모빌리티</td></tr>
+        <tr><td>2</td><td>LG에너지솔루션</td><td>C540</td><td>토탈 에너지 솔루션</td><td>🚗 모빌리티</td></tr>
+        <tr><td>3</td><td>SK온</td><td>C340</td><td>배터리·셀·에너지저장장치</td><td>⚡ 에너지</td></tr>
+        <tr><td>4</td><td>포스코퓨처엠</td><td>C330</td><td>이차전지 소재</td><td>🚗 모빌리티</td></tr>
+        <tr><td>5</td><td>에코프로</td><td>C530</td><td>양극소재 밸류체인</td><td>🚗 모빌리티</td></tr>
+        <tr><td>6</td><td>엘앤에프</td><td>C230</td><td>양극활물질</td><td>🚗 모빌리티</td></tr>
+        <tr><td>7</td><td>SK넥실리스</td><td>C130</td><td>이차전지용 동박</td><td>🚗 모빌리티</td></tr>
+        <tr><td>8</td><td>유미코아 배터리머티리얼즈</td><td>C310</td><td>이차전지 양극재</td><td>🚗 모빌리티</td></tr>
+        <tr><td>9</td><td>코스모</td><td>A220</td><td>황산코발트·황산니켈·탄산리튬·양극활물질</td><td>⚡ 에너지</td></tr>
+        <tr><td>10</td><td>대주전자재료</td><td>D410</td><td>실리콘 음극재</td><td>🚗 모빌리티</td></tr>
+        <tr><td>11</td><td>동화일렉트로라이트</td><td>C210</td><td>이차전지용 전해액</td><td>🚗 모빌리티</td></tr>
+        <tr><td>12</td><td>엔켐</td><td>C600</td><td>배터리 전해액</td><td>🚗 모빌리티</td></tr>
+        <tr><td>13</td><td>고려아연</td><td>C930</td><td>자원순환·이차전지 소재</td><td>⚡ 에너지</td></tr>
+        <tr><td>14</td><td>성일하이텍</td><td>C620</td><td>리튬이온배터리 재활용 (니켈·코발트·리튬 회수)</td><td>⚡ 에너지</td></tr>
+        <tr><td>15</td><td>민테크</td><td>C110</td><td>배터리 진단솔루션·EIS·충방전 검사장비</td><td>🛡 안전·일상</td></tr>
+        <tr><td>16</td><td>한국화학융합시험연구원(KTR)</td><td>A365</td><td>이차전지 시험·인증, 화재·열폭주 시험</td><td>🛡 안전·일상</td></tr>
+        <tr><td>17</td><td>레드</td><td>A620</td><td>배터리 테스터·충방전기·시뮬레이터</td><td>🛡 안전·일상</td></tr>
+        <tr><td>18</td><td>하나기술</td><td>B375</td><td>이차전지 제조·자동화 설비, 턴키라인</td><td>🏭 제조·인프라</td></tr>
+        <tr><td>19</td><td>필에너지</td><td>A330</td><td>레이저 노칭·권취·스태킹 장비</td><td>🏭 제조·인프라</td></tr>
+        <tr><td>20</td><td>피엔티</td><td>A820</td><td>롤투롤 전극 장비 (코터·롤프레스·슬리터)</td><td>🏭 제조·인프라</td></tr>
+        <tr><td>21</td><td>일신오토클레이브</td><td>A1030</td><td>정수압 프레스(WIP)·고압 분산기</td><td>🏭 제조·인프라</td></tr>
+        <tr><td>22</td><td>랍코리아</td><td>A630</td><td>산업용 케이블·커넥터·글랜드·하네싱</td><td>🏭 제조·인프라</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="lead" style="font-size:12px">선정 기준: 밸류체인 커버리지(셀 3 · 소재 9 · 자원순환 2 · 진단·시험 3 · 장비 4 · 부품 1)와 홀 분포(A 7 · B 1 · C 13 · D 1). 각 기업의 출품 정보는 공식 디렉토리 상세 페이지를 근거로 하며, 카드 문안에 디렉토리 밖의 주장은 넣지 않았습니다.</p>
+  </div>
+</section>
+
+<section id="themes" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">④ ORGANIZER'S THEMES — 조사가 근거, 미션이 답</span>
+    <h2 class="sec">전시 관리자의 해결과제 → 관람객 미션으로 번역</h2>
+    <p class="lead">주최자 관점의 해결과제 6개를 조사 근거에서 도출하고, 각각을 관람객이 고르고 싶은 <b>생활 언어 미션</b>으로 번역했습니다. 미션은 전시 ID(?exhibition=IB2026)로 자동 전환됩니다.</p>
+    <div class="tbl-scroll">
+    <table aria-label="관리자 해결과제와 미션 매핑">
+      <thead><tr><th>관리자 해결과제 (근거)</th><th>관람객 미션 (앱 표기)</th><th>연결되는 기술카드</th></tr></thead>
+      <tbody>
+        <tr class="mission-row"><td><b>T1. 부스 편중 해소</b><br><small>76% 사전 결정 · 하루 26부스 → 620개사 중 4%</small></td><td>모든 미션 공통 — 브랜드를 가린 추천이 미인지 부스를 노출</td><td>블라인드 카드 22종 전체</td></tr>
+        <tr class="mission-row"><td><b>T2. 참가기업 ROI 데이터</b><br><small>GMI: "성과 측정 서비스 필요"</small></td><td>🚗 더 멀리 가는 전기차 만들기 (m1)</td><td>양·음극재/실리콘 음극재/전해액/동박/셀</td></tr>
+        <tr class="mission-row"><td><b>T3. 상호작용 데이터화</b><br><small>Explori·레이든 제언</small></td><td>🛡 배터리 화재 걱정 없는 일상 (m2)</td><td>진단(EIS)/시험·인증/테스트 장비</td></tr>
+        <tr class="mission-row"><td><b>T4. 리드 품질·이원화</b><br><small>바이어 매칭 = 주최자의 핵심 상품</small></td><td>♻️ 폐배터리에 두 번째 삶 주기 (m3)</td><td>배터리 재활용/금속 자원순환/원료 소재</td></tr>
+        <tr class="mission-row"><td><b>T5. 체류시간·완주율</b><br><small>인터랙티브 부스 체류 +35~50%</small></td><td>🏭 배터리 공장을 더 똑똑하게 (m4)</td><td>자동화 턴키/레이저·스태킹/롤투롤/고압 공정</td></tr>
+        <tr class="mission-row"><td><b>T6. MZ 확산·SNS</b><br><small>인스타그래머블 = 관람 동기</small></td><td>⚡ 정전 걱정 없는 우리 가게·집 (m5) · 🔌 전기차 인프라 안전 연결 (m6)</td><td>ESS/셀·팩/케이블·커넥터</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="lead" style="font-size:13px">+ 관람객이 직접 문제를 입력하는 <b>커스텀 미션</b>이 열려 있고, 입력 키워드는 카드 추천 순위에 반영됩니다 (아래 '발견·개선'에서 이번 실주행이 찾아낸 추천 결함과 수정 참조).</p>
+  </div>
+</section>
+
+<section id="cards">
+  <div class="wrap">
+    <span class="eyebrow">⑤ BLIND TECH CARDS — 공식 출품 정보로만</span>
+    <h2 class="sec">블라인드 기술카드 22종</h2>
+    <p class="lead">카드 앞면(블라인드)에는 <b>문제·기능·활용 예시만</b> — 기업명·로고는 DOM에도 싣지 않습니다(자동 검사로 확인). '스펙 더보기'에는 지어낸 수치 대신 <b>공식 디렉토리의 출품 정보</b>를 그대로 담았고, 기업명·부스는 리빌(기업 공개) 후에만 표시됩니다.</p>
+    <div class="grid3">
+      <div class="card soft"><b class="t">🔒 블라인드 원칙 자동 검증</b><p>블라인드 화면 DOM에서 22개사 기업명 문자열 검색 → <b>0건 검출</b>. 리빌 전 기업 식별 정보 미노출을 실주행마다 기계 검사했습니다.</p></div>
+      <div class="card soft"><b class="t">📊 스펙 더보기 = 공식 출품 정보</b><p>가상 전시(그린에너텍) 모드에서는 'TRL·예시 사양(데모 명시)'을, 실전 모드에서는 <b>공식 디렉토리 출품 정보</b>를 표시하도록 데이터 소스를 분리했습니다.</p></div>
+      <div class="card soft"><b class="t">🗺 부스 정보는 실제 배치</b><p>리빌 카드의 부스 번호(C730, A1030…)는 공식 디렉토리의 <b>실제 부스 번호</b>입니다. 도보 예상 시간만 모의 값입니다.</p></div>
+    </div>
+    <div class="shots">
+      <figure><img src="assets/mock/ib-blind-grid.png" alt="블라인드 기술카드 그리드 — 기업명 없이 문제·기능만 노출" loading="lazy"><figcaption>P03 블라인드 카드 — 커스텀 미션 "가게 정전…" 입력 시 ESS 카드가 1순위로 추천된 실제 화면</figcaption></figure>
+      <figure><img src="assets/mock/ib-reveal.png" alt="리빌 화면 — SK온 C340 부스 공개" loading="lazy"><figcaption>P04 리빌 — 실기업(SK온 · C340)과 실제 부스 번호가 공개되는 순간</figcaption></figure>
+      <figure><img src="assets/mock/ib-feed.png" alt="아이디어 피드 — 페르소나 3인의 게시물" loading="lazy"><figcaption>P09 피드 — 페르소나 실주행에서 실제 생성·게시된 아이디어 3건</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="personas" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">⑥ PERSONA FIELD RUN — 배포된 앱에서 전 여정 실주행</span>
+    <h2 class="sec">페르소나 6인의 모의 관람</h2>
+    <p class="lead">관람객 스펙트럼(바이어·취준생·크리에이터·소상공인·디자인 전공·가족)을 커버하는 6인이 각자 다른 기능 경로로 <b>배포 URL에서 온보딩→미션→블라인드→리빌→부스 인증→AI 리믹스→게시/리드까지 실제로 완주</b>했습니다. 아래 결과는 전부 실주행 세션 로그에서 가져온 것입니다.</p>
+    <div class="grid3">
+      <div class="pcard"><div class="top"><div class="ava">🏭</div><div><b>정민호 (32) — 제조업 구매 대리</b><span>@mino_factory · 설비 도입 검토차 방문</span></div></div>
+        <div class="body"><p class="jr">스펙 더보기로 출품 정보를 정독한 뒤 자동화 턴키(하나기술)·롤투롤(피엔티) 선택 → 현실형·제품 → <b>도입 상담 요청(회사·제품)</b> 제출.</p>
+          <div class="res"><b>⚡ POWER BLOCK</b><p>"조립 자동화와 전극 공정 장비 기술을 결합해 '배터리 공장을 더 똑똑하게' 문제를 돕는 당장 적용할 수 있는 제품"</p></div>
+          <div class="chips"><i>스펙 더보기 2회</i><i>B2B 리드 1건</i><i>만족도 ★4</i></div></div></div>
+      <div class="pcard"><div class="top"><div class="ava">🎓</div><div><b>한지우 (24) — 에너지공학 취준생</b><span>@jiwoo_energy · 채용 연계 기대</span></div></div>
+        <div class="body"><p class="jr">소재 3사(포스코퓨처엠·대주전자재료·동화일렉트로라이트) 선택 → <b>3부스 연속 인증</b> → 현실형·제품 → 피드 게시 + <b>채용·자료 수신 옵트인 ON</b>.</p>
+          <div class="res"><b>🧭 PATH FINDER</b><p>"양·음극재와 실리콘 음극재, 전해액 기술을 결합해 '더 멀리 가는 전기차 만들기' 문제를 돕는 당장 적용할 수 있는 제품"</p></div>
+          <div class="chips"><i>토큰 3개</i><i>게시 ✓</i><i>옵트인 ON</i><i>만족도 ★5</i></div></div></div>
+      <div class="pcard"><div class="top"><div class="ava">📸</div><div><b>오세라 (26) — 라이프스타일 크리에이터</b><span>@sera_pick · 콘텐츠 소재 발굴</span></div></div>
+        <div class="body"><p class="jr">온보딩 스킵, 재활용 미션 → 성일하이텍·고려아연 → 재미형 → <b>9:16 스토리 저장 + 전광판 미리보기 + 게시</b>까지 공유 루프 완주.</p>
+          <div class="res"><b>❄️ COOL LOOP</b><p>"배터리 재활용과 금속 자원순환 기술을 결합해 '폐배터리에 두 번째 삶 주기' 문제를 돕는 재미있게 풀어낸 제품"</p></div>
+          <div class="chips"><i>스토리 PNG 다운로드 ✓</i><i>전광판 ✓</i><i>게시 ✓</i><i>만족도 ★5</i></div></div></div>
+      <div class="pcard"><div class="top"><div class="ava">☕</div><div><b>박강현 (45) — 카페 2호점 준비</b><span>@kang_cafe2 · 실용 목적 방문</span></div></div>
+        <div class="body"><p class="jr"><b>미션 직접 입력</b> "가게 정전 걱정 없는 배터리 백업" → ESS(SK온)·케이블(랍코리아) → 현실형·서비스 → <b>도입 상담 요청(매장·시설)</b>. 이 주행이 추천 알고리즘 결함을 발견.</p>
+          <div class="res"><b>🌃 CITY SAFE</b><p>"ESS·전력 저장과 전기 연결 부품 기술을 결합해 '가게 정전 걱정 없는 배터리 백업' 문제를 돕는 당장 적용할 수 있는 서비스"</p></div>
+          <div class="chips"><i>커스텀 미션</i><i>B2B 리드 1건</i><i>만족도 ★3</i></div></div></div>
+      <div class="pcard"><div class="top"><div class="ava">🎨</div><div><b>김하람 (21) — 산업디자인 2학년</b><span>@haram_dsgn · 포트폴리오 영감</span></div></div>
+        <div class="body"><p class="jr">ESS 미션 → 셀(삼성SDI)·고압 공정(일신오토클레이브) → 미래형·공간 → 결과명이 마음에 안 들어 <b>1회 수정으로 직접 개명</b>(재수정은 차단됨) → 전광판 확인 후 게시.</p>
+          <div class="res"><b>🌙 PATH FINDER → DREAM CELL</b><p>"배터리 셀·팩과 고압 공정 장비 기술을 결합해 '정전 걱정 없는 우리 가게·집 (ESS)' 문제를 돕는 미래형 공간·도시"</p></div>
+          <div class="chips"><i>제목 수정 1회</i><i>재수정 차단 ✓</i><i>게시 ✓</i><i>만족도 ★4</i></div></div></div>
+      <div class="pcard"><div class="top"><div class="ava">👨‍👧</div><div><b>이동준 (38) + 서아 (10) — 가족 관람</b><span>@dongjun_kids · 주말 나들이</span></div></div>
+        <div class="body"><p class="jr">온보딩 3장 정독 → 화재 안전 미션 → 진단(민테크)·시험인증(KTR) → 재미형 → <b>부스 별점 ★5</b> → 게시는 안 함(아이 동반 — 옵트인 기본 꺼짐 유지). 막힘 없이 완주.</p>
+          <div class="res"><b>🧺 ECO KIT</b><p>"배터리 진단과 안전 시험·인증 기술을 결합해 '배터리 화재 걱정 없는 일상' 문제를 돕는 재미있게 풀어낸 제품"</p></div>
+          <div class="chips"><i>온보딩 정독</i><i>부스 별점 ★5</i><i>배지 3종 획득</i><i>만족도 ★5</i></div></div></div>
+    </div>
+    <div class="shots" style="grid-template-columns:repeat(2,1fr)">
+      <figure><img src="assets/mock/ib-story-sera.png" alt="오세라 페르소나가 저장한 1080×1920 스토리 이미지 — COOL LOOP" loading="lazy" style="max-height:560px;width:auto;margin:0 auto"><figcaption>실주행에서 실제 다운로드된 오세라의 9:16 스토리 이미지 (COOL LOOP · 1080×1920 PNG)</figcaption></figure>
+      <figure><img src="assets/mock/ib-sera-billboard.png" alt="전광판 미리보기 모달 — COOL LOOP가 REMIX LIVE 프레임에 걸린 목업" loading="lazy"><figcaption>전광판 미리보기 — 내 아이디어가 1920×1080 REMIX LIVE에 걸린 모습 (게시 유도 장치)</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap">
+    <span class="eyebrow">⑦ FINDINGS — 실주행이 찾아낸 것</span>
+    <h2 class="sec">발견 → 수정 → 재검증</h2>
+    <div class="log">
+      <div class="item"><b>커스텀 미션 추천의 변별력 상실 <span class="fix">수정 완료</span></b><p>박강현 페르소나가 "가게 <b>정전</b> 걱정 없는 <b>배터리</b> 백업"을 입력했는데 추천 상위 3에 ESS 카드가 없었습니다. 원인: 배터리 전시에선 모든 카드에 '배터리'가 들어가 <b>첫 키워드 일치에서 멈추는 매칭이 전 카드 동점</b>을 만듦. → 일치 키워드 수를 누적하고 기능어('없는·걱정' 등)를 제외하도록 수정, 재검증에서 ESS 카드가 1순위로 복귀. <b>도메인 전체가 한 단어를 공유하는 수직 전시에서만 드러나는 결함</b> — 실전 데이터로 주행했기에 잡혔습니다.</p></div>
+      <div class="item"><b>결과명-미션 정합성의 한계 <span class="obs">관찰 → 안전판 확인</span></b><p>김하람의 ESS 미션 조합(셀+장비)에서 미션 카테고리가 조합에 없어 결과명이 모빌리티 풀(PATH FINDER)에서 나왔습니다. '제목 1회 수정' 기능으로 직접 개명(DREAM CELL)해 해소 — 수정 기능이 정합성 한계의 안전판으로 작동함을 확인. 근본 개선(미션 키워드 기반 이름 풀 확장)은 백로그로.</p></div>
+      <div class="item"><b>스타일 락 이미지의 도메인 커버리지 <span class="obs">백로그</span></b><p>결과 이미지 5종(에너지·식품·모빌리티·헬스·시티)이 배터리 수직 전시의 세부 콘셉트(ESS 공간, 재활용 플랜트)를 다 덮지 못합니다. 실서비스에선 전시 도메인별 스타일 락 세트를 1회 사전 생성하는 운영 절차로 해결(카드 데이터처럼 전시 ID에 종속).</p></div>
+      <div class="item"><b>B2B 관람객의 톤 미스매치 <span class="obs">백로그</span></b><p>실용 목적의 박강현(★3)이 6인 중 최저 만족 — 재미형 카피가 사업자 관점에선 과합니다. 관람객 유형(놀이/비즈니스)에 따라 문구 톤을 바꾸는 '비즈니스 모드'를 백로그에 추가. 반대로 도입 상담 요청(채용과 분리)은 두 B2B 페르소나 모두 즉시 사용 — 리드 이원화 설계가 유효함을 확인.</p></div>
+      <div class="item"><b>실기업 데이터 위에서도 블라인드 원칙 유지</b><p>매 주행마다 블라인드 화면 DOM에서 기업명 문자열 자동 검사 → 전 회 0건. 공식 출품 정보만으로 카드 문안을 구성해도 선택에 충분한 정보가 제공됨을 6인 전원 완주로 확인.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="metrics" style="background:var(--surface)">
+  <div class="wrap">
+    <span class="eyebrow">⑧ OPERATION DATA — 주최자에게 남는 것</span>
+    <h2 class="sec">모의 운영이 남긴 데이터 (6인 실주행 실측)</h2>
+    <p class="lead">아래 수치는 <b>페르소나 6인의 실주행에서 실제 기록된 세션 데이터</b>입니다(통계 표본이 아니라 기능 검증 실측). 같은 스키마가 실서비스에서 주최자 대시보드로 흘러갑니다.</p>
+    <div class="stat-row">
+      <div class="stat"><b>6 / 6</b><span>전 여정 완주 (이탈 0)</span></div>
+      <div class="stat"><b>14</b><span>부스 방문 인증 (13개사 · A~D홀)</span></div>
+      <div class="stat"><b>6건</b><span>AI 아이디어 생성 (게시 3 · 개명 1)</span></div>
+      <div class="stat"><b>2 + 1</b><span>B2B 도입 상담 리드 2 · 채용 옵트인 1 (분리 수집)</span></div>
+    </div>
+    <div class="grid3">
+      <div class="card"><b class="t">주최자가 받는 이벤트 스키마</b><p>카드 열람(체류 ms)·선택 이유·스펙 열람·리빌·부스 인증·부스 별점·리믹스·게시·스토리 저장·전광판 미리보기·도입 상담(유형 포함)·옵트인 — <b>전부 이번 실주행에서 실제 기록된 이벤트 타입</b>입니다.</p></div>
+      <div class="card"><b class="t">참가기업이 받는 답</b><p>"우리 부스에 온 사람은 어떤 문제를 풀러 왔고(미션), 왜 우리를 골랐고(선택 이유), 무엇과 조합했나(리믹스)" — GMI가 지적한 <b>ROI 서사의 재료</b>가 세션마다 쌓입니다.</p></div>
+      <div class="card"><b class="t">평균 만족도 4.3 / 5</b><p>6인 실주행 별점 (★4·5·5·3·4·5). 최저점(B2B 소상공인)의 원인 분석과 개선 백로그는 위 '발견' 절에 기록 — <b>낮은 점수도 데이터로 남기는 것</b>이 이 페이지의 원칙입니다.</p></div>
+    </div>
+    <a class="bt p" href="index.html?exhibition=IB2026" target="_blank" rel="noopener">🔋 지금 인터배터리 2026 모드 체험하기</a>
+    <a class="bt g" href="pitch.html">발표 소개 페이지</a>
+    <a class="bt g" href="scenario.html">그린에너텍 운영 시나리오</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>NO LOGO REMIX — 실전 모의 운영 리포트</b> · 2026 전시산업 대학생 경진대회 출품 · 팀 연수와 아이들<br>
+    본 페이지는 종료된 실존 전시회(인터배터리 2026)의 <b>공개된 공식 정보(개최결과·참가기업 디렉토리)</b>만을 근거로 구성한 학생 공모전용 모의 운영 시뮬레이션입니다.
+    인터배터리·한국배터리산업협회·코엑스 및 언급된 모든 기업과 무관하며, 해당 기업들의 서비스 참여·협력을 의미하지 않습니다.
+    미션 문안·아이디어 결과물·투표 수·도보 시간은 시뮬레이션을 위한 재구성이고, 기업명·부스번호·출품 정보의 출처는 <a href="https://interbattery.or.kr/company-directories?year=2026&hl=ko" target="_blank" rel="noopener">공식 참가기업 디렉토리</a>입니다.
+    문제가 될 경우 즉시 수정·삭제하겠습니다.
+  </div>
+</footer>
+
+</body>
+</html>

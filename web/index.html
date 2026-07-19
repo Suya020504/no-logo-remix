@@ -1078,6 +1078,7 @@ body.tabs-on .view.active{padding-bottom:74px}
       <div class="done-sum" id="doneSum"></div>
       <div class="cta-zone" style="padding-left:0;padding-right:0">
         <a class="btn btn-ghost" href="pitch.html" target="_blank" rel="noopener">📖 발표 소개 페이지 열기</a>
+        <a class="btn btn-ghost" href="mock.html" target="_blank" rel="noopener">🔋 실전 모의 운영 리포트 (인터배터리 2026)</a>
         <button class="btn btn-ghost" id="btnTestCopy">🧪 테스트 결과 복사 (파일럿용)</button>
         <a class="btn btn-ghost" href="live.html" target="_blank" rel="noopener">🖥 S01 현장 전광판 열기 (1920×1080)</a>
         <a class="btn btn-ghost" href="dashboard.html" target="_blank" rel="noopener">📊 S02 기업 대시보드 열기 (1440×1024)</a>
@@ -1186,7 +1187,118 @@ body.tabs-on .view.active{padding-bottom:74px}
 <script>
 (function(){
   'use strict';
-  var SKEY = 'nlr_session_v1';
+  /* ---------- 전시 데이터셋 레지스트리 [실전 모드] ----------
+     ?exhibition=<코드> 가 레지스트리에 있으면 해당 전시의 미션·기술카드·리빌 DB로 교체된다.
+     레지스트리에 없는 코드(예: EXPO2026)는 기존처럼 배지만 표시. 세션 키는 전시별로 분리. */
+  var exId = new URLSearchParams(location.search).get('exhibition') || null;
+  var EXPOS = {}; /* EXPOS_DATA — 전시별 데이터셋이 이 아래에 등록됨 */
+
+  /* ============ EXPOS_DATA · IB2026 — 인터배터리 2026 (실전 모의 운영) ============
+     실존·종료 전시: InterBattery 2026, 2026.3.11~13, 코엑스 (참가 667개사·참관객 77,250명 — 공식 개최결과)
+     아래 22개 기업·부스번호·출품 정보는 공식 참가기업 디렉토리(interbattery.or.kr/company-directories)
+     원문 기반이며, 미션·카드 문안·도보 시간은 모의 운영을 위한 재구성이다.
+     본 데이터는 학생 공모전용 시뮬레이션으로 해당 전시회·기업과 무관하다. */
+  EXPOS.IB2026 = {
+    badge: 'InterBattery 2026 (모의 운영)',
+    name: '인터배터리 2026',
+    specNote: '※ 위 사양은 인터배터리 2026 공식 참가기업 디렉토리의 출품 정보 기반이에요. 기업명은 리빌 전까지 비공개.',
+    appNote: ' 본 화면은 종료된 실존 전시(인터배터리 2026)의 공개 디렉토리를 바탕으로 한 모의 운영이며, 해당 전시회·기업과 무관합니다.',
+    missions: [
+      {id:'m1',cat:'mobility',em:'🚗',title:'더 멀리 가는<br>전기차 만들기',exhib:'🔋 셀·소재 존 연계'},
+      {id:'m2',cat:'life',em:'🛡️',title:'배터리 화재 걱정<br>없는 일상',exhib:'🔎 진단·시험 존 연계'},
+      {id:'m3',cat:'env',em:'♻️',title:'폐배터리에<br>두 번째 삶 주기',exhib:'♻️ 재활용·자원순환 존'},
+      {id:'m4',cat:'city',em:'🏭',title:'배터리 공장을<br>더 똑똑하게',exhib:'🦾 제조장비 존 연계'},
+      {id:'m5',cat:'env',em:'⚡',title:'정전 걱정 없는<br>우리 가게·집 (ESS)',exhib:'⚡ ESS·전력 존 연계'},
+      {id:'m6',cat:'city',em:'🔌',title:'전기차 인프라,<br>안전하게 연결하기',exhib:'🔌 부품·인프라 존'}
+    ],
+    techs: [
+      {id:'ib01',no:1,cat:'mobility',isNew:false,use:3,prob:'전기차·IT기기·에너지저장이 요구하는 고성능·고안전 배터리',fn:'전기차·ESS·IT기기용 배터리 셀·팩 기술',ex:'전기차 주행거리를 늘리고 전자기기를 더 오래 쓰게 해줘요.',tags:['배터리셀','전기차','ESS']},
+      {id:'ib02',no:2,cat:'mobility',isNew:false,use:3,prob:'전기차부터 가정까지, 배터리가 필요한 모든 곳의 에너지 문제',fn:'배터리 셀·팩과 토탈 에너지 솔루션',ex:'자동차·전동공구·가정용 저장장치까지 폭넓게 쓰여요.',tags:['배터리셀','에너지솔루션']},
+      {id:'ib03',no:3,cat:'env',isNew:false,use:3,prob:'정전과 전력 피크 — 전기를 저장했다가 필요할 때 꺼내 쓰는 문제',fn:'배터리 셀과 에너지저장장치(ESS) 기술',ex:'건물·가게에 전기를 저장해 정전 시에도 안심할 수 있어요.',tags:['ESS','정전대비','전력']},
+      {id:'ib04',no:4,cat:'mobility',isNew:false,use:3,prob:'배터리 성능을 좌우하는 핵심 소재의 안정적 공급',fn:'이차전지 양극재·음극재 소재 기술',ex:'전기차 배터리의 용량과 수명을 소재 단계에서 끌어올려요.',tags:['양극재','음극재','소재']},
+      {id:'ib05',no:5,cat:'mobility',isNew:false,use:2,prob:'고성능 배터리에 필요한 양극소재의 해외 의존',fn:'전구체부터 양극재까지 잇는 양극소재 밸류체인',ex:'배터리 핵심 소재를 국내 생태계에서 일관 생산해요.',tags:['양극소재','밸류체인']},
+      {id:'ib06',no:6,cat:'mobility',isNew:false,use:2,prob:'배터리 에너지 밀도를 높이는 소재의 한계',fn:'이차전지용 양극활물질 기술',ex:'같은 크기 배터리로 더 먼 거리를 달리게 해줘요.',tags:['양극활물질','에너지밀도']},
+      {id:'ib07',no:7,cat:'mobility',isNew:false,use:2,prob:'배터리를 더 가볍고 효율적으로 만드는 초박막 소재 문제',fn:'이차전지용 동박(초박막 구리 소재)',ex:'머리카락보다 얇은 구리막이 배터리 속 전류 길이 되어줘요.',tags:['동박','경량화','소재']},
+      {id:'ib08',no:8,cat:'mobility',isNew:false,use:2,prob:'전기차 배터리의 수명과 안정성을 좌우하는 양극재 품질',fn:'이차전지 양극재 기술',ex:'배터리 수명을 늘리고 성능 저하를 줄이는 데 쓰여요.',tags:['양극재','수명']},
+      {id:'ib09',no:9,cat:'env',isNew:false,use:1,prob:'배터리 원료 광물의 정제·가공과 안정적 수급',fn:'황산코발트·황산니켈·탄산리튬 등 원료 소재 기술',ex:'광물을 배터리에 쓸 수 있는 고순도 원료로 만들어요.',tags:['원료','정제','광물']},
+      {id:'ib10',no:10,cat:'mobility',isNew:true,use:2,prob:'충전은 빠르게, 용량은 크게 — 기존 음극 소재의 한계',fn:'실리콘 음극재 기술',ex:'배터리 용량과 충전 속도를 음극 소재로 끌어올려요.',tags:['실리콘음극재','급속충전']},
+      {id:'ib11',no:11,cat:'mobility',isNew:false,use:2,prob:'배터리 내부에서 이온이 오가는 길 — 전해액의 품질 문제',fn:'이차전지용 전해액 기술',ex:'배터리의 충·방전 효율과 안전성을 전해액이 좌우해요.',tags:['전해액','소재']},
+      {id:'ib12',no:12,cat:'mobility',isNew:false,use:2,prob:'전기차·ESS 수요에 맞춘 전해액의 대량 안정 공급',fn:'배터리 전해액 생산·공급 기술',ex:'글로벌 배터리 공장에 전해액을 안정적으로 공급해요.',tags:['전해액','공급망']},
+      {id:'ib13',no:13,cat:'env',isNew:false,use:1,prob:'배터리 원료 금속의 확보와 자원 순환',fn:'비철금속 제련·자원순환 기반 이차전지 소재 기술',ex:'금속 자원을 제련·순환시켜 배터리 소재로 연결해요.',tags:['자원순환','금속','소재']},
+      {id:'ib14',no:14,cat:'env',isNew:false,use:2,prob:'다 쓴 배터리가 그냥 버려지는 문제',fn:'리튬이온배터리 재활용 — 니켈·코발트·리튬 회수',ex:'폐배터리에서 원료를 회수해 새 배터리로 되돌려요.',tags:['재활용','폐배터리','순환경제']},
+      {id:'ib15',no:15,cat:'life',isNew:true,use:2,prob:'겉만 봐서는 알 수 없는 배터리의 건강 상태',fn:'고전압 임피던스 분석(EIS) 기반 배터리 진단·검사',ex:'중고 전기차 배터리 상태를 빠르게 진단할 수 있어요.',tags:['배터리진단','EIS','안전']},
+      {id:'ib16',no:16,cat:'life',isNew:false,use:2,prob:'배터리가 정말 안전한지 공인 기준으로 확인하는 문제',fn:'이차전지 화재·열폭주 안전성 시험·인증',ex:'전기차·ESS 배터리의 안전을 국가공인 기준으로 시험해요.',tags:['시험인증','화재안전']},
+      {id:'ib17',no:17,cat:'life',isNew:false,use:1,prob:'개발 단계에서 배터리 성능을 정밀하게 검증하는 문제',fn:'배터리 테스터·충방전기·시뮬레이터',ex:'출시 전 배터리를 수천 번 충·방전하며 성능을 검증해요.',tags:['테스트장비','충방전']},
+      {id:'ib18',no:18,cat:'city',isNew:true,use:2,prob:'배터리 공장의 생산성과 차세대 공정 전환',fn:'셀·모듈·팩 조립 자동화 턴키라인 (전고체 장비 개발 포함)',ex:'배터리 공장 전체 라인을 자동화 설비로 구축해요.',tags:['자동화','턴키','전고체']},
+      {id:'ib19',no:19,cat:'city',isNew:false,use:2,prob:'배터리 조립 공정의 속도와 정밀도 한계',fn:'레이저 노칭·권취·스태킹 장비',ex:'전극을 레이저로 자르고 쌓는 공정을 초정밀로 처리해요.',tags:['레이저','조립장비']},
+      {id:'ib20',no:20,cat:'city',isNew:false,use:2,prob:'전극 소재를 얇고 균일하게 가공하는 공정 문제',fn:'롤투롤 전극 장비 — 코터·롤프레스·슬리터',ex:'필름처럼 감긴 전극 소재를 연속 공정으로 가공해요.',tags:['롤투롤','전극공정']},
+      {id:'ib21',no:21,cat:'city',isNew:true,use:1,prob:'전고체 등 차세대 배터리에 필요한 고압 공정',fn:'정수압 프레스(WIP)·고압 분산 기술',ex:'차세대 배터리 소재를 초고압으로 균일하게 눌러 만들어요.',tags:['정수압','전고체','고압']},
+      {id:'ib22',no:22,cat:'city',isNew:false,use:1,prob:'배터리 설비·충전 인프라의 안전한 전기 연결',fn:'산업용 케이블·커넥터·하네싱 기술',ex:'공장과 충전 설비의 전기 연결을 안전하게 책임져요.',tags:['케이블','커넥터','인프라']}
+    ],
+    reveal: {
+      ib01:{co:'삼성SDI',tech:'배터리 셀·팩',desc:'전기차·ESS·IT기기용 배터리 솔루션을 만드는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 전기차·ESS·IT기기 배터리 솔루션',hall:'C홀',booth:'C730',walk:'5분',role:'배터리 셀·팩'},
+      ib02:{co:'LG에너지솔루션',tech:'배터리 셀·에너지 솔루션',desc:'배터리 셀부터 에너지 솔루션까지 아우르는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 토탈 에너지 솔루션',hall:'C홀',booth:'C540',walk:'5분',role:'에너지 솔루션'},
+      ib03:{co:'SK온',tech:'배터리 셀·ESS',desc:'배터리 셀과 에너지저장장치(ESS)를 만드는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 배터리, 셀, 에너지저장장치',hall:'C홀',booth:'C340',walk:'5분',role:'ESS·전력 저장'},
+      ib04:{co:'포스코퓨처엠',tech:'양·음극재 소재',desc:'이차전지 양극재·음극재를 만드는 포스코그룹 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지 소재',hall:'C홀',booth:'C330',walk:'5분',role:'양·음극재'},
+      ib05:{co:'에코프로',tech:'양극소재 밸류체인',desc:'양극소재 밸류체인을 구축한 이차전지 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 양극소재',hall:'C홀',booth:'C530',walk:'5분',role:'양극소재'},
+      ib06:{co:'엘앤에프',tech:'양극활물질',desc:'이차전지용 양극활물질을 만드는 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 양극활물질',hall:'C홀',booth:'C230',walk:'5분',role:'양극활물질'},
+      ib07:{co:'SK넥실리스',tech:'이차전지용 동박',desc:'이차전지용 초박막 동박을 만드는 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지용 동박',hall:'C홀',booth:'C130',walk:'5분',role:'동박'},
+      ib08:{co:'유미코아 배터리머티리얼즈',tech:'양극재',desc:'이차전지 양극재를 만드는 글로벌 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지 양극재',hall:'C홀',booth:'C310',walk:'5분',role:'양극재'},
+      ib09:{co:'코스모',tech:'배터리 원료 소재',desc:'황산코발트·황산니켈·탄산리튬 등 원료 소재를 만드는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 황산코발트·황산니켈·탄산리튬·양극활물질',hall:'A홀',booth:'A220',walk:'3분',role:'원료 소재'},
+      ib10:{co:'대주전자재료',tech:'실리콘 음극재',desc:'실리콘 음극재를 만드는 전자재료 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 실리콘 음극재',hall:'D홀',booth:'D410',walk:'6분',role:'실리콘 음극재'},
+      ib11:{co:'동화일렉트로라이트',tech:'전해액',desc:'이차전지용 전해액을 만드는 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지용 전해액',hall:'C홀',booth:'C210',walk:'5분',role:'전해액'},
+      ib12:{co:'엔켐',tech:'전해액 생산·공급',desc:'배터리 전해액을 생산·공급하는 소재 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 배터리 전해액',hall:'C홀',booth:'C600',walk:'5분',role:'전해액 공급'},
+      ib13:{co:'고려아연',tech:'금속 자원순환·소재',desc:'비철금속 제련 기반으로 자원순환·이차전지 소재 사업을 하는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 자원순환·이차전지 소재',hall:'C홀',booth:'C930',walk:'5분',role:'금속 자원순환'},
+      ib14:{co:'성일하이텍',tech:'배터리 재활용',desc:'리튬이온배터리에서 니켈·코발트·리튬을 회수하는 재활용 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 황산니켈·황산코발트·탄산리튬 회수',hall:'C홀',booth:'C620',walk:'5분',role:'배터리 재활용'},
+      ib15:{co:'민테크',tech:'배터리 진단(EIS)',desc:'고전압 임피던스 분석기(EIS)·충방전 검사장비를 만드는 진단 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 배터리 진단솔루션·EIS·검사장비',hall:'C홀',booth:'C110',walk:'5분',role:'배터리 진단'},
+      ib16:{co:'한국화학융합시험연구원(KTR)',tech:'시험·인증',desc:'이차전지 화재·열폭주 안전성을 시험·인증하는 국가공인 시험기관이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지 시험·인증, 화재·열폭주 시험',hall:'A홀',booth:'A365',walk:'3분',role:'안전 시험·인증'},
+      ib17:{co:'레드',tech:'배터리 테스트 장비',desc:'배터리 테스터·충방전기·시뮬레이터를 만드는 시험장비 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 배터리 테스터·충방전기·시뮬레이터',hall:'A홀',booth:'A620',walk:'3분',role:'성능 검증 장비'},
+      ib18:{co:'하나기술',tech:'조립 자동화 설비',desc:'셀·모듈·팩 턴키라인과 전고체 장비를 만드는 제조설비 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 이차전지 제조·자동화 설비',hall:'B홀',booth:'B375',walk:'4분',role:'조립 자동화'},
+      ib19:{co:'필에너지',tech:'레이저 노칭·스태킹 장비',desc:'레이저 노칭·권취·스태킹 장비를 만드는 공정장비 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 레이저 노칭·권취·스태킹 장비',hall:'A홀',booth:'A330',walk:'3분',role:'조립 정밀 장비'},
+      ib20:{co:'피엔티',tech:'롤투롤 전극 장비',desc:'전극 코터·롤프레스·슬리터 등 롤투롤 장비를 만드는 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 롤투롤 전극 장비',hall:'A홀',booth:'A820',walk:'3분',role:'전극 공정 장비'},
+      ib21:{co:'일신오토클레이브',tech:'정수압 프레스·고압 분산',desc:'정수압 프레스(WIP)와 고압 분산기를 만드는 고압 장비 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 정수압 프레스·고압 분산기',hall:'A홀',booth:'A1030',walk:'3분',role:'고압 공정 장비'},
+      ib22:{co:'랍코리아',tech:'케이블·커넥터·하네싱',desc:'산업용 케이블·커넥터·하네싱 솔루션을 만드는 부품 기업이에요.',story:'인터배터리 2026 공식 디렉토리 등재 — 출품: 산업용 케이블·커넥터·글랜드·하네싱',hall:'A홀',booth:'A630',walk:'3분',role:'전기 연결 부품'}
+    },
+    spec: {
+      ib01:{badge:'공식 출품 정보',perf:['전기차용 배터리 솔루션','ESS용 배터리 솔루션','IT기기용 배터리 솔루션'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib02:{badge:'공식 출품 정보',perf:['배터리 셀·팩','토탈 에너지 솔루션'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib03:{badge:'공식 출품 정보',perf:['배터리 셀','에너지저장장치(ESS)'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib04:{badge:'공식 출품 정보',perf:['이차전지 양극재','이차전지 음극재'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib05:{badge:'공식 출품 정보',perf:['양극소재 밸류체인','전구체·양극재 일관 생산'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib06:{badge:'공식 출품 정보',perf:['양극활물질'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib07:{badge:'공식 출품 정보',perf:['이차전지용 동박'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib08:{badge:'공식 출품 정보',perf:['이차전지 양극재'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib09:{badge:'공식 출품 정보',perf:['황산코발트·황산니켈','탄산리튬','양극활물질·이산화티타늄'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib10:{badge:'공식 출품 정보',perf:['실리콘 음극재'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib11:{badge:'공식 출품 정보',perf:['이차전지용 전해액'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib12:{badge:'공식 출품 정보',perf:['배터리 전해액'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib13:{badge:'공식 출품 정보',perf:['비철금속 제련 기반 소재','자원순환·이차전지 소재 사업'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib14:{badge:'공식 출품 정보',perf:['리튬이온배터리 재활용','황산니켈·황산코발트 회수','탄산리튬·황산망간 회수'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib15:{badge:'공식 출품 정보',perf:['배터리 진단솔루션','고전압 임피던스 분석기(EIS)','충방전 검사장비'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib16:{badge:'공식 출품 정보',perf:['이차전지 시험·인증','배터리 성능·안전 평가','전기차·ESS 화재·열폭주 시험'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib17:{badge:'공식 출품 정보',perf:['배터리 테스터·충방전기','배터리 시뮬레이터','양방향 파워 서플라이·전자부하'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib18:{badge:'공식 출품 정보',perf:['이차전지 제조·자동화 설비','셀·모듈·팩 턴키라인','전고체 배터리 장비(개발)'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib19:{badge:'공식 출품 정보',perf:['레이저 노칭 장비','권취 장비','스태킹·통합 장비'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib20:{badge:'공식 출품 정보',perf:['전극 코터','롤프레스','슬리터'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib21:{badge:'공식 출품 정보',perf:['정수압 프레스(WIP)','고압 분산기'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'},
+      ib22:{badge:'공식 출품 정보',perf:['산업용 케이블','커넥터·글랜드','하네싱 솔루션'],cases:'인터배터리 2026 출품 분야 (공식 디렉토리 기준)'}
+    },
+    /* 페르소나 실주행(2026.7)에서 실제 생성·게시된 아이디어 시드 — 투표 수는 모의 초기값 */
+    feed: [
+      {id:'P-IB01',title:'PATH FINDER',em:'🧭',img:'assets/results/green-drive.jpg',cat:'더 멀리 가는 전기차 · 제품',nick:'jiwoo_energy',votes:21,hidden:false,
+       desc:'양·음극재와 실리콘 음극재, 전해액 기술을 결합해 "더 멀리 가는 전기차 만들기" 문제를 돕는 당장 적용할 수 있는 제품',
+       techs:['No.4 양·음극재 — 포스코퓨처엠','No.10 실리콘 음극재 — 대주전자재료','No.11 전해액 — 동화일렉트로라이트']},
+      {id:'P-IB02',title:'COOL LOOP',em:'❄️',img:'assets/results/cool-loop.jpg',cat:'폐배터리 두 번째 삶 · 제품',nick:'sera_pick',votes:17,hidden:false,
+       desc:'배터리 재활용과 금속 자원순환 기술을 결합해 "폐배터리에 두 번째 삶 주기" 문제를 돕는 재미있게 풀어낸 제품',
+       techs:['No.14 배터리 재활용 — 성일하이텍','No.13 금속 자원순환 — 고려아연']},
+      {id:'P-IB03',title:'DREAM CELL',em:'🧭',img:'assets/results/green-drive.jpg',cat:'정전 없는 ESS · 공간·도시',nick:'haram_dsgn',votes:12,hidden:false,
+       desc:'배터리 셀·팩과 고압 공정 장비 기술을 결합해 "정전 걱정 없는 우리 가게·집 (ESS)" 문제를 돕는 미래형 공간·도시',
+       techs:['No.1 배터리 셀·팩 — 삼성SDI','No.21 고압 공정 장비 — 일신오토클레이브']}
+    ]
+  };
+
+  var ACTIVE_EXPO = (exId && EXPOS[exId]) ? EXPOS[exId] : null;
+  var SKEY = ACTIVE_EXPO ? ('nlr_session_v1_' + exId) : 'nlr_session_v1';
   var $  = function(s){ return document.querySelector(s); };
   var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
 
@@ -1199,13 +1311,12 @@ body.tabs-on .view.active{padding-bottom:74px}
     var id = 'nlr-' + Math.random().toString(36).slice(2,10);
     return { sessionId:id, exhibitionId:exId, missionId:null, missionLabel:null, customText:'', interests:[], createdAt:new Date().toISOString() };
   }
-  /* 전시 ID: URL 파라미터 자동 설정 [M] */
-  var exId = new URLSearchParams(location.search).get('exhibition') || null;
+  /* 전시 ID: URL 파라미터 자동 설정 [M] — 레지스트리 적용은 EXPOS_DATA 절에서 */
   var session = loadSession();
   if (session && exId && !session.exhibitionId){ session.exhibitionId = exId; saveSession(session); }
   if (exId){
     var b = $('#exBadge');
-    b.textContent = '✓ 전시 연결됨 · ' + exId;
+    b.textContent = '✓ 전시 연결됨 · ' + (ACTIVE_EXPO ? ACTIVE_EXPO.badge : exId);
     b.classList.add('on');
   }
 
@@ -1409,6 +1520,30 @@ body.tabs-on .view.active{padding-bottom:74px}
   var CAT_BY_MISSION = {m1:'env',m2:'food',m3:'life',m4:'mobility',m5:'city',m6:'health',m7:'life'};
   var CAT_BY_INT = {'환경·에너지':'env','일상·생활':'life','건강·의료':'health','모빌리티':'mobility','식음료':'food','미래도시':'city'};
 
+  /* [실전 모드] 전시 데이터셋 적용 — 미션 카드·기술카드·스펙을 해당 전시 것으로 교체.
+     ACTIVE_EXPO가 null(기본 데모)이면 아무것도 바꾸지 않는다. */
+  if (ACTIVE_EXPO){
+    TECHS = ACTIVE_EXPO.techs;
+    TECH_BY_ID = {}; TECHS.forEach(function(t){ TECH_BY_ID[t.id] = t; });
+    Object.keys(ACTIVE_EXPO.spec || {}).forEach(function(k){ SPEC_DB[k] = ACTIVE_EXPO.spec[k]; });
+    CAT_BY_MISSION = {};
+    (function(){
+      var mcards = $$('.m-card');
+      ACTIVE_EXPO.missions.forEach(function(m, i){
+        CAT_BY_MISSION[m.id] = m.cat;
+        var c = mcards[i];
+        if (!c || c.getAttribute('data-mission') === 'custom') return;
+        c.setAttribute('data-mission', m.id);
+        c.setAttribute('data-cat', m.cat);
+        c.querySelector('.emoji').textContent = m.em;
+        c.querySelector('b').innerHTML = m.title;
+        c.querySelector('.exhib').textContent = m.exhib;
+      });
+    })();
+    if (ACTIVE_EXPO.specNote) $('.spec-note').textContent = ACTIVE_EXPO.specNote;
+    if (ACTIVE_EXPO.appNote) $('.disclaimer').textContent += ACTIVE_EXPO.appNote;
+  }
+
   var blindOrder = null, blindSel = [], bSort = 'recommend', bQuery = '';
   var sheetId = null, sheetReason = null, dwellStart = 0;
   var interestNoticeShown = false;
@@ -1421,12 +1556,15 @@ body.tabs-on .view.active{padding-bottom:74px}
     var s = 0, sess = loadSession() || {};
     var mc = CAT_BY_MISSION[sess.missionId];
     if (mc && t.cat === mc) s += 2;
-    /* 페르소나 검증 반영: 직접 입력 미션도 키워드 매칭으로 추천에 반영 */
+    /* 페르소나 검증 반영: 직접 입력 미션도 키워드 매칭으로 추천에 반영.
+       [IB2026 실주행 발견] 첫 일치에서 중단하면 도메인 공통어('배터리')만으로 전 카드가 동점이 됨
+       → 일치 키워드 수를 누적해 사용자의 구체적 의도('정전' 등)가 순위를 가르도록 수정 */
     if (sess.missionId === 'custom' && sess.customText){
       var hay = t.prob + ' ' + t.fn + ' ' + t.tags.join(' ');
-      var words = sess.customText.split(/\s+/).filter(function(w){ return w.length >= 2; });
+      var STOP = {'없는':1,'있는':1,'없이':1,'걱정':1,'우리':1,'하는':1,'위한':1,'만들기':1,'싶은':1,'되는':1};
+      var words = sess.customText.split(/\s+/).filter(function(w){ return w.length >= 2 && !STOP[w]; });
       for (var wi = 0; wi < words.length; wi++){
-        if (hay.indexOf(words[wi]) >= 0){ s += 2; break; }
+        if (hay.indexOf(words[wi]) >= 0) s += 2;
       }
     }
     (sess.interests||[]).forEach(function(n){ if (CAT_BY_INT[n] === t.cat) s += 1; });
@@ -1513,7 +1651,7 @@ body.tabs-on .view.active{padding-bottom:74px}
   function openSheet(id){
     var t = TECH_BY_ID[id]; if (!t) return;
     sheetId = id; dwellStart = Date.now();
-    $('#sheetNo').textContent = 'BLIND TECH CARD · No.' + t.no + ' / 20';
+    $('#sheetNo').textContent = 'BLIND TECH CARD · No.' + t.no + ' / ' + TECHS.length;
     $('#sheetTitle').textContent = t.prob;
     $('#sheetProb').textContent = t.prob;
     $('#sheetFunc').textContent = t.fn;
@@ -1525,7 +1663,7 @@ body.tabs-on .view.active{padding-bottom:74px}
     $('#sheetSpec').hidden = true;
     $('#sheetSpecBtn').setAttribute('aria-expanded','false');
     if (sp){
-      $('#sheetTrl').textContent = 'TRL ' + sp.trl + ' · ' + (TRL_LABEL[sp.trl] || '기술 성숙도');
+      $('#sheetTrl').textContent = sp.trl ? ('TRL ' + sp.trl + ' · ' + (TRL_LABEL[sp.trl] || '기술 성숙도')) : (sp.badge || '기술 정보');
       $('#sheetPerf').innerHTML = sp.perf.map(function(p){ return '<li>' + p + '</li>'; }).join('');
       $('#sheetCase').innerHTML = '<b>적용 시나리오</b> — ' + sp.cases;
     }
@@ -1625,6 +1763,11 @@ body.tabs-on .view.active{padding-bottom:74px}
     t11:{co:'콜드체인랩',tech:'신선도 스마트 라벨',desc:'온도 이력을 기록하고 이상 시 색으로 경고하는 라벨이에요.',story:'신선식품이 안전하게 도착하는 마지막 1km를 책임져요.',hall:'D홀',booth:'D-18',walk:'6분',role:'신선도 기록·경고'}
   };
   var CAT_META = {env:{em:'⚡',bg:'#E6F7F0'},life:{em:'🏠',bg:'#F2EFFF'},health:{em:'❤️',bg:'#FDECEF'},mobility:{em:'🚗',bg:'#EAF0FF'},food:{em:'🥗',bg:'#FFF4E0'},city:{em:'🌃',bg:'#E8F1FF'}};
+
+  /* [실전 모드] 전시 데이터셋의 리빌 DB 병합 */
+  if (ACTIVE_EXPO){
+    Object.keys(ACTIVE_EXPO.reveal || {}).forEach(function(k){ REVEAL_DB[k] = ACTIVE_EXPO.reveal[k]; });
+  }
 
   function getS(){ var s = loadSession(); if (!s){ s = newSession(); saveSession(s); } return s; }
   function verifiedIds(){ return getS().verified || []; }
@@ -2257,6 +2400,8 @@ body.tabs-on .view.active{padding-bottom:74px}
      desc:'비상 전력 공급과 실내 환경 감지 기술을 결합해 정전에도 작동하는 미래도시를 그린 공간 콘셉트',
      techs:['No.18 비상 전력 공급 — 시티셀','No.03 실내 환경 감지 — 넥스트센서']}
   ];
+  /* [실전 모드] 전시 데이터셋의 피드 시드 교체 */
+  if (ACTIVE_EXPO && ACTIVE_EXPO.feed && ACTIVE_EXPO.feed.length) FEED = ACTIVE_EXPO.feed;
   var lastFeedItems = [];
   var feedFilter = 'new';
   function feedItems(){
