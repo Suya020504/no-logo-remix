@@ -26,6 +26,28 @@ for fname, label, url in TARGETS:
     ok = got and got[0].data.decode() == url
     print(("OK  " if ok else "FAIL"), fname, img.size, "->", url)
 
+# 1-b) 개별 QR '카드' — QR + 라벨 + 사이트 주소가 한 장에 (기획서·배너 삽입용 완성본)
+CQS = 720          # 카드 내 QR 크기
+CW, CH = 880, 1060
+f_clbl = ImageFont.truetype(r"C:\Windows\Fonts\malgunbd.ttf", 84)
+f_curl = ImageFont.truetype(r"C:\Windows\Fonts\malgun.ttf", 30)
+PURPLE, INK2 = (67, 56, 242), (98, 100, 108)  # noqa
+for fname, label, url in TARGETS:
+    card = Image.new("RGB", (CW, CH), "white")
+    cd = ImageDraw.Draw(card)
+    q = Image.open(os.path.join(OUT, fname)).resize((CQS, CQS), Image.NEAREST)
+    card.paste(q, ((CW - CQS) // 2, 60))
+    tw = cd.textlength(label, font=f_clbl)
+    cd.text(((CW - tw) / 2, 60 + CQS + 40), label, font=f_clbl, fill=PURPLE)
+    u = url.replace("https://", "")
+    uw = cd.textlength(u, font=f_curl)
+    cd.text(((CW - uw) / 2, 60 + CQS + 40 + 108), u, font=f_curl, fill=INK2)
+    cpath = os.path.join(OUT, fname.replace("QR_", "QR카드_"))
+    card.save(cpath)
+    got = decode(card)
+    ok = got and got[0].data.decode() == url
+    print(("OK  " if ok else "FAIL"), os.path.basename(cpath), card.size)
+
 # 2) 배너 합성본 (3칸 + 라벨 + URL)
 QS, GAP, MG, LBL_H = 720, 300, 220, 150
 W = MG * 2 + QS * 3 + GAP * 2
@@ -34,7 +56,7 @@ banner = Image.new("RGB", (W, H), "white")
 d = ImageDraw.Draw(banner)
 f_lbl = ImageFont.truetype(r"C:\Windows\Fonts\malgunbd.ttf", 92)
 f_url = ImageFont.truetype(r"C:\Windows\Fonts\malgun.ttf", 34)
-PURPLE, INK2 = (67, 56, 242), (98, 100, 108)
+PURPLE, INK2 = (67, 56, 242), (98, 100, 108)  # noqa
 for i, (fname, label, url) in enumerate(TARGETS):
     q = Image.open(os.path.join(OUT, fname)).resize((QS, QS), Image.NEAREST)
     x = MG + i * (QS + GAP)
