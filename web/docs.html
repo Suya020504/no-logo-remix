@@ -65,6 +65,26 @@ body{font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;col
 .ic{width:1em;height:1em;vertical-align:-.14em;flex:none;display:inline-block}
 a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* 데스크톱 웹 반응형 — 협소한 모바일 컬럼이 아닌, 넉넉한 웹 카드로 확대 */
+@media(min-width:760px){
+  body{padding:44px 24px 60px}
+  .shell{max-width:680px}
+  .notice{font-size:12px;padding:13px 18px}
+  .hero{padding:40px 44px}
+  .hero h1{font-size:30px;line-height:1.35}
+  .hero p{font-size:14.5px;margin-top:12px}
+  .two-btn{margin-top:24px;gap:12px}
+  .big-btn{padding:20px 24px}
+  .big-btn i{font-size:28px}
+  .big-btn b{font-size:18px}
+  .big-btn span{font-size:12px}
+  .flow-arrow{font-size:13px;padding:4px 0}
+  .cmp .hd{font-size:14px;padding:14px 22px}
+  .cmp table{font-size:13px}
+  .cmp th,.cmp td{padding:11px 14px}
+  .refs{font-size:12px;padding:18px 22px}
+  footer{font-size:12px}
+}
 footer{text-align:center;font-size:11px;color:var(--ink2);margin-top:22px;line-height:1.7;word-break:keep-all}
 </style>
 </head>
