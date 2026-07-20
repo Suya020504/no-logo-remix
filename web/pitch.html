@@ -38,9 +38,9 @@ nav .cta{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff
 .hero{position:relative;min-height:min(92vh,780px);display:flex;align-items:center;overflow:hidden;
   background:#eef1fb url('assets/mixi-blindpick.jpg') center left/cover no-repeat;border-bottom:1px solid var(--line)}
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center left;z-index:0}
-/* 텍스트 가독용 우측 스크림 — 좌측은 영상/MIXI 노출, 우측은 은은한 밝은 베일 */
+/* 텍스트 가독 + 중앙 정리용 스크림 — 좌측 MIXI만 남기고 중앙~우측을 밝게 비워 로봇을 왼쪽으로 눕힘 */
 .hero::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(238,241,251,0) 20%,rgba(240,243,253,.5) 50%,rgba(244,247,255,.88) 82%)}
+  background:linear-gradient(90deg,rgba(240,243,253,0) 22%,rgba(241,244,254,.58) 44%,rgba(244,247,255,.94) 66%)}
 .hero .inner{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:70px 24px;width:100%;display:flex;justify-content:flex-end}
 .hero .panel{max-width:520px}
 .hero .badge{display:inline-block;font-size:12.5px;font-weight:800;color:var(--purple-ink);background:rgba(255,255,255,.85);
